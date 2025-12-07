@@ -1,0 +1,52 @@
+/* Palenight Midcontrast para bloques de código en Obsidian */
+
+/* Modo de edición (CodeMirror) */
+.theme-dark .cm-s-obsidian .HyperMD-codeblock {
+  border-radius: 0 !important;
+  background-color: #292D3E !important;
+  color: #A6ACCD !important;
+  font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+  font-size: 0.9em;
+  line-height: 1.4;
+  padding: 0.5em;
+}
+
+
+/* Modo de lectura (PrismJS) */
+.theme-dark .markdown-preview-view pre code {
+  background-color:#292D3E !important;
+  color: #A6ACCD !important;
+  font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+  font-size: 0.9em;
+  line-height: 1.4;
+  border-radius: 4px;
+  padding: 0.5em;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+
+/* Colores de resaltado de sintaxis en modo de edición */
+.theme-dark .cm-s-obsidian .cm-comment        { color: #676E95 !important; }
+.theme-dark .cm-s-obsidian .cm-keyword        { color: #C792EA !important; }
+.theme-dark .cm-s-obsidian .cm-def            { color: #82AAFF !important; }
+.theme-dark .cm-s-obsidian .cm-variable       { color: #A6ACCD !important; }
+.theme-dark .cm-s-obsidian .cm-variable-2     { color: #FFCB6B !important; }
+.theme-dark .cm-s-obsidian .cm-string         { color: #C3E88D !important; }
+.theme-dark .cm-s-obsidian .cm-number         { color: #F78C6C !important; }
+.theme-dark .cm-s-obsidian .cm-operator       { color: #89DDFF !important; }
+.theme-dark .cm-s-obsidian .cm-tag            { color: #F07178 !important; }
+.theme-dark .cm-s-obsidian .cm-attribute      { color: #FFCB6B !important; }
+
+/* Colores de resaltado de sintaxis en modo de lectura */
+.theme-dark .markdown-preview-view .token.comment     { color: #676E95 !important; }
+.theme-dark .markdown-preview-view .token.keyword     { color: #C792EA !important; }
+.theme-dark .markdown-preview-view .token.function    { color: #82AAFF !important; }
+.theme-dark .markdown-preview-view .token.variable    { color: #A6ACCD !important; }
+.theme-dark .markdown-preview-view .token.property    { color: #FFCB6B !important; }
+.theme-dark .markdown-preview-view .token.string      { color: #C3E88D !important; }
+.theme-dark .markdown-preview-view .token.number      { color: #F78C6C !important; }
+.theme-dark .markdown-preview-view .token.operator    { color: #89DDFF !important; }
+.theme-dark .markdown-preview-view .token.tag         { color: #F07178 !important; }
+.theme-dark .markdown-preview-view .token.attribute   { color: #FFCB6B !important; }
+

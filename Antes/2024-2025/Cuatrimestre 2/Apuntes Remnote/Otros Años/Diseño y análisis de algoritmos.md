@@ -1,0 +1,83 @@
+- Tema 1 EFICIENCIA ALGORÍTMICA
+    -  _**1.1. Comparación de algoritmos**_  
+        - Un algoritmo es eficiente si utiliza pocos recursos.
+        - El recurso más habitual para medir la eficiencia es el tiempo de ejecución.
+        - Para comparar la eficiencia en el tiempo hay que tener en cuenta:
+            - Los datos de entrada
+            - Calidad de código generado por el compilador
+            - Rapidez del procesador
+            - Complejidad intrínseca del algoritmo
+        - Principio de invarianza:
+            - Dado un algoritmo (pseudocódigo) el tiempo de ejecución del mismo no va a cambiar en más de una constante multiplicativa según el lenguaje que utilices. (el crecimiento no será exponencial)
+                - ![](https://remnote-user-data.s3.amazonaws.com/gSHGFlyMLr83jBj8HcmTJ-swJJsY3PE6nfF247B_zZdIv663iPP_XW_CEYZFjmsRFm3YnUUOt8tWeWXljC3OCEk0ldj9_gMsk54clSDLQ2nSXWWUCAZ-Bd-cwAGCnbUZ.png) 
+        - Estudio teórico de la eficiencia:
+            - Estima el comportamiento de un algoritmo
+            - Independiente del ordenador
+            - No requiere ejecución
+        - Complejidad algorítmica:
+            - Determina la eficiencia de un algoritmo
+            - No proporciona medidas absolutas, si no relativas al tamaño del problema
+            - Es independiente del ordenador en el que se ejecute el algoritmo
+            - T(n): Tiempo empleado en ejecutar el algoritmo con una entrada de tamaño n, no se mide en unidades de tiempo, sino en pasos (instrucciones)
+    -  _**1.2. Ejemplos de complejidad de tiempo**_  
+        - ![](https://remnote-user-data.s3.amazonaws.com/scxnETKa-WUu66Iew9cLzMiV3vWDE_WcKNOwqQ1ewJkWJNBs5sQGEUNpUyfy6nhSzjASWw1dcmphQvIIRva-w7N8mLOkSnLXVtUc-JLevfMOnNUHzd9KtGiH46nyFABG.png) 
+            - Obviamos en el analisis de la complejidad los pasos k que se encuentran dentro del bucle, ya que n predominará ante k (se explica despues)
+        - ![](https://remnote-user-data.s3.amazonaws.com/HNKpG8IluwvSgdC6d8CujPjqNzNbT2EQ2imyyGHePJdqhjCAcMjZUjMi7_dRHNh08Ivf8JymW_Yia7JtKh9G2nyClpSEoiUk5xdqvnranVBQz9dKhrycepXx-Kn63SLv.png) 
+        - ![](https://remnote-user-data.s3.amazonaws.com/-RNhHwXYuev5OcYRtm2JGS1vFjGZQhSu8yMYmV-IIvzNy-ljWQ6hJ1v2JHtvELu9a4uK9SM81Lut9lyYOaRNya1xPmq7wmNglYMw9VU9-xgHcdavBV5jhYpbEu1dVwRQ.png) 
+            - Al tener dos condiciones hay varios casos de ejecución posible
+    -  _**1.3. Medidas asintóticas**_  
+        - Tmax(n): Complejidad en el caso peor. Tiempo máximo para una entrada de tamaño n
+        - Tmin(n):  Complejidad del caso mejor. Tiempo mínimo para n
+        - Tmed(n): Complejidad en el caso medio
+        - Se suele utilizar Tmax(n)
+        - ![](https://remnote-user-data.s3.amazonaws.com/h2_tSW_NUYkjk35cYhmlbTiy2hYQe-ud6g8jNmjYpvvBN0l94iUq6AQxZt3a-pdcTly498SoLl39QajsiBOLDZxFWLYbAIJMpv7RvT4vgEhs5XgntyBZ1x8SEynY47cl.png) 
+            - theta se utiliza solo para cuando existen algoritmos en los que el mejor caso y el peor son el mismo (bucle for)
+        -  _**1.3.1 Medidas asintóticas. Notación 0.**_  
+            - Dada una función f es una función g que crezca tan rápido como f. (se busca una función sencilla que describa como crece la función de complejidad del algoritmo).
+            - Al conjunto de esas funciones se les llama cota superior de f y O(f)
+            - ![](https://remnote-user-data.s3.amazonaws.com/wV5RfTG0Dv0t513IRDjB4ahoggcSPFez0NOJDMB_Wk4lRtNDP35hih2uJkS2TnsWC5gK-Fm5mldU0M2MirCS2NK8ftOiqnmx4fgq3g1JunR09slRM26q8jbMhX_tUVca.png) 
+            - No poner las constantes **O(2n)** ⇒ **O(n)**. Con las bases de los logaritmos también pasa, ya que puedes cambiar de base multiplicando por una constante.
+            - Cuando no sabes cual el el n dominante, por ejemplo raiz de n o logaritmo de n, se utiliza la regla de l´Hopital, se divide uno por otro y si tiende a infinito el de arriba es el dominante si tiende a 0 lo es el de abajo.
+    -  _**1.4. Cálculo de la eficiencia**_  
+        - Sentencias simples: Tiempo constante
+        - Bloques de sentencias: Suma de los tiempos y aplicar la regla del máximo
+        - Sentencias condicionales: Máximo entre bloque if y el else.
+        - Bucles: 
+            - Suma de los t de cada iteración (incluido la evaluación de la condición)
+            - Iteraciones idénticas ⇒ número de iteraciones multiplicado por el tiempo de una iteración
+        - Llamada a funciones: Complejidad de la propia función
+        - Funciones recursivas:
+            - Método de sustitución
+            - Árbol de recursividad
+            - Expansión de recurrencias
+            - Ecuación característica
+        - ![](https://remnote-user-data.s3.amazonaws.com/he_OKEAh_VKkSKSEICsF2RvMWLqAirlZemRgrMbzC54_kgeTzAiS73nLLDj5n1zrsk3tepXsP1WTtqkY9E_tGVsY_zIlwWt6UKAQFCyQmP7NaNj1uEvGtsh67P5nJWPU.png) 
+        - ![](https://remnote-user-data.s3.amazonaws.com/Bdr8IbtvHmrbCzW9A-Ui1bC4godjDXmEVZZptYD6WXd-D35A5GPnfKjXIQKKfqlMGojFxXRVqOAbqlXurihgR5LOkwhQ0egognCJ-fwkaz8KdIH4IRZZbAdOWVxeNL8s.png) 
+    - 
+- Tema 2 EXPLORACIÓN DE GRAFOS
+    - **COMPLETAR** 
+    -  _**2.1. Definiciones**_  
+        - Una arista une dos nodos
+        - Un arco es una arista que tiene dirección
+        - En un grafo no dirigido, conexo y fuertemente conexo son lo mismo, en un grafo dirigido, no tiene porqué
+        - ![](https://remnote-user-data.s3.amazonaws.com/p6cz1g3xJqQye4iWLfIEp6TD8VnvhJ2e2eJgozjf5w-WQrNSVP9xbjiXFIpUKcqd3HiaGosxQoH2h5aoR_ENvkgWjvOThsl2RAyU8bo5HICTpIfngPBkQ1FeI4I0sBaQ.png) 
+        - Si el grafo es muy denso es mejor la matriz de adyacencia ,si es muy disperso (pocas aristas) es mejor la lista de adyacencias.
+        - ![](https://remnote-user-data.s3.amazonaws.com/YYiXYvMI88CtyyMS5IMZ5MccTk9l_jM6Ep840NyBrrQb6FnAkbKoWcG7RzwHMrJPtGQrCjjPVkw7RkmOTzm4pxWUK38y3B98H5u2AbmB-Kwyy59BVZO2ZH8XdDZjK_lP.png) 
+    -  _**2.2. Recorrido en profundidad**_  
+        - 
+    -  _**2.3. Ordenación topológica**_  
+        - Para la ordenación topológica se necesita un grafo dirigido y acíclico
+        - puedes colocar un nodo cuando todos los que le apuntan ya están colocados
+    -  _**2.4. Calculo de puntos de articulación**_  
+        - repasarlo
+        - 
+        - 
+        - 
+    - PARA LEER EL INPUT DEL JUEZ PONER line=int(input().strip()) para leer un solo numero
+    - para leer varios n,m = map(nt(input().strip().split()))
+    - 
+- Tema 3 ALGORITMOS VORACES
+    -  _**3.1. Introducción**_  
+        - 
+    - 
+

@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Comparación: DFS Normal vs Ordenación Topológica con DFS</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #f5f5f5;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: Consolas, monospace;
+    }
+    .comparison-container {
+      display: flex;
+      margin: 30px 0;
+    }
+    .comparison-column {
+      flex: 1;
+      padding: 15px;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+      margin: 0 10px;
+    }
+    .comparison-column:first-child {
+      margin-left: 0;
+    }
+    .comparison-column:last-child {
+      margin-right: 0;
+    }
+    .column-title {
+      text-align: center;
+      font-weight: bold;
+      color: white;
+      background-color: #3498db;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+    .right-column .column-title {
+      background-color: #e74c3c;
+    }
+    .animation-container {
+      height: 350px;
+      position: relative;
+      margin: 30px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .controls {
+      text-align: center;
+      margin: 15px 0;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      margin: 0 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .reset {
+      background-color: #e74c3c;
+    }
+    .reset:hover {
+      background-color: #c0392b;
+    }
+    .node {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: white;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+      transition: all 0.5s ease;
+    }
+    .edge {
+      position: absolute;
+      height: 2px;
+      background-color: #95a5a6;
+      transform-origin: left center;
+      z-index: -1;
+    }
+    .edge::after {
+      content: "";
+      position: absolute;
+      right: -7px;
+      top: -4px;
+      width: 0;
+      height: 0;
+      border-left: 10px solid #95a5a6;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+    }
+    .status {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+      padding: 10px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    .result {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 10px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 5px;
+      font-size: 14px;
+      max-width: 150px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .highlight-code {
+      background-color: #ffd54f;
+      padding: 2px;
+    }
+    .step-desc {
+      margin-top: 10px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Comparación: DFS Normal vs Ordenación Topológica con DFS</h1>
+    
+    <p>Esta visualización muestra las diferencias clave entre una búsqueda en profundidad (DFS) estándar y un algoritmo de ordenación topológica basado en DFS. Aunque ambos utilizan el mismo principio de exploración de grafos, difieren en su propósito y en el momento en que procesan los nodos.</p>
+    
+    <h2>Diferencias fundamentales</h2>
+    
+    <div class="comparison-container">
+      <div class="comparison-column">
+        <div class="column-title">DFS Estándar</div>
+        <ul>
+          <li><strong>Propósito:</strong> Recorrer todos los nodos de un grafo, explorando tan profundo como sea posible antes de retroceder.</li>
+          <li><strong>Aplicaciones:</strong> Buscar elementos, verificar conectividad, encontrar caminos.</li>
+          <li><strong>Procesamiento:</strong> Procesa cada nodo cuando lo visita por primera vez.</li>
+          <li><strong>Resultado:</strong> Orden de descubrimiento de los nodos.</li>
+          <li><strong>Grafos:</strong> Funciona en cualquier tipo de grafo (dirigido o no dirigido, cíclico o acíclico).</li>
+        </ul>
+      </div>
+      
+      <div class="comparison-column right-column">
+        <div class="column-title">Ordenación Topológica con DFS</div>
+        <ul>
+          <li><strong>Propósito:</strong> Ordenar los nodos para que todas las dependencias aparezcan antes.</li>
+          <li><strong>Aplicaciones:</strong> Programación de tareas, resolución de dependencias, secuenciación.</li>
+          <li><strong>Procesamiento:</strong> Procesa cada nodo después de visitar todos sus vecinos (backtracking).</li>
+          <li><strong>Resultado:</strong> Orden lineal que respeta todas las dependencias.</li>
+          <li><strong>Grafos:</strong> Solo funciona en grafos dirigidos acíclicos (DAGs).</li>
+        </ul>
+      </div>
+    </div>
+    
+    <h2>Pseudocódigo comparativo</h2>
+    
+    <div class="comparison-container">
+      <div class="comparison-column">
+        <h3>DFS Estándar</h3>
+        <pre><code>función dfs(G, nodo_inicial):
+    marcar nodo_inicial como visitado
+    <span class="highlight-code">// Procesamiento al visitar</span>
+    <span class="highlight-code">procesar(nodo_inicial)</span>
+    
+    para cada vecino de nodo_inicial:
+        si vecino no está visitado:
+            dfs(G, vecino)
+    
+    // No hay procesamiento aquí</code></pre>
+      </div>
+      
+      <div class="comparison-column">
+        <h3>Ordenación Topológica con DFS</h3>
+        <pre><code>función dfs_topologico(G, nodo, resultado):
+    marcar nodo como visitado
+    // No hay procesamiento aquí
+    
+    para cada vecino de nodo:
+        si vecino no está visitado:
+            dfs_topologico(G, vecino, resultado)
+    
+    <span class="highlight-code">// Procesamiento en backtracking</span>
+    <span class="highlight-code">resultado.añadir(nodo)</span></code></pre>
+      </div>
+    </div>
+    
+    <h2>Animación Comparativa</h2>
+    
+    <div class="controls">
+      <button id="start-animation">Iniciar Animación</button>
+      <button id="next-step">Siguiente Paso</button>
+      <button id="reset" class="reset">Reiniciar</button>
+    </div>
+    
+    <div class="comparison-container">
+      <div class="comparison-column">
+        <div class="column-title">DFS Estándar</div>
+        <div class="animation-container" id="dfs-standard-container">
+          <div class="result" id="dfs-result">Resultado: [ ]</div>
+          <div class="status" id="dfs-status">Estado: Esperando inicio</div>
+        </div>
+      </div>
+      
+      <div class="comparison-column">
+        <div class="column-title">Ordenación Topológica con DFS</div>
+        <div class="animation-container" id="dfs-topo-container">
+          <div class="result" id="topo-result">Resultado: [ ]</div>
+          <div class="status" id="topo-status">Estado: Esperando inicio</div>
+        </div>
+      </div>
+    </div>
+    
+    <h2>Características clave de cada algoritmo</h2>
+    
+    <table>
+      <tr>
+        <th>Característica</th>
+        <th>DFS Estándar</th>
+        <th>Ordenación Topológica con DFS</th>
+      </tr>
+      <tr>
+        <td>Momento de procesamiento</td>
+        <td>Al descubrir un nodo</td>
+        <td>En el backtracking (después de procesar todos los vecinos)</td>
+      </tr>
+      <tr>
+        <td>Estructura de datos auxiliar</td>
+        <td>Conjunto de visitados</td>
+        <td>Conjunto de visitados + lista de resultados</td>
+      </tr>
+      <tr>
+        <td>Resultado final</td>
+        <td>Orden de descubrimiento</td>
+        <td>Orden inverso del backtracking</td>
+      </tr>
+      <tr>
+        <td>Detección de ciclos</td>
+        <td>No es una preocupación principal</td>
+        <td>Es esencial (no existe ordenación topológica para grafos cíclicos)</td>
+      </tr>
+      <tr>
+        <td>Post-procesamiento</td>
+        <td>No necesario</td>
+        <td>Invertir la lista de resultados</td>
+      </tr>
+    </table>
+    
+    <h2>Implementación en Python</h2>
+    
+    <div class="comparison-container">
+      <div class="comparison-column">
+        <h3>DFS Estándar</h3>
+        <pre><code>def dfs_standard(graph, start_node):
+    visited = set()
+    result = []
+    
+    def dfs_recursive(node):
+        # Marcar como visitado
+        visited.add(node)
+        # Procesar el nodo ahora
+        result.append(node)
+        
+        # Explorar vecinos
+        if node in graph:
+            for neighbor in graph[node]:
+                if neighbor not in visited:
+                    dfs_recursive(neighbor)
+        
+        # No hay procesamiento aquí
+    
+    dfs_recursive(start_node)
+    return result</code></pre>
+      </div>
+      
+      <div class="comparison-column">
+        <h3>Ordenación Topológica con DFS</h3>
+        <pre><code>def topological_sort(graph):
+    visited = set()
+    result = []
+    
+    def dfs_topo(node):
+        # Marcar como visitado
+        visited.add(node)
+        # No hay procesamiento aquí
+        
+        # Explorar vecinos
+        if node in graph:
+            for neighbor in graph[node]:
+                if neighbor not in visited:
+                    dfs_topo(neighbor)
+        
+        # Procesar el nodo en backtracking
+        result.append(node)
+    
+    # Iniciar desde cada nodo no visitado
+    for node in graph:
+        if node not in visited:
+            dfs_topo(node)
+    
+    # Invertir el resultado para obtener la ordenación
+    return result[::-1]</code></pre>
+      </div>
+    </div>
+    
+    <h2>Conclusiones</h2>
+    <p>La principal diferencia entre DFS estándar y ordenación topológica basada en DFS es el <strong>momento</strong> en que se procesan los nodos:</p>
+    <ul>
+      <li>En DFS estándar, procesamos un nodo tan pronto como lo visitamos.</li>
+      <li>En ordenación topológica, procesamos un nodo solo después de haber procesado todos sus dependientes (en el backtracking).</li>
+    </ul>
+    <p>Esta diferencia crucial permite que la ordenación topológica garantice que todas las dependencias de un nodo aparezcan después de él en el resultado final (o antes, después de invertir el resultado).</p>
+    
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Definición del grafo
+  const graph = {
+    'A': ['B', 'E'],
+    'B': ['C', 'E'],
+    'C': ['D', 'F'],
+    'D': ['F'],
+    'E': [],
+    'F': []
+  };
+  
+  // Posiciones de los nodos para la visualización
+  const nodePositions = {
+    'A': { x: 60, y: 60 },
+    'B': { x: 160, y: 60 },
+    'C': { x: 260, y: 60 },
+    'D': { x: 360, y: 60 },
+    'E': { x: 110, y: 160 },
+    'F': { x: 310, y: 160 }
+  };
+  
+  // Color de los nodos según su estado
+  const nodeColors = {
+    unvisited: '#95a5a6',
+    visiting: '#e74c3c',
+    visited: '#2ecc71'
+  };
+  
+  // Variables para controlar la animación
+  let stepsStandard = [];
+  let stepsTopo = [];
+  let currentStep = 0;
+  let animation = null;
+  
+  // Generar los pasos de la animación para DFS estándar
+  function generateStandardDFSSteps() {
+    const steps = [];
+    const visited = new Set();
+    const result = [];
+    
+    function dfsSimulate(node, depth) {
+      // Paso: Visitar nodo
+      steps.push({
+        action: 'visit',
+        node: node,
+        status: `Visitando el nodo ${node}`,
+        visited: new Set([...visited]),
+        result: [...result],
+        description: `Marcamos ${node} como visitado y lo procesamos (añadimos al resultado).`
+      });
+      
+      visited.add(node);
+      result.push(node);
+      
+      // Paso: Procesar nodo al visitar
+      steps.push({
+        action: 'process',
+        node: node,
+        status: `Procesando el nodo ${node}`,
+        visited: new Set([...visited]),
+        result: [...result],
+        description: `En el DFS estándar, procesamos el nodo ${node} inmediatamente al visitarlo.`
+      });
+      
+      // Explorar vecinos
+      if (graph[node]) {
+        for (const neighbor of graph[node]) {
+          // Paso: Verificar vecino
+          steps.push({
+            action: 'check',
+            node: node,
+            neighbor: neighbor,
+            status: `Comprobando vecino ${neighbor} de ${node}`,
+            visited: new Set([...visited]),
+            result: [...result],
+            description: `Comprobamos si el vecino ${neighbor} ya ha sido visitado.`
+          });
+          
+          if (!visited.has(neighbor)) {
+            // Paso: Explorar vecino
+            steps.push({
+              action: 'explore',
+              node: node,
+              neighbor: neighbor,
+              status: `Explorando vecino ${neighbor} de ${node}`,
+              visited: new Set([...visited]),
+              result: [...result],
+              description: `El vecino ${neighbor} no ha sido visitado, lo exploramos recursivamente.`
+            });
+            
+            dfsSimulate(neighbor, depth + 1);
+            
+            // Paso: Volver del vecino
+            steps.push({
+              action: 'return',
+              node: neighbor,
+              parent: node,
+              status: `Volviendo a ${node} desde ${neighbor}`,
+              visited: new Set([...visited]),
+              result: [...result],
+              description: `Hemos terminado con ${neighbor}, volvemos a ${node}.`
+            });
+          } else {
+            // Paso: Vecino ya visitado
+            steps.push({
+              action: 'skip',
+              node: node,
+              neighbor: neighbor,
+              status: `Saltamos vecino ${neighbor} de ${node} (ya visitado)`,
+              visited: new Set([...visited]),
+              result: [...result],
+              description: `El vecino ${neighbor} ya ha sido visitado, lo saltamos.`
+            });
+          }
+        }
+      }
+      
+      // No hay procesamiento en backtracking para DFS estándar
+    }
+    
+    // Iniciar con el nodo A
+    dfsSimulate('A', 0);
+    
+    // Paso final
+    steps.push({
+      action: 'complete',
+      status: 'DFS completado',
+      visited: new Set([...visited]),
+      result: [...result],
+      description: `DFS completado. Resultado final: [${result.join(', ')}]`
+    });
+    
+    return steps;
+  }
+  
+  // Generar los pasos de la animación para ordenación topológica
+  function generateTopoSortSteps() {
+    const steps = [];
+    const visited = new Set();
+    const result = [];
+    
+    function dfsTopoSimulate(node, depth) {
+      // Paso: Visitar nodo
+      steps.push({
+        action: 'visit',
+        node: node,
+        status: `Visitando el nodo ${node}`,
+        visited: new Set([...visited]),
+        result: [...result],
+        description: `Marcamos ${node} como visitado. No lo procesamos aún.`
+      });
+      
+      visited.add(node);
+      
+      // Explorar vecinos
+      if (graph[node]) {
+        for (const neighbor of graph[node]) {
+          // Paso: Verificar vecino
+          steps.push({
+            action: 'check',
+            node: node,
+            neighbor: neighbor,
+            status: `Comprobando vecino ${neighbor} de ${node}`,
+            visited: new Set([...visited]),
+            result: [...result],
+            description: `Comprobamos si el vecino ${neighbor} ya ha sido visitado.`
+          });
+          
+          if (!visited.has(neighbor)) {
+            // Paso: Explorar vecino
+            steps.push({
+              action: 'explore',
+              node: node,
+              neighbor: neighbor,
+              status: `Explorando vecino ${neighbor} de ${node}`,
+              visited: new Set([...visited]),
+              result: [...result],
+              description: `El vecino ${neighbor} no ha sido visitado, lo exploramos recursivamente.`
+            });
+            
+            dfsTopoSimulate(neighbor, depth + 1);
+            
+            // Paso: Volver del vecino
+            steps.push({
+              action: 'return',
+              node: neighbor,
+              parent: node,
+              status: `Volviendo a ${node} desde ${neighbor}`,
+              visited: new Set([...visited]),
+              result: [...result],
+              description: `Hemos terminado con ${neighbor}, volvemos a ${node}.`
+            });
+          } else {
+            // Paso: Vecino ya visitado
+            steps.push({
+              action: 'skip',
+              node: node,
+              neighbor: neighbor,
+              status: `Saltamos vecino ${neighbor} de ${node} (ya visitado)`,
+              visited: new Set([...visited]),
+              result: [...result],
+              description: `El vecino ${neighbor} ya ha sido visitado, lo saltamos.`
+            });
+          }
+        }
+      }
+      
+      // Procesamiento en backtracking para ordenación topológica
+      result.push(node);
+      steps.push({
+        action: 'process-topo',
+        node: node,
+        status: `Procesando el nodo ${node} en backtracking`,
+        visited: new Set([...visited]),
+        result: [...result],
+        description: `En ordenación topológica, procesamos el nodo ${node} después de explorar todos sus vecinos.`
+      });
+    }
+    
+    // Iniciar con el nodo A
+    dfsTopoSimulate('A', 0);
+    
+    // Invertir el resultado
+    const finalResult = [...result].reverse();
+    steps.push({
+      action: 'invert',
+      status: 'Invirtiendo el resultado',
+      visited: new Set([...visited]),
+      result: [...result],
+      finalResult: finalResult,
+      description: `Invertimos el resultado para obtener la ordenación topológica: [${finalResult.join(', ')}]`
+    });
+    
+    return steps;
+  }
+  
+  // Crear nodos y aristas en el contenedor
+  function createGraph(containerId) {
+    const container = document.getElementById(containerId);
+    
+    // Crear aristas
+    for (const node in graph) {
+      const neighbors = graph[node];
+      for (const neighbor of neighbors) {
+        const startPos = nodePositions[node];
+        const endPos = nodePositions[neighbor];
+        
+        // Calcular la longitud y el ángulo de la arista
+        const dx = endPos.x - startPos.x;
+        const dy = endPos.y - startPos.y;
+        const length = Math.sqrt(dx * dx + dy * dy);
+        const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+        
+        // Crear el elemento de la arista
+        const edge = document.createElement('div');
+        edge.className = 'edge';
+        edge.style.width = `${length - 40}px`; // Restar el diámetro del nodo
+        edge.style.left = `${startPos.x + 20}px`;
+        edge.style.top = `${startPos.y + 20}px`;
+        edge.style.transform = `rotate(${angle}deg)`;
+        
+        container.appendChild(edge);
+      }
+    }
+    
+    // Crear nodos
+    for (const node in nodePositions) {
+      const pos = nodePositions[node];
+      const nodeElement = document.createElement('div');
+      nodeElement.className = 'node';
+      nodeElement.id = `${containerId}-node-${node}`;
+      nodeElement.textContent = node;
+      nodeElement.style.left = `${pos.x}px`;
+      nodeElement.style.top = `${pos.y}px`;
+      nodeElement.style.backgroundColor = nodeColors.unvisited;
+      
+      container.appendChild(nodeElement);
+    }
+  }
+  
+  // Actualizar la visualización basada en el paso actual
+  function updateVisualization(step, isStandard) {
+    const containerId = isStandard ? 'dfs-standard-container' : 'dfs-topo-container';
+    const statusId = isStandard ? 'dfs-status' : 'topo-status';
+    const resultId = isStandard ? 'dfs-result' : 'topo-result';
+    
+    // Actualizar el estado y el resultado
+    document.getElementById(statusId).textContent = step.status;
+    if (step.description) {
+      document.getElementById(statusId).innerHTML = `${step.status}<div class="step-desc">${step.description}</div>`;
+    }
+    
+    // Actualizar el resultado
+    if (step.action === 'invert') {
+      document.getElementById(resultId).textContent = `Resultado: [${step.finalResult.join(', ')}]`;
+    } else {
+      document.getElementById(resultId).textContent = `Resultado: [${step.result.join(', ')}]`;
+    }
+    
+    // Actualizar los colores de los nodos
+    for (const node in nodePositions) {
+      const nodeElement = document.getElementById(`${containerId}-node-${node}`);
+      if (step.visited && step.visited.has(node)) {
+        if (step.action === 'visit' && step.node === node ||
+            step.action === 'explore' && step.neighbor === node ||
+            step.action === 'process' && step.node === node ||
+            step.action === 'process-topo' && step.node === node) {
+          nodeElement.style.backgroundColor = nodeColors.visiting;
+        } else {
+          nodeElement.style.backgroundColor = nodeColors.visited;
+        }
+      } else {
+        nodeElement.style.backgroundColor = nodeColors.unvisited;
+      }
+    }
+    
+    // Acciones específicas según el tipo de paso
+    if (step.action === 'check' || step.action === 'explore' || step.action === 'skip') {
+      const nodeElement = document.getElementById(`${containerId}-node-${step.node}`);
+      const neighborElement = document.getElementById(`${containerId}-node-${step.neighbor}`);
+      nodeElement.style.backgroundColor = nodeColors.visiting;
+      if (step.action === 'explore') {
+        neighborElement.style.backgroundColor = nodeColors.visiting;
+      }
+    } else if (step.action === 'process') {
+      const nodeElement = document.getElementById(`${containerId}-node-${step.node}`);
+      nodeElement.style.backgroundColor = nodeColors.visiting;
+    } else if (step.action === 'process-topo') {
+      const nodeElement = document.getElementById(`${containerId}-node-${step.node}`);
+      nodeElement.style.backgroundColor = nodeColors.visiting;
+    }
+  }
+  
+  // Inicializar las visualizaciones
+  createGraph('dfs-standard-container');
+  createGraph('dfs-topo-container');
+  
+  // Generar los pasos de la animación
+  stepsStandard = generateStandardDFSSteps();
+  stepsTopo = generateTopoSortSteps();
+  
+  // Manejadores de eventos para los botones
+  document.getElementById('start-animation').addEventListener('click', function() {
+    clearInterval(animation);
+    currentStep = 0;
+    
+    animation = setInterval(function() {
+      if (currentStep < Math.max(stepsStandard.length, stepsTopo.length)) {
+        if (currentStep < stepsStandard.length) {
+          updateVisualization(stepsStandard[currentStep], true);
+        }
+        if (currentStep < stepsTopo.length) {
+          updateVisualization(stepsTopo[currentStep], false);
+        }
+        currentStep++;
+      } else {
+        clearInterval(animation);
+      }
+    }, 1500);
+  });
+  
+  document.getElementById('next-step').addEventListener('click', function() {
+    clearInterval(animation);
+    if (currentStep < Math.max(stepsStandard.length, stepsTopo.length)) {
+      if (currentStep < stepsStandard.length) {
+        updateVisualization(stepsStandard[currentStep], true);
+      }
+      if (currentStep < stepsTopo.length) {
+        updateVisualization(stepsTopo[currentStep], false);
+      }
+      currentStep++;
+    }
+  });
+  
+  document.getElementById('reset').addEventListener('click', function() {
+    clearInterval(animation);
+    currentStep = 0;
+    
+    // Resetear los nodos
+    for (const node in nodePositions) {
+      document.getElementById(`dfs-standard-container-node-${node}`).style.backgroundColor = nodeColors.unvisited;
+      document.getElementById(`dfs-topo-container-node-${node}`).style.backgroundColor = nodeColors.unvisited;
+    }
+    
+    // Resetear el estado y el resultado
+    document.getElementById('dfs-status').textContent = 'Estado: Esperando inicio';
+    document.getElementById('topo-status').textContent = 'Estado: Esperando inicio';
+    document.getElementById('dfs-result').textContent = 'Resultado: [ ]';
+    document.getElementById('topo-result').textContent = 'Resultado: [ ]';
+  });
+});
+</script>
+</body>
+</html>

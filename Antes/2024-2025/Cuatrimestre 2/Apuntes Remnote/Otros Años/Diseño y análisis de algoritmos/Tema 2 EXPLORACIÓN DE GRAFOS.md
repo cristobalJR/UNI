@@ -1,0 +1,21 @@
+- **COMPLETAR** 
+-  _**2.1. Definiciones**_  
+    - Una arista une dos nodos
+    - Un arco es una arista que tiene dirección
+    - En un grafo no dirigido, conexo y fuertemente conexo son lo mismo, en un grafo dirigido, no tiene porqué
+    - ![](https://remnote-user-data.s3.amazonaws.com/p6cz1g3xJqQye4iWLfIEp6TD8VnvhJ2e2eJgozjf5w-WQrNSVP9xbjiXFIpUKcqd3HiaGosxQoH2h5aoR_ENvkgWjvOThsl2RAyU8bo5HICTpIfngPBkQ1FeI4I0sBaQ.png) 
+    - Si el grafo es muy denso es mejor la matriz de adyacencia ,si es muy disperso (pocas aristas) es mejor la lista de adyacencias.
+    - ![](https://remnote-user-data.s3.amazonaws.com/YYiXYvMI88CtyyMS5IMZ5MccTk9l_jM6Ep840NyBrrQb6FnAkbKoWcG7RzwHMrJPtGQrCjjPVkw7RkmOTzm4pxWUK38y3B98H5u2AbmB-Kwyy59BVZO2ZH8XdDZjK_lP.png) 
+-  _**2.2. Recorrido en profundidad**_  
+    - 
+-  _**2.3. Ordenación topológica**_  
+    - Para la ordenación topológica se necesita un grafo dirigido y acíclico
+    - puedes colocar un nodo cuando todos los que le apuntan ya están colocados
+-  _**2.4. Calculo de puntos de articulación**_  
+    - repasarlo
+    - 
+    - 
+    - 
+- PARA LEER EL INPUT DEL JUEZ PONER line=int(input().strip()) para leer un solo numero
+- para leer varios n,m = map(nt(input().strip().split()))
+

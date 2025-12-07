@@ -1,0 +1,6 @@
+/* Bloques de código en modo Lectura */
+.markdown-reading-view pre code {
+  white-space: pre;
+  overflow-x: auto;
+  display: block;
+}

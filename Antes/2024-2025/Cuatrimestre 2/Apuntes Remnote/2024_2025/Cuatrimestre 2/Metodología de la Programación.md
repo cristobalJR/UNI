@@ -1,0 +1,397 @@
+- Ínice de MP
+    - #  _**Fechas relevantes:**_  
+        - ## Exámenes:
+            1. Parcial T3 - T6: 21 de Marzo (25%)(min:5/10)
+            2. Parcial T1,T2 y T7: 23 de Mayo (25%)(min:5/10)
+            3. Autoevaluaciones T1 - T7: 9 de Mayo (10%)(min:0/10)
+        - ## Prácticas:
+            1. Fase Análisis: 20 de Febrero (10%) (min:5/10)
+            2. Fase Diseño: 6 de Marzo(10%) (min:5/10)
+            3. Fase Codificación: 27 Marzo(10%) (min:5/10)
+            4. Fase Pruebas: 10 de Abril (10%) (min:5/10)
+    - 
+    - #  _**Profesorado:**_ 
+        - **José David Villanueva García **
+            - Despacho:
+ 205
+ –
+ Laboratorios
+ III
+            - Email: [**josedavid.villanueva@urjc.es**](mailto:josedavid.villanueva@urjc.es) 
+            - Tutorías: solicitar cita previa por email especificando que la asignatura es MP o por el aula virtual.
+        - **José Manuel Valero**
+            - Despacho:
+ -
+            - Email: [**josemanuel.valero@urjc.es**](mailto:josemanuel.valero@urjc.es) 
+            - Tutorías: solicitar cita previa por email  especificando que la asignatura es MP o por el aula virtual.
+    - 
+    - #  _**Índice:**_  
+        - ## Bloque I: Especificación y derivación formal
+            - Tema 1: Especificación formal de problemas
+        - ## Bloque II:
+            - Tema 2: Introducción a la verificación formal de programas
+        - ## Bloque III:
+            - [Tema 3: Metodología y ciclo software](T3.-Metodologías%20y%20Ciclo%20software.md) 
+            - [Tema 4: Fase de análisis](T4.-Fase%20de%20Análisis.md) 
+            - [Tema 5: Fase de diseño](T5.-Fase%20de%20Diseño.md) 
+                - [Tema 5.1: Patrones de Diseño](T5.1.-Patrones%20de%20Diseño.md) 
+            - Tema 6: Fase de codificación
+            - Tema 7: Fase de pruebas de Software
+    - 
+    - 
+    - 
+- T3.-Metodologías y Ciclo software
+    - # Metodologías
+        -  **Definición:** Conjunto de métodos que se utilizan en una determinada actividad con el fin de formalizarla y optimizarla.
+        - Que hacer como y cuando durante el desarrolla y mantenimiento del proyecto
+    - 
+    - # Ciclo de Vida
+        - **Definición: **Conjunto de fases por las que pasa un sistema que se está desarrollando desde que nace su idea hasta que el software es retirado o reemplazado.
+        - Debe definir los siguientes aspectos:
+            - Orden de las fases del proceso software.
+            - Establecer criterios de transición entre una fase y la siguiente.
+            - Definir las entradas y salidas de cada fase.
+    - 
+    - # Tipos de Metodologías
+        - ### Pesadas o tradicionales:
+            - Fases bien definidas, entregas al final, requisitos y planificación bien definidos.
+        - ### Metodologías ágiles:
+            - Continua interacción con el cliente, muchas entregas parciales y ciclos iterativos más cortos.
+        - ### Metodologías centradas en el usuario:
+            - El enfoque y la interacción está en el usuario, pero las características prioritarias son usabilidad y accesibilidad.
+    - 
+    - # Metodologías Tradicionales:
+        - ## Ciclo de vida en cascada clásico:
+            - ![](https://remnote-user-data.s3.amazonaws.com/ocWrVdK-6I9I8TpzTytPdkzLEfjUxPOu8zEjA_rvrPQeSQeV0PFy2nRwv_IrnMZWBDjt4J0g4ch5w1PcSBYFG3gVyi2M67iSjI4TsZyKQ9KlwsjqD4d7M9pJhNLLz-rR.png)
+            - Proceso de desarrollo es una sucesión de etapas que exporta productos intermedios.
+            - Deben desarrollarse todas las fases para que el proyecto tenga éxito.
+            - Las fases continúan hasta que los objetivos se han cumplido.
+            - Si se cambia el orden de las fases el productos es de menor calidad
+            - ### Limitaciones:
+                - No se permiten iteraciones.
+                - Los requisitos se congelan al final del proyecto.
+                - El producto no es enseñable hasta el final del proyecto
+    - 
+    - # Metodologías Ágiles:
+        - ### Características:
+            - Prioriza la satisfacción del cliente a través de las entregas continuas de evaluables.
+            - Mejora motivación del equipo.
+            - Los cambios en los requisitos son bienvenidos en cualquier fase.
+            - Las entregas software son frecuentes.
+            - Interesados y desarrolladores deben trabajar juntos.
+            - Los equipos reflexionan a intervalos frecuentes sobre como ser más eficaces.
+        - Las mas usadas son:
+            - XP (eXtreme Programming)
+            - SCRUM
+            - KANBAN
+        - ## Metodologías Ágiles (SCRUM):
+            - Se basa en **sprints: **iteraciones de desarrollo de duración recomendada 2-4 semanas:
+                - Durante cada sprint, el equipo desarrolla un incremento del software entregable.
+                - Existe un Product Backlog que contiene los requisitos de alto nivel priorizados y que definen el trabajo a realizar.
+                - Existe una reunión de Sprint Planning donde se seleccionan (el Product Owner) los requisitos de alto nivel en los que se trabajará en el siguiente sprint.
+            - Se centra en entregables pequeños y concretos trabajados por orden de prioridad.
+            - Roles principales:
+                - **Product owner:** la voz del cliente, conoce las prioridades del proyecto, organiza y administra las tareas a realizar.
+                - **Scrum master:** asegura el seguimiento de la metodología guiando a los demás en la forma de actuar en cada fase
+                - **Scrum Team:** son los responsables de desarrollar las tareas asignadas.
+            - 
+                - 
+                    - ### Ventajas
+                        - Flexibilidad a cambios.
+                        - Reducción del Time to Market.
+                        - Optimiza el proceso.
+                        - Alcance viable.
+                        - Mayor productividad del equipo.
+                        - Reducción de riesgos.
+                - 
+                    - ### Desventajas
+                        - Equipo auto-organizado(Puede ser ventaja pero tiene riesgos).
+                        - Necesitas fuerte compromiso del equipo.
+                        - Y del cliente.
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+- T4.-Fase de Análisis
+    - ![](https://remnote-user-data.s3.amazonaws.com/ltjulH-gEf17q_36ptMn59AnWh5Bmf4ef4t6nN7GenPt6lOGF1X25m6W-2XI2_iNCvZpBiSg2NJMuT5AuSKK1C1_G2AXqOolf_v-YXgi5czdI-nlhsmOAC2bqkMWAHQc.png)
+    - # Fase de análisis
+        - ![](https://remnote-user-data.s3.amazonaws.com/x5iTn5YB_rNbPx-__fNGfvZyKAxZI2tJ6S0vwLBPfvsii3jrmRQ-qAdYYk8opU_acazqsByvZXxCt2vWUQFA3DLG_jKNLNqowIjg7SHcb6OmQKDC-odrqzBhS3buO8Od.png)
+        - El objetivo es extraer los requisitos.
+        - Análisis del problema y especificación completa del comportamiento externo, los flujos de información y control del sistema software a construir.
+        - Es importante ya que errores en esta fase pueden generar un producto que no satisfaga las necesidades de los usuarios.
+        - Los requisitos se determinan siguiendo una aproximación descendente.
+        - Se debe separar el qué del cómo.
+        - ### Tareas:
+            - **Educción de requisitos:** Identificar los requisitos que se obtienen de los usuarios. (Reuniones, brainstorming,...)
+            - **Análisis de los usuarios y de las tareas: **Identificar potenciales usuarios, su jerarquía y tareas a realizar.
+            - **Análisis del problema y sus requisitos: **Razonar sobre requisitos extraídos.
+            - **Representación (modelización): **Registrar los requisitos en lenguaje formal, UML, maquetas...
+            - **Validación: **Examinar las inconsistencias entre requisitos. 
+    - ## Educción de requisitos:
+        - Análisis del problema.
+        - Identificar usuarios potenciales.
+        - Identificar fuente de datos.
+        - Recompilar info y hechos.
+        - Preguntas y cuestiones concisas y directas
+        - Analizar la información obtenida.
+        - Priorizar
+    - ## Tipos de requisitos
+        - ### Funcionales
+            - Acciones fundamentales que tiene que hacer el sistema
+        - ### No Funcionales:
+            - Requisitos de interfaz: menús, ventanas, mensajes error...
+            - Requisitos operacionales: modos de operación, back-ups...
+            - Requisitos de documentación: idiomas, ayuda online...
+            - Requisitos de seguridad: nivel de acceso...
+            - Requisitos de portabilidad y mantenimiento
+            - Requisitos de recursos: memoria, almacenamiento...
+            - Requisitos de rendimiento: tiempo de respuesta, nº usuarios...
+    - ## Análisis de requisitos
+        - ### Qué:
+            - Proceso mediante el cual se determina qué requisitos son aceptables y se definen los que van a ser parte del producto.
+        - ### Cómo:
+            - Evaluación de la viabilidad técnica y económica.
+            - Valoración de riesgos.
+            - Clasificación de requisitos en: Obligatorios, deseables...
+    - ## Representación de requisitos
+        - ### Qué:
+            - Proceso de registrar los requisitos de una, o mas formas.
+        - ### Cómo:
+            - Lenguaje natural: Catálogo de requisitos.
+            - Lenguaje formal.
+            - Modelos.
+            - Diagramas.
+            - Maquetas
+            - ...
+        - Especificación en lenguaje natural:
+            - Se expresan de forma individual, organizados jerárquicamente y pueden numerarse.
+            - Claros y concretos (Sin ambigüedades ni puntos suspensivos...)
+            - Completos y consistentes
+            - Indican lo que se espera que haga el programa, su justificación y en su caso, criterios de verificación aplicables.
+        - Los requerimientos funcionales:
+            - Redactados de tal forma que sean entendibles por usuarios no técnicos
+            - Deben de especificar el comportamiento externo del sistema, y evitar si es posible, establecer características de su diseño.
+            - Se pueden numerar para establecer una prioridad (pero siempre distinguirse entre obligatorios y deseables).
+        - Los requisitos no funcionales:
+            - Se expresan cualitativamente. siempre que sea posible (Verificación de su cumplimiento).
+- T5.-Fase de Diseño
+    - ![](https://remnote-user-data.s3.amazonaws.com/uL1YfGB9EC4J_eH9IYPzgE1o0Jez9lWmV5Ji5X-q0yJaYL--W2HGWbroZjr916u5UZ2Tl4igZtF9uTcQ-mnkIzn-ojYnUKOruBsfkQyBjVdtds7c-O4-_SR5vPBF1swR.png)
+    - # Fase de diseño
+        - Proceso de definición de arquitectura, componentes, módulos, interfaces, procedimientos de prueba y datos de un sistema sw para satisfacer unos requisitos especificados.
+        - Se pasa del qué al cómo:
+            - ¿Qué hay que hacer? -> Especificación de requisitos.
+            - ¿Cómo hay que hacerlo? -> Especificaciones de diseño
+        - Existen dos niveles de diseño:
+            - De alto nivel
+            - De bajo nivel
+        - La idea es ir detallando cada vez los aspectos del softwares que vamos a realizar
+        - Para ello usaremos UML
+    - # Unified Modeling Languaje (UML)
+        - Antes: guerra de métodos, mismos conceptos distinta notación, confusión ->
+            - 1994: Booch, Rumbaugh y Jacobson unifican métodos (UML)
+        - ## Ventajas de UML:
+            - Reúne los puntos fuertes de cada método
+            - Idea nuevas mejoras
+            - Proporciona estabilidad al mercado
+                - Proyectos basados en lenguaje maduro
+                - Aparición de potentes arramientas
+            - Eliminar la confusión de los usuarios
+        - ## Objetivos en el diseño de UML:
+            - Modelar sistemas de requisitos a artefactos ejecutables, utilizando técnicas de OO(Orientación a objetos).
+            - Cubrir cuestiones relacionadas con el tamaño de sistemas complejos y críticos.
+            - Utilizable por personas y máquinas
+            - Equilibrio entre expresabilidad y simplicidad
+        - ## Tipos de diagramas:
+            - ### Modelado de la estructura:
+                - Diagrama de clases
+            - ### Modelado de comportamiento:
+                - Diagrama de Transición de Estados.
+                - Diagrama de Secuencia.
+            - ### Matriz de trazabilidad
+    - ##  _Diseño UML_ :  
+        - ## Modelado de la estructura: -Diagrama de clases:
+            - ### Herencia: 
+                - Son jerarquías de especialización de clases.
+                - Se heredan las propiedades y operaciones
+                - ![](https://remnote-user-data.s3.amazonaws.com/J0JpUL9hZzabN4rRVjHnC-OpoZ_oitaRkLctJsWQvBo7BQDOlXMNEKGkW8bVIqs4F72sODhdJjl2RTME6cvSQPunHOXcyr8fp9eayMxkkmBBOYoXvk9vspc8KS_WgDO8.png)
+                - 
+                    - 
+                        - ![](https://remnote-user-data.s3.amazonaws.com/Gd03aMuCD6sNrxuGFN3B5h8D8T8737AIzk9UjdxstoH0qMQs5A5U7aDYnIXuT_IL3SFGu7c_OnpfJ-Npuvf94FV92DSC-iMh-xVGD7Ck-7vib6_-ETGbfTiM4dzDvuPr.png)
+                    - 
+                        - ![](https://remnote-user-data.s3.amazonaws.com/B5-et5uF5wpIcNYmAa81skksjVWYFMLf-tS9o8DPW2qkYc1TKxmqhgONTwfQOJ5s7gVGsS2OCWOpW0-yxZXKp8itae3-iuYPhP_m_cD-4RalgqmmzsgIZ-Yph1EFEl1r.png)
+            - ### Clases Abstractas:
+                - Una clase abstracta no puede instanciarse
+                - ![](https://remnote-user-data.s3.amazonaws.com/xjrN1-kA8mDufR-0rKXw3Zyw2rjxF8HvtT2EnTTbHBRCpjSNtq9_YCijl_3m-oApJUKciON46nmQV9EU2OjIGjx9w1VaavyGxkQfYLbWbBCicL1ODBMYBRGfZmVjRwSY.png)
+            - ### Herencia Múltiple:
+                - Una clase puede heredar de varias.
+                - No es posible en Java, pero sí en otros lenguajes como C++
+                - ![](https://remnote-user-data.s3.amazonaws.com/WlPOBf4fbvYZOU9oYn_uQjTKC_4Q4pRW2Do5a8OPFK39DjLnxj3nvOBwlvQ0WqM5GarRgqmyCAopZaWpLrRdTjo3avzpdglrYlfoJFeJFLJQd_0BeS3csih1EF__hjj1.png)
+            - ### Asociaciones:
+                - Los objetos no están aislados, si no que necesitan "conocerse", para poder invocar métodos de otros objetos.
+                    - Esta funcionalidad se implementa mediante colaboraciones de objetos.
+                - Conceptualmente se representa mediante un enlace (línea) entre dos clases.
+                    - En programación, esto significa que un objeto tiene una referencia a otro objeto (un atributo).
+                - **Multiplicidad**:
+                    - Con cuantos objetos de destino se puede relacionar un objeto fuente, y viceversa.
+                    - ![](https://remnote-user-data.s3.amazonaws.com/COqaOobI56jObs2-5qTDsrTOze_H6hZisF4koSUewW9JFgMbHRgdHaEaCBGlnLd1i6b2evTnc8rRFw-p66BmAgAzlq7X_OWVsBGEyr32QVjyHp9VHsq6g3GLIHEUILGq.png)
+                - **Roles**:
+                    - Nombres en los extremos de las asociaciones.
+                    - ![](https://remnote-user-data.s3.amazonaws.com/WC_5Gnb88GIEPBHJ8rZYLLxKBpXPzTgmnRfXD4mtucy3YKi1DRcDBKUg4S0B7bWUaqp7fWeLMKAFA1hjJdb4sHhhzpZUjCs3La7XjnA1J1qtKXsMb1UqXr9PX9BtnOci.png)
+                - **Navegación**:
+                    - Indica si un objeto puede acceder a otro.
+                    - ![](https://remnote-user-data.s3.amazonaws.com/kD27p_VfishgigkeXybzkXpk4rro8AWaTztHGMjGhZJToXqtNLKtM38FC3mtzCO2F5TfNTPW5ISKy8v5xYvLCVPmniR8bmlMBt41ELaJXzrXECm-ffDbYXLn0ETQMw4r.png)
+                - **Herencia de asociaciones:** 
+                    - Una asociación declarada de una clase base, se hereda en las clases hijas:
+                    - ![](https://remnote-user-data.s3.amazonaws.com/J0iZH0cGVKm9UPfjE38L7McOmGcGt0mdE0Cw-sadTindhKB4iMCW7r71PiSyfLrt9IJo9kWA2QWlP9_ihCfXndkVTz-7PMEKzzmg6oaBsPbW0sAmoKpzBJo-v4XeTw7C.png)
+                - **Composición y Agregación:** 
+                    - Relaciones con semánticas especiales:
+                        - $\blacklozenge$ **Composición**: La vida de la clase contenida debe coincidir con la vida de la clase contenedor (Composición fuerte). Los componentes constituyen parte del objeto compuesto. De esta forma, los componentes no pueden ser compartidos por varios objetos compuestos. El diamante negro se coloca en el extremo de la clase que representa el "todo" (el compuesto).
+                        - ![](https://remnote-user-data.s3.amazonaws.com/8CyOO8PdSjwOgdErufdVQdBgNq-6DvjFlwxLM4pdY1_VWxicR25_WYGrZxgsNDsrphfyc6nTLUtMWCsJ5cKJ_eKLti_KnURUeg_Y6XtVK3i0bXZC9nWkaptcch7gmK6f.png)
+                        - $\Diamond$ **Agregación**: La agregación es un tipo de asociación que indica que la clase es parte de otra (composición débil). Los componentes pueden ser compartidos por varios compuestos (de la misma asociación de agregación  o de agregaciones distintas). La destrucción del compuesto no conlleva la de los componentes, el diamante blanco se coloca en el extremo de la clase que representa el "todo" (el compuesto).
+                        - ![](https://remnote-user-data.s3.amazonaws.com/3zMCcbI5nfL18720JVLqjZibO9EgeKsbpTjRUlTJoN2IVrmHuIvvL_DVp26iIUo6Wqwtt-Zjc3leYurpJevmy3Vp99skzH2vE6cMvwsmbqCyBBIkWY_3ZWQWPSFLSRMz.png)
+        - ## Modelado de comportamiento:
+            - Un diagrama de clases nos dice la estructura de la aplicación, pero no el comportamiento:
+                - ¿Qué hace cada método?
+                    - **-**Pseudocódigo.
+                    - **-**Diagrama de actividad.
+                - ¿Cómo cambia el estado de un objeto ante invocaciones de métodos?
+                    - **-**Diagrama de transición de estados (statecharts).
+                - ¿Cómo colabora un conjunto de objetos para realizar una tarea?
+                    - **-**Diagramas de secuencia. 
+            - ## Diagrama de Transición de Estados:
+                - Van asociados a una clase.
+                - Describen cómo evoluciona cuando se le invocan métodos.
+                - Similar a un autómata finito.
+                - ![](https://remnote-user-data.s3.amazonaws.com/5kpHkiMRGvK76MjGQTwLMTs41Q6ORonjc2MzcSwZVsNSQ2kNq_MJLSG4eoQkjfNrLHd6W4YZVr6N1uODeVURIWxIvEDNbNDLX1n3gMJwin1iczhGda5Yg2qrEKXeGTKP.png)
+                - Estados jerárquicos.
+                - Guardas y acciones en las transiciones.
+                - ![](https://remnote-user-data.s3.amazonaws.com/pMOgRvRZiiAIeIz2VC1MQ5L1jLYP82LoGi7NsG9jVHT1zUP2G_YWk3HLLBrXc-hh7Yr9YHasrOO3ak20k1E-Et-Qnbphii95WuzKPBsMItGQxtWATEtX79t56yUdybL8.png)
+            - ## Diagrama de Secuencia:
+                - ![](https://remnote-user-data.s3.amazonaws.com/nnlihMSbmZnCuJ-tAEGBMRXECt2Cmb6nVF7U-psSIclxbAdk3VZ1uPmGcZO2OyJ0oMl7vVgNgzwGnbspBoC2ZqBRsOnsiWUKm_1DGC9tQ4fI97IgNRx2QmW5Vp_byfdD.png)
+                - ![](https://remnote-user-data.s3.amazonaws.com/vQL1yqci-BzEHRLhRyW3Uu2DCd1Bkfhoa-ngaQNZIVHvAHNuoXgwjDRgn-62IczHUaycKw6fDT3Fsp1i1k6b5MMh8XduN5147LSK8kS4_SaOoavMGdhoFhY--I9dM5j0.png)
+                - ## Diagrama de Secuencia (Operadores):
+                    - ![](https://remnote-user-data.s3.amazonaws.com/lRl4cBO6pczpfPV9g7DHmPYkeT7uM7tPJ_UGq-hlcYVkpW2T6aUbY9INWiaNN2YuTAO06V8ZwDkbjzVTKYKIN2K2wD7B9oRdBHAGW7k4sX1uilA3THFqpfC3Z87v6Ejx.png)
+                    - **Alternativa (alt): **Elección (mediante una guarda) de una interacción. Múltiples fragmentos, sólo se ejecuta el que cumple la guarda.
+                    - **Opción (opt): **Equivale a un operador alt con un solo fragmento. Equivalente al if en programación.
+                    - **Bucle (loop): **El fragmento se ejecuta múltiples veces. La guarda indica como realizar la iteración.
+                    - Existen otros como neg, par, critical, ref...
+        - ## Matriz de trazabilidad:
+            - Al finalizar el diseño (detallado) de la app, es necesario comprobar que todos los requisitos educidos en la fase de análisis tienen su correspondiente representación en el dominio de la solución a implementar:
+            - 
+                - 
+                    - 
+                - 
+                    - **Elementos funcionales** 
+            - 
+                - 
+                    - **Requisitos ** 
+                    - Requisito 1
+                    - Requisito1.1
+                    - ...
+                    - Requisito N
+                    - Requisito N.M
+                - 
+                    - Clase1Metodo1
+                    - X
+                    - 
+                    - 
+                    - X
+                - 
+                    - Clase1Metodo2
+                    - X
+                    - X
+                - 
+                    - ...
+                - 
+                    - ClNMetM
+                    - 
+                    - 
+                    - 
+                    - X
+                    - X
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+- T5.1.-Patrones de Diseño
+    - # Patrones de diseño
+        - Los patrones de diseño son soluciones habituales a problemas comunes en el diseño del software. Cada patrón es como un plano que se puede personalizar para resolver un problema de diseño particular en tu código.
+        - Estos pueden clasificarse según su propósito:
+            - Los **patrones creacionales **proporcionan mecanismos de creación de objetos que incrementan la flexibilidad u la reutilización del código existente.
+            - Los **patrones estructurales **explican cómo ensamblar objetos y clases en estructuras más grandes a la vez que se mantiene la flexibilidad y eficiencia de la estructura
+            - Los **patrones de comportamiento **se encargan de una comunicación efectiva y la asignación de responsabilidades entre objetos.
+    - #  _Patrones Creacionales:5_  
+        - ## Abstract Factory:
+            - Es un patrón de diseño de creación que te permite producir familias de objetos relacionados sin especificar sus clases concretas.
+            - **Estructura: **
+                - Los productos abstractos declaran interfaces para un conjunto de productos distintos pero relacionados que conforman una familia de productos.
+                - Los productos concretos son diversas implementaciones de productos abstractos, agrupados por variantes. Cada producto abstracto (silla/sofá) debe implementarse en todas las variantes dadas (Victoriana/Moderna).
+                - La interfaz Fábrica Abstracta declara un conjunto de métodos para crear cada uno de los productos abstractos.
+                - Las Fábricas Concretas implementan los métodos de creación de la Fábrica Abstracta. Cada fábrica concreta responde a una variante específica de los productos y crea solo esas variantes de productos.
+                - Aunque las Fábricas concretas instancian productos concretos, las firmas de sus métodos de creación deben devolver los productos abstractos correspondientes. Así el código de el cliente que utiliza la fábrica no se acopla a la variante concreta del producto que obtiene de una fábrica. El cliente puede trabajar con cualquier fabrica concreta/variante de producto, siempre que se comunique con sus objetos a través de interfaces abstractas.
+                - ![](https://remnote-user-data.s3.amazonaws.com/2_dmoXjOfugkaDmVUw8TsXnEZsLWnTmhZ_pOhDKN3QIiyPkTsmx2bvTo-CxK6_w3mbe97FYmQyMhT0acdQ3Le-733BmtRb9cTi5qUlOhBR5v5P99FFRGtgdAJdmk5FCB.png)
+            - Utiliza Abstract Factory cuando necesites trabajar con varias familias de productos relacionados, que no quieras que depena de las clases concretas de esos productos. Evita la creación de variantes incorrectas.
+            - Cuando una clase se encarga de varios tipos de productos, puede merecer la pena extraer sus métodos de fábrica en una clase fábrica independiente o en una implementación de Abstract Factory.
+        - ## Factory Method:
+            - El método de fábrica es un es un patrón que proporciona una interfaz para crear objetos de una superclase, pero permite a las subclases modificar el tipo de objetos que se crean.
+            - **Estructura:**
+                - El producto declara la interfaz, que es común a todos los objetos que pueden ser producidos por el creador y subclases.
+                - Los productos concretos son diferentes implementaciones de la interfaz producto.
+                - La clase Creador declara el método de fábrica que devuelve nuevos objetos producto. El tipo de retorno de este método ha de coincidir lo con interfaz del producto.
+                - Puedes declarar el método de fábrica como abstracto para forzar a todas las subclases a implementar sus propias versiones del método, como alternativa el método base puede devolver algún tipo de producto por defecto.
+                - El método de fábrica no tiene que crear nuevas instancias todo el tiempo, puede devolver objetos existentes de una caché u otro sitio...
+                - ![](https://remnote-user-data.s3.amazonaws.com/5aJ3rPUvpu_5p3zzTs9dIm7w5NkrocDkxFam10JclBmNaLjTSMd5VFYzcz71-Q3EVZoCnc1gQfGLh4YDxjJcChG6IsL4GtdsCwl1d5tE3CYCjwsgP0QREpkdcDLj7ntz.png)
+        - ## Builder:
+            - Permite construir objetos complejos paso a paso. El patrón permite producir diferentes tipos y representaciones de un objeto utilizando el mismo código de construcción.
+            - 
+        - ## Prototype:
+        - ## Singleton:
+    - #  _Patrones Estructurales:7_  
+        - ## Adapter:
+        - ## Bridge: 
+        - ## Composite:
+        - ## Decorator:
+        - ## Facade:
+        - ## Flyweight:
+        - ## Proxy:
+    - #  _Patrones de comportamiento:10_  
+        - ## Chain of responsibility:
+        - ## Command:
+        - ## Iterator:
+        - ## Mediator:
+        - ## Memento:
+        - ## Observer:
+        - ## State:
+        - ## Strategy:
+        - ## Template Method: 
+        - ## Visitor: 
+    - 

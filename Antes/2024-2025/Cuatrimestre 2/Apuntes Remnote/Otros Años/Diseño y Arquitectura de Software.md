@@ -1,0 +1,95 @@
+
+ç
+
+- Parte I: Conceptos y Arquitecturas de Sistemas Complejos
+    -  _**Tema 1. Concepto de Arquitectura Software y Principios de Diseño**_  
+        - **1.1. Concepto de Arquitectura Software** 
+            - Una AS representa la versión más moderna de diseño de un sistema software.
+            - Las arquitecturas representan el diseño de un sistema software desde varias perspectivas según los intereses de diversos usuarios (stakeholders).
+            - Definición Perry & Wolf, 1991:![](https://remnote-user-data.s3.amazonaws.com/P82qebWvb0HMCVdhVX1gEYk8OVLTKMGP4HEMZR-GMqZtC3OWUeU5s0Pb0wS4ty67jz8t-JZyh6vfBXVF-P6IfXxrXoM-Zb0XfHU_F4zxz1D-vRg1XX6jV6UoFNDCG1FE.png) 
+                - Componentes: Clasesn paquetes UML etc...
+                - Lógica: Decisiones que se toman para seleccionar un determinado componente o patrón de diseño.
+            - ![](https://remnote-user-data.s3.amazonaws.com/Imh6jbVmtQqlksDZTCJaCCLme2OrdH9yvknvrnRiO69673ZpVcL0tEvm_vwagiGhxtvr2uEJ2Lmwiof2hWB0XFDBuMQXiPcejuKZn-hbwl2tfzLfbZoyij-hRTRM_CY6.png) 
+            - Las AS tienen como misión identificar los requisitos funcionales y no funcionales.
+            - Las AS son la piedra angular de toda fase de diseño.
+            - Las AS deben estar siempre en linea con el código para evitar un "Architectural mismatch".
+            - Las AS se degradan durante las fases de evolución del sistema.
+            - Las Arquitecturas de Referencia son diseños software de alto nivel que describen las partes fundamentales de un conjunto de sistemas en un dominio particular, Ej: Partes estandar de un compilador, Modelo Osi, etc...
+                - Modelos de referencia: Son una división entre funcionalidad con flujo de datos entre las partes que lo componen. El objetivo de un modelo de referencia es establecer un conjunto de mejores prácticas para la construcción de un sistema con ciertos requisitos u objetivos.
+                - Arquitecturas de referencia: Son la asociación de un modelo de referencia sobre los componentes de software y los flujos de datos de esos componentes.
+            - De la idea antigua de un diseño por sistema pasamos al concepto de que una misma arquitectura sirve para un conjunto de sistemas similares.
+            - La Arquitectura del Producto software es una personalización de una arquitectura software para un producto determinado, basándose en la creación de las partes variables ("software variability") y el empleo de partes comunes reutilizables.![](https://remnote-user-data.s3.amazonaws.com/MvrT0cYx57sGeBFtF-oQNslNwQBDkUDrSBtuuXPrMPybSM0sr97yK5B4Elw3ovHgTS8N9jRUz3wrJ1wHPg4NnF2prL4I_X40U1RtMgeMUMvJj6t1ctub4etxA7FcvvTl.png) 
+        - **1.2. Principios de Diseño Software** 
+            - Separación de responsabilidades: Evitar solapamientos de funcionalidad.
+            - Hacer explícita la comunicación entre niveles.
+            - Realizar abstracciones para diseñar niveles con bajo grado de acoplamiento.
+            - Modularizar el diseño.
+            - Descomponer en subsistemas y módulos.
+            - Las arquitecturas se rigen por un conjunto de principios de diseño software que no se deben violar.
+            - Acoplamiento: Dependencias entre bloques o módulos de una arquitectura.
+            - Cohesión: Dependencias entre variables y métodos dentro de un componente o módulo.
+            - No duplicar la funcionalidad de componentes.
+            - No sobrecargar la funcionalidad de componentes.
+            - Definir interfaces y contratos entre componentes de manera clara.
+            - Un componente no tiene porque conocer los detalles internos de otro componente.
+            - Alta cohesión ⇒ Bajo acoplamiento.
+            - El bajo acoplamiento se consigue mediante la abstracción, separación de responsabilidades y ocultamiento de la información.
+            - Evitar dependencias circulares.
+            - Como conseguir "loose coupling":
+                - Principio de Hollywood: hace referencia a la frase "no me llames, yo te llamaré" es el eslogan de la famosa industria de Hollywood. En el desarrollo de software es similar, los módulos de bajo nivel no deberían llamar a los módulos de alto nivel, sino que los módulos de alto nivel deben llamar a los módulos de bajo nivel.  
+                - Dependency inversion of control: Las clases o módulos no dependerán directamente de otras clases específicas, sino que lo harán de abstracciones de estas como interfaces.
+                - Dependecy injection: Consiste en pasar las dependencias de una clase como parámetros en lugar de crearlas dentro de una clase. Esto permite que las dependencias sean proporcionadas por otra clase o incluso otro framework como un código cliente
+        - **1.3. Patrones y Estilos** 
+            - La construcción de AS se basa en los patrones de diseño y estilos arquitectónicos ya definidos.
+            - Un patrón de diseño es una solución de diseño para un problema recurrente en un contexto determinado.
+            - Existen diversas categorías de patrones de diseño:
+                - Creacionales: Se utilizan para crear objetos de manera específica. (Factory Method, Singleton, etc...).
+                - Estructurales: Se utilizan para organizar y conectar las clases y objetos de un sistema software de manera eficiente. (Adapter, Bridge, composite, etc...).
+                - Comportamiento: Describen como las clases y objetos interactúan y se comunican entre si para llevar a cabo un comportamiento específico. (Chain of responsibility, command, interpreter, etc...).
+                    - Diferencia entre patrones estructurales y de comportamiento ( Por lo tanto, los patrones estructurales se enfocan en la organización y conexión de las clases y objetos, mientras que los patrones de comportamiento se enfocan en la comunicación y colaboración entre las clases y objetos. ).
+                - Concurrencia: se utilizan para manejar la ejecución de varios hilos o procesos de manera simultanea en un sistema, estos patrones se enfocan en como los hilos comparten recursos y se coordinan entre si. (Monitor, future, Thread Pool, etc...).
+                - Interacción: Son como los patrones de comportamiento pero específicamente dirigidos a sistemas distribuidos.
+                - WorkFlow: Estos patrones se enfocan en la forma en que los objetos interactúan para lograr un resultado final, describiendo el flujo de trabajo en términos de tareas, eventos, y roles de los objetos. Estos patrones suelen utilizarse en aplicaciones que manejan procesos complejos o para coordinar el trabajo en una aplicación distribuida.  
+            - Un estilo arquitectónico se diferencia de un patrón en el tamaño, los estilos involucran subsistemas, mientras que los patrones solo son un conjunto más reducido de clases.
+            - Existen varios tipos de estilos arquitectónicos: 
+                - Modelo Vista Controlador:
+                - Capas:
+                - Filtros y Tuberías:
+                - Cliente/Servidor:
+                - Pizarra:
+                - Máquina virtual:
+                - Basados en componentes:
+                - Message bus:
+                - Peer-to-Peer:
+                - SOA y Micro-Servicios:
+            - Arquitectura Heterogénea: ![](https://remnote-user-data.s3.amazonaws.com/32mXEau0C0BbDL5SJVDRkMBlzWHyKbVt-2dBafCpzuX0DzB8fx-EnXIEbl4L41acJv8xGvXlO9DwfiIaXrRebmnZ2Nzq_a2BCMaEmTmYTkDLJxfwI5qYo-QOBj3PQYZj.png) 
+        - **1.4. Estándares** 
+            - ISO 42010: Práctica recomendada para descripción de sistemas intensivos software.
+                - Mantiene el modelo de vistas arquitectónicas.
+                - Incluye como novedad soporte para lógica y decisiones de diseño.
+                - Conceptos y terminología:
+                    - Architecture
+                    - Architecting
+                    - Architecture decision:
+                    - Architecture rationale
+                    - Architecture view
+                    - Architecture viewpoint
+                    - 
+                - La parte novedosa del nuevo estándar que incluye elementos específicos en el modelo para capturar y representar las decisiones de diseño. De esta manera se equipara al mismo nivel una clase UML que la captura de una decisión de diseño en el formato que sea.  
+        - **CONCLUSIONES** :
+            - El proceso de construcción de arquitecturas software es iterativo, basado en la experiencia del arquitecto software y utiliza patrones de diseño y estilos arquitectónicos.
+            - Las AS son una combinación heterogénea de patrones y estilos en los que suele predominar uno de ellos.
+            - Las vistas se utilizan para documentar una arquitectura que interesa a diferentes tipos de usuarios.
+            - Existen arquitecturas específicas de dominios (Automoción-AUTOSTAR)
+            - Actualmente las AS son consideradas como un conjunto de decisiones de diseño.
+            - El nuevo estándar ISO 42010 refleja por primera vez la importancia de las decisiones de diseño en AS.
+    -  _**Tema 2. Arquitecturas de Sistemas de Complejos en la Industria 4.0**_  
+        - **2.1. Ingeniería de sistemas** 
+    - 
+    - 
+- Parte II:
+    - 
+    - 
+    - 
+    - 
+- Parte III: 

@@ -1,0 +1,387 @@
+- Bases de Datos
+    - 
+    - 
+- Diseño y Arquitectura de Software
+    - Parte I: Conceptos y Arquitecturas de Sistemas Complejos
+        -  _**Tema 1. Concepto de Arquitectura Software y Principios de Diseño**_  
+            - **1.1. Concepto de Arquitectura Software** 
+                - Una AS representa la versión más moderna de diseño de un sistema software.
+                - Las arquitecturas representan el diseño de un sistema software desde varias perspectivas según los intereses de diversos usuarios (stakeholders).
+                - Definición Perry & Wolf, 1991:![](https://remnote-user-data.s3.amazonaws.com/P82qebWvb0HMCVdhVX1gEYk8OVLTKMGP4HEMZR-GMqZtC3OWUeU5s0Pb0wS4ty67jz8t-JZyh6vfBXVF-P6IfXxrXoM-Zb0XfHU_F4zxz1D-vRg1XX6jV6UoFNDCG1FE.png) 
+                    - Componentes: Clasesn paquetes UML etc...
+                    - Lógica: Decisiones que se toman para seleccionar un determinado componente o patrón de diseño.
+                - ![](https://remnote-user-data.s3.amazonaws.com/Imh6jbVmtQqlksDZTCJaCCLme2OrdH9yvknvrnRiO69673ZpVcL0tEvm_vwagiGhxtvr2uEJ2Lmwiof2hWB0XFDBuMQXiPcejuKZn-hbwl2tfzLfbZoyij-hRTRM_CY6.png) 
+                - Las AS tienen como misión identificar los requisitos funcionales y no funcionales.
+                - Las AS son la piedra angular de toda fase de diseño.
+                - Las AS deben estar siempre en linea con el código para evitar un "Architectural mismatch".
+                - Las AS se degradan durante las fases de evolución del sistema.
+                - Las Arquitecturas de Referencia son diseños software de alto nivel que describen las partes fundamentales de un conjunto de sistemas en un dominio particular, Ej: Partes estandar de un compilador, Modelo Osi, etc...
+                    - Modelos de referencia: Son una división entre funcionalidad con flujo de datos entre las partes que lo componen. El objetivo de un modelo de referencia es establecer un conjunto de mejores prácticas para la construcción de un sistema con ciertos requisitos u objetivos.
+                    - Arquitecturas de referencia: Son la asociación de un modelo de referencia sobre los componentes de software y los flujos de datos de esos componentes.
+                - De la idea antigua de un diseño por sistema pasamos al concepto de que una misma arquitectura sirve para un conjunto de sistemas similares.
+                - La Arquitectura del Producto software es una personalización de una arquitectura software para un producto determinado, basándose en la creación de las partes variables ("software variability") y el empleo de partes comunes reutilizables.![](https://remnote-user-data.s3.amazonaws.com/MvrT0cYx57sGeBFtF-oQNslNwQBDkUDrSBtuuXPrMPybSM0sr97yK5B4Elw3ovHgTS8N9jRUz3wrJ1wHPg4NnF2prL4I_X40U1RtMgeMUMvJj6t1ctub4etxA7FcvvTl.png) 
+            - **1.2. Principios de Diseño Software** 
+                - Separación de responsabilidades: Evitar solapamientos de funcionalidad.
+                - Hacer explícita la comunicación entre niveles.
+                - Realizar abstracciones para diseñar niveles con bajo grado de acoplamiento.
+                - Modularizar el diseño.
+                - Descomponer en subsistemas y módulos.
+                - Las arquitecturas se rigen por un conjunto de principios de diseño software que no se deben violar.
+                - Acoplamiento: Dependencias entre bloques o módulos de una arquitectura.
+                - Cohesión: Dependencias entre variables y métodos dentro de un componente o módulo.
+                - No duplicar la funcionalidad de componentes.
+                - No sobrecargar la funcionalidad de componentes.
+                - Definir interfaces y contratos entre componentes de manera clara.
+                - Un componente no tiene porque conocer los detalles internos de otro componente.
+                - Alta cohesión ⇒ Bajo acoplamiento.
+                - El bajo acoplamiento se consigue mediante la abstracción, separación de responsabilidades y ocultamiento de la información.
+                - Evitar dependencias circulares.
+                - Como conseguir "loose coupling":
+                    - Principio de Hollywood: hace referencia a la frase "no me llames, yo te llamaré" es el eslogan de la famosa industria de Hollywood. En el desarrollo de software es similar, los módulos de bajo nivel no deberían llamar a los módulos de alto nivel, sino que los módulos de alto nivel deben llamar a los módulos de bajo nivel.  
+                    - Dependency inversion of control: Las clases o módulos no dependerán directamente de otras clases específicas, sino que lo harán de abstracciones de estas como interfaces.
+                    - Dependecy injection: Consiste en pasar las dependencias de una clase como parámetros en lugar de crearlas dentro de una clase. Esto permite que las dependencias sean proporcionadas por otra clase o incluso otro framework como un código cliente
+            - **1.3. Patrones y Estilos** 
+                - La construcción de AS se basa en los patrones de diseño y estilos arquitectónicos ya definidos.
+                - Un patrón de diseño es una solución de diseño para un problema recurrente en un contexto determinado.
+                - Existen diversas categorías de patrones de diseño:
+                    - Creacionales: Se utilizan para crear objetos de manera específica. (Factory Method, Singleton, etc...).
+                    - Estructurales: Se utilizan para organizar y conectar las clases y objetos de un sistema software de manera eficiente. (Adapter, Bridge, composite, etc...).
+                    - Comportamiento: Describen como las clases y objetos interactúan y se comunican entre si para llevar a cabo un comportamiento específico. (Chain of responsibility, command, interpreter, etc...).
+                        - Diferencia entre patrones estructurales y de comportamiento ( Por lo tanto, los patrones estructurales se enfocan en la organización y conexión de las clases y objetos, mientras que los patrones de comportamiento se enfocan en la comunicación y colaboración entre las clases y objetos. ).
+                    - Concurrencia: se utilizan para manejar la ejecución de varios hilos o procesos de manera simultanea en un sistema, estos patrones se enfocan en como los hilos comparten recursos y se coordinan entre si. (Monitor, future, Thread Pool, etc...).
+                    - Interacción: Son como los patrones de comportamiento pero específicamente dirigidos a sistemas distribuidos.
+                    - WorkFlow: Estos patrones se enfocan en la forma en que los objetos interactúan para lograr un resultado final, describiendo el flujo de trabajo en términos de tareas, eventos, y roles de los objetos. Estos patrones suelen utilizarse en aplicaciones que manejan procesos complejos o para coordinar el trabajo en una aplicación distribuida.  
+                - Un estilo arquitectónico se diferencia de un patrón en el tamaño, los estilos involucran subsistemas, mientras que los patrones solo son un conjunto más reducido de clases.
+                - Existen varios tipos de estilos arquitectónicos: 
+                    - Modelo Vista Controlador:
+                    - Capas:
+                    - Filtros y Tuberías:
+                    - Cliente/Servidor:
+                    - Pizarra:
+                    - Máquina virtual:
+                    - Basados en componentes:
+                    - Message bus:
+                    - Peer-to-Peer:
+                    - SOA y Micro-Servicios:
+                - Arquitectura Heterogénea: ![](https://remnote-user-data.s3.amazonaws.com/32mXEau0C0BbDL5SJVDRkMBlzWHyKbVt-2dBafCpzuX0DzB8fx-EnXIEbl4L41acJv8xGvXlO9DwfiIaXrRebmnZ2Nzq_a2BCMaEmTmYTkDLJxfwI5qYo-QOBj3PQYZj.png) 
+            - **1.4. Estándares** 
+                - ISO 42010: Práctica recomendada para descripción de sistemas intensivos software.
+                    - Mantiene el modelo de vistas arquitectónicas.
+                    - Incluye como novedad soporte para lógica y decisiones de diseño.
+                    - Conceptos y terminología:
+                        - Architecture
+                        - Architecting
+                        - Architecture decision:
+                        - Architecture rationale
+                        - Architecture view
+                        - Architecture viewpoint
+                        - 
+                    - La parte novedosa del nuevo estándar que incluye elementos específicos en el modelo para capturar y representar las decisiones de diseño. De esta manera se equipara al mismo nivel una clase UML que la captura de una decisión de diseño en el formato que sea.  
+            - **CONCLUSIONES** :
+                - El proceso de construcción de arquitecturas software es iterativo, basado en la experiencia del arquitecto software y utiliza patrones de diseño y estilos arquitectónicos.
+                - Las AS son una combinación heterogénea de patrones y estilos en los que suele predominar uno de ellos.
+                - Las vistas se utilizan para documentar una arquitectura que interesa a diferentes tipos de usuarios.
+                - Existen arquitecturas específicas de dominios (Automoción-AUTOSTAR)
+                - Actualmente las AS son consideradas como un conjunto de decisiones de diseño.
+                - El nuevo estándar ISO 42010 refleja por primera vez la importancia de las decisiones de diseño en AS.
+        -  _**Tema 2. Arquitecturas de Sistemas de Complejos en la Industria 4.0**_  
+            - **2.1. Ingeniería de sistemas** 
+        - 
+        - 
+    - Parte II:
+        - 
+        - 
+        - 
+        - 
+    - Parte III: 
+- Metodología de la Programación
+    - TEMA 1 ESPECIFICACIÓN FORMAL
+        -  _**1.1. Introducción**_  
+            - Cuando se diseña un algoritmo se especifica y luego se implementa.
+            - Especificación: Detallar cuidadosamente el problema a resolver
+                - Destino:
+                    - Usuarios: La especificación debe recoger todo lo necesario para el uso correcto del algoritmo.
+                    - Implementador: Recoge los requisitos que cualquier implementación válida debe recoger.
+                - El lenguaje natural no permite la precisión requerida si no se sacrifica la brevedad, lo cual es imprescindible en las especificaciones.
+        -  _**1.2. Lógica de proposiciones**_  
+            - El punto (.) significa tal que.
+            - Sintáxis:
+                - ![](https://remnote-user-data.s3.amazonaws.com/4yILLNTsaCEFZkINGzeXJfPX6AAvUMSWj9us7OKmBxcND0EBuqfEErza-7qas75_lCF1BzwXhMD2nQu_DVygZtbXhvX7COrKnKZvi4oR0zV5LLdcXH3baaVprUbIupXR.png) 
+            - Semántica:
+                - Asigna a cada sentencia un valor de verdad, proponiendo diferentes valores concretos a cada variable proposicional.
+                    - Tablas de verdad: Presenta todas las interpretaciones posibles de las variables y les otorga valores de verdad a cada interpretación.
+                    - ![](https://remnote-user-data.s3.amazonaws.com/1l5Cy2zhtj_mqASATcNBDff_VEac8Bf5EdFbqG43azKY6lZIVMe6xWHqZOKV6NrDyCGwEwPPG74EsibeTN6bQa5YdvJmZaVwDzgTmzYE-DXR0EuZYk0ya6JT9tZX28q5.png) 
+        -  _**1.3. Lógica de predicados**_  
+            - Sintaxis:
+                - Extiende la lógica de proposiciones y permite hablar de objetos y relaciones entre ellos.
+                - Las letras mayúsculas P, Q, R designan predicados, las minúsculas a, b,...,x,... designan variables.
+                - ![](https://remnote-user-data.s3.amazonaws.com/u6gBBYNWBN-EWmmzrFo-UvLRtMpAUMD56alVwGixMUgSlUCCiCL--4_jRr0oMdCVwvc8fQ0mCTGWuaDCH-gJjUU5sT8Dpx5yrNkRNnU9L6wX7oolfGkybf7RFbBBOkVE.png) 
+                - Variables libres: corresponden a variables del programa
+                - Variables mudas o ligadas: Van asociadas a un tipo de cuantificador, ayudan a describir aspectos sobre el dominio.
+                - ![](https://remnote-user-data.s3.amazonaws.com/ok6Vf4PRmi_4dbm2EDku47fsDMUoQlEJyvXKYSz3Rgo4ngCFvb6hVSJdoN07KI_7obnNEIjHGygCqGmOXzEgNppEZtq-w1jwIKvR3CmllMbrSMaBSc9P1LSMPTEiYOcK.png) 
+                - ![](https://remnote-user-data.s3.amazonaws.com/_Grouk5-GqDFB4Lg0ujatITKTCgBPhsgq3kAinbAM9MW8GZ_7HDtJopfaMrlZdcFurrrQlQaI7uk3IDC-xZ1EGSQt-c8KtJz62JlDRBufVtCF5f6t7clBNqRBF5bBWKf.png) 
+                - Las variables ligadas las nombraremos con letras griegas: ![](https://remnote-user-data.s3.amazonaws.com/qQSX4mhrvbl8LQyIJriD1A9cm8Y0RpIrUcDSi-jYXke_xnZ6-ipInW4g8KlxiyLiCKbq30j53pQOgdkZEUCtE0V7LCgslciRmZJu5C_DkQeyzyjST2ZrPyyfpAmdOBPP.png) 
+                - ![](https://remnote-user-data.s3.amazonaws.com/aDQ6S9gl6Qdwd4BgQy7iL5ENvNXwdDk7e6uGcIoy-mvmjRiZTt2lGgStl7QCXbljwaSlQ8G2EvXtSLgbOEG_uF73owAOsUS7MUkcSmWteNfNHfIZClCPlRZD1iJ0aH8L.png) 
+            - Semántica:
+                - El valor de verdad de un predicado depende de los valores de las variables libres
+                - ![](https://remnote-user-data.s3.amazonaws.com/ljkOdLBciGdgyR9nJZgz_2ztFwtqJA7Ap9mpm3U1W9zwtD8qW1zCOvQu03XLx68Ib3TUEWxb4rZnXU0kyaxd7i7DQ98dExKBHrteQvdgx4UDLyKNLRCw0GVMEZjey9-X.png) 
+                - ![](https://remnote-user-data.s3.amazonaws.com/WdwLriJlg-_O8afJMw_fCqgJFxmZO4-errcy8PUPfDAC7gRNDofVj3SqWyjx3IGraT9AJTh-8SKlpTvmDuEGYxgcrN0GvkEfjmkcC_y47enL9SiABqmuovzAWMWetR_g.png) 
+                - ![](https://remnote-user-data.s3.amazonaws.com/2JuUeVv_YZ_DOlEy_BgYqjWMKD2MKGrx9t0tpJOrD0pSPiznnbvQ1k0ps9nObcAXgRFrl-zAoVb4MRmdKauiOyOW8TPOQSbcjK1kWfcfB5Sa0rBXEDCxfWEYxsKdFoD1.png) 
+                - Repasar las leyes de equivalencia en el aula virtual.
+        -  _**1.4. Especificación con predicados**_  
+            - Un predicado P puede definirse a partir del conjunto de estados que lo satisfacen
+            - **No te has enterado de nada** 
+        -  _**1.5. Especificación pre/post**_  
+        - 
+        - 
+        - 
+        - 
+- Diseño y análisis de algoritmos
+    - Tema 1 EFICIENCIA ALGORÍTMICA
+        -  _**1.1. Comparación de algoritmos**_  
+            - Un algoritmo es eficiente si utiliza pocos recursos.
+            - El recurso más habitual para medir la eficiencia es el tiempo de ejecución.
+            - Para comparar la eficiencia en el tiempo hay que tener en cuenta:
+                - Los datos de entrada
+                - Calidad de código generado por el compilador
+                - Rapidez del procesador
+                - Complejidad intrínseca del algoritmo
+            - Principio de invarianza:
+                - Dado un algoritmo (pseudocódigo) el tiempo de ejecución del mismo no va a cambiar en más de una constante multiplicativa según el lenguaje que utilices. (el crecimiento no será exponencial)
+                    - ![](https://remnote-user-data.s3.amazonaws.com/gSHGFlyMLr83jBj8HcmTJ-swJJsY3PE6nfF247B_zZdIv663iPP_XW_CEYZFjmsRFm3YnUUOt8tWeWXljC3OCEk0ldj9_gMsk54clSDLQ2nSXWWUCAZ-Bd-cwAGCnbUZ.png) 
+            - Estudio teórico de la eficiencia:
+                - Estima el comportamiento de un algoritmo
+                - Independiente del ordenador
+                - No requiere ejecución
+            - Complejidad algorítmica:
+                - Determina la eficiencia de un algoritmo
+                - No proporciona medidas absolutas, si no relativas al tamaño del problema
+                - Es independiente del ordenador en el que se ejecute el algoritmo
+                - T(n): Tiempo empleado en ejecutar el algoritmo con una entrada de tamaño n, no se mide en unidades de tiempo, sino en pasos (instrucciones)
+        -  _**1.2. Ejemplos de complejidad de tiempo**_  
+            - ![](https://remnote-user-data.s3.amazonaws.com/scxnETKa-WUu66Iew9cLzMiV3vWDE_WcKNOwqQ1ewJkWJNBs5sQGEUNpUyfy6nhSzjASWw1dcmphQvIIRva-w7N8mLOkSnLXVtUc-JLevfMOnNUHzd9KtGiH46nyFABG.png) 
+                - Obviamos en el analisis de la complejidad los pasos k que se encuentran dentro del bucle, ya que n predominará ante k (se explica despues)
+            - ![](https://remnote-user-data.s3.amazonaws.com/HNKpG8IluwvSgdC6d8CujPjqNzNbT2EQ2imyyGHePJdqhjCAcMjZUjMi7_dRHNh08Ivf8JymW_Yia7JtKh9G2nyClpSEoiUk5xdqvnranVBQz9dKhrycepXx-Kn63SLv.png) 
+            - ![](https://remnote-user-data.s3.amazonaws.com/-RNhHwXYuev5OcYRtm2JGS1vFjGZQhSu8yMYmV-IIvzNy-ljWQ6hJ1v2JHtvELu9a4uK9SM81Lut9lyYOaRNya1xPmq7wmNglYMw9VU9-xgHcdavBV5jhYpbEu1dVwRQ.png) 
+                - Al tener dos condiciones hay varios casos de ejecución posible
+        -  _**1.3. Medidas asintóticas**_  
+            - Tmax(n): Complejidad en el caso peor. Tiempo máximo para una entrada de tamaño n
+            - Tmin(n):  Complejidad del caso mejor. Tiempo mínimo para n
+            - Tmed(n): Complejidad en el caso medio
+            - Se suele utilizar Tmax(n)
+            - ![](https://remnote-user-data.s3.amazonaws.com/h2_tSW_NUYkjk35cYhmlbTiy2hYQe-ud6g8jNmjYpvvBN0l94iUq6AQxZt3a-pdcTly498SoLl39QajsiBOLDZxFWLYbAIJMpv7RvT4vgEhs5XgntyBZ1x8SEynY47cl.png) 
+                - theta se utiliza solo para cuando existen algoritmos en los que el mejor caso y el peor son el mismo (bucle for)
+            -  _**1.3.1 Medidas asintóticas. Notación 0.**_  
+                - Dada una función f es una función g que crezca tan rápido como f. (se busca una función sencilla que describa como crece la función de complejidad del algoritmo).
+                - Al conjunto de esas funciones se les llama cota superior de f y O(f)
+                - ![](https://remnote-user-data.s3.amazonaws.com/wV5RfTG0Dv0t513IRDjB4ahoggcSPFez0NOJDMB_Wk4lRtNDP35hih2uJkS2TnsWC5gK-Fm5mldU0M2MirCS2NK8ftOiqnmx4fgq3g1JunR09slRM26q8jbMhX_tUVca.png) 
+                - No poner las constantes **O(2n)** ⇒ **O(n)**. Con las bases de los logaritmos también pasa, ya que puedes cambiar de base multiplicando por una constante.
+                - Cuando no sabes cual el el n dominante, por ejemplo raiz de n o logaritmo de n, se utiliza la regla de l´Hopital, se divide uno por otro y si tiende a infinito el de arriba es el dominante si tiende a 0 lo es el de abajo.
+        -  _**1.4. Cálculo de la eficiencia**_  
+            - Sentencias simples: Tiempo constante
+            - Bloques de sentencias: Suma de los tiempos y aplicar la regla del máximo
+            - Sentencias condicionales: Máximo entre bloque if y el else.
+            - Bucles: 
+                - Suma de los t de cada iteración (incluido la evaluación de la condición)
+                - Iteraciones idénticas ⇒ número de iteraciones multiplicado por el tiempo de una iteración
+            - Llamada a funciones: Complejidad de la propia función
+            - Funciones recursivas:
+                - Método de sustitución
+                - Árbol de recursividad
+                - Expansión de recurrencias
+                - Ecuación característica
+            - ![](https://remnote-user-data.s3.amazonaws.com/he_OKEAh_VKkSKSEICsF2RvMWLqAirlZemRgrMbzC54_kgeTzAiS73nLLDj5n1zrsk3tepXsP1WTtqkY9E_tGVsY_zIlwWt6UKAQFCyQmP7NaNj1uEvGtsh67P5nJWPU.png) 
+            - ![](https://remnote-user-data.s3.amazonaws.com/Bdr8IbtvHmrbCzW9A-Ui1bC4godjDXmEVZZptYD6WXd-D35A5GPnfKjXIQKKfqlMGojFxXRVqOAbqlXurihgR5LOkwhQ0egognCJ-fwkaz8KdIH4IRZZbAdOWVxeNL8s.png) 
+        - 
+    - Tema 2 EXPLORACIÓN DE GRAFOS
+        - **COMPLETAR** 
+        -  _**2.1. Definiciones**_  
+            - Una arista une dos nodos
+            - Un arco es una arista que tiene dirección
+            - En un grafo no dirigido, conexo y fuertemente conexo son lo mismo, en un grafo dirigido, no tiene porqué
+            - ![](https://remnote-user-data.s3.amazonaws.com/p6cz1g3xJqQye4iWLfIEp6TD8VnvhJ2e2eJgozjf5w-WQrNSVP9xbjiXFIpUKcqd3HiaGosxQoH2h5aoR_ENvkgWjvOThsl2RAyU8bo5HICTpIfngPBkQ1FeI4I0sBaQ.png) 
+            - Si el grafo es muy denso es mejor la matriz de adyacencia ,si es muy disperso (pocas aristas) es mejor la lista de adyacencias.
+            - ![](https://remnote-user-data.s3.amazonaws.com/YYiXYvMI88CtyyMS5IMZ5MccTk9l_jM6Ep840NyBrrQb6FnAkbKoWcG7RzwHMrJPtGQrCjjPVkw7RkmOTzm4pxWUK38y3B98H5u2AbmB-Kwyy59BVZO2ZH8XdDZjK_lP.png) 
+        -  _**2.2. Recorrido en profundidad**_  
+            - 
+        -  _**2.3. Ordenación topológica**_  
+            - Para la ordenación topológica se necesita un grafo dirigido y acíclico
+            - puedes colocar un nodo cuando todos los que le apuntan ya están colocados
+        -  _**2.4. Calculo de puntos de articulación**_  
+            - repasarlo
+            - 
+            - 
+            - 
+        - PARA LEER EL INPUT DEL JUEZ PONER line=int(input().strip()) para leer un solo numero
+        - para leer varios n,m = map(nt(input().strip().split()))
+        - 
+    - Tema 3 ALGORITMOS VORACES
+        -  _**3.1. Introducción**_  
+            - 
+        - 
+    - 
+- Programación Orientada a Objetos
+    - 
+    - Características de la POO
+        - Procedimental(conjunto) < Orientado a objetos (superconjunto)
+        - Objeto
+            - Un objeto es un componente software que puede recibir mensajes, tiene identidad, un estado y un comportamiento definido.
+        - 
+        - 
+- Fundamentos Físicos de la Informática
+    - 
+- Fundamentos de la Web
+    - Bloque I. Introducción a la web
+        -  _**Tema 1. Introducción a la World Wide Web**_ ** ** 
+            - **1.1. Internet ** 
+                - Según la RAE es una red informática descentralizada formada por la conexión directa entre computadores mediante el protocolo de comunicación TCP/IP
+                -  _1.1.1. Origen de Internet_  
+                    - Internet surgió a principios de los 60, gracias a las investigaciones de UK y EEUU sobre la teoría de conmutación de paquetes ⇒ Interconexiones en red flexibles
+                    - Primera conexión documentada en el 62, la primera gran conexión en el 65 (Massachusetts-California)
+                    - ARPANET (1969) red interna agencia defensa EEUU, llego a convertirse en internet.
+                    - Primera versión del protocolo TCP/IP (1978)
+                -  _1.1.2 Capas y protocolos de Internet. Modelo TCP/IP_  
+                    - El software que gestiona Internet es complejo, por lo que se divide en capas que proporcionan un conjunto de servicios
+                    - Cada capa se comunica con las de su nivel siguiendo protocolos
+                    - Los modelos de capas más empleados son:
+                        - Modelo OSI: 7 capas (Aplicación, presentación, sesión, transporte, red, enlace de datos y física) ⇒ Modelo teórico de referencia.
+                        - Modelo TCP/IP: Es el conjunto de protocolos en el que se basa la comunicación en Internet. 4 capas (Aplicación, transporte, Internet y acceso a red) ⇒Estándar de facto.
+                -  _1.1.3 DNS_ 
+                    - Un dominio es un nombre que identifica una web. El DNS es capaz de asociar cada nombre a una IP ⇒ Actúa como un diccionario para conseguir la IP, que será necesária para enviar paquetes de datos con una petición HTTP.
+                    - Hay varios cientos de dominios de nivel superior, cada uno abarca muchos host, estos pueden ser geográficos (.es, .fr, ...) o genéricos (.com, .net, .org, ...). Cada uno de estos dominios se divide en subdominios que se pueden dividir sucesivamente en otros, en este árbol, las hojas representan dominios que no tienen subdominios. Estos pueden representar un host o a una organización de cientos de hosts bajo el mismo nombre.
+                - 
+            - **1.2. Historia de la World Wide Web** 
+                - En 1945 se comenzó a desarrollar una interfaz que permitiría el acceso a información distribuida.
+                - En 1960 nace NLS, el primer sistema de navegación hipertextual.
+                - 1965 Se acuña la palabra hipertexto, referencia a documentos conectados entre si mediante enlaces hipertextuales.
+                - En 1989 Se creo la Web, un sistema de documentos de hipertexto enlazados y accesibles desde Internet. Los elementos fundamentales de la web son HTML (Lenguaje de marcado), el protocolo HTTP (Para la transferencia de documentos de hipertexto), el primer navegador web y un sistema de identificadores únicos, los URI.
+                -  _1.2.1 Historia de los navegadores web_  
+                    - Los navegadores web interpretan el código HTML de una página y muestran su contenido.
+                    - Primera herramienta de navegación hipertextual fue WorldWideWeb.
+                    - En 1993 fue lanzado Mosaic, que supuso un punto de inflexión popularizando la WWW.
+                - 
+            - **1.3. Organizaciones y estándares web** 
+                - La conexión entre redes es posible gracias al uso de protocolos comunes que permiten establecer dominios e IPs unicas, y a la coordinación de los protocolos TCP/IP de forma común a todos los usuarios.
+                - De realizar estas tareas se encargan varias organizaciones mediante la estandarización de librerías y protocolos empleados. Ejemplos:
+                    - ICANN (Internet Corporation for Assigned Names and Numbers): Administran la asignación de IPs y dominios de primer nivel.
+                    - ISOC (Internet Society): Creación de nuevos modelos estándar.
+                    - IETF (Internet Engineering Task Force): Producción documentos técnicos HQ.
+                    - Consorcio Web: Comunidad internacional que desarrolla estándares para el crecimiento de la web a largo plazo.
+                    - Web Standerds Project: Asociación de desarrolladores que promueve el uso de estándares.
+                    - WHATWG (Web Hypertext Application Technology Working Group): Desarrollan especificaciónes HTML.
+                    - 
+                -  _1.3.1. Estándares web_  
+                    - Los estándares son conjuntos de reglas o características establecidas que certifican aspectos como su calidad, fiabilidad o eficiencia... Estos se clasifican en formales (iure ⇒ ISO, ANSI o IEEE) o de facto.
+                    - Ejemplos de estándares web:
+                        - HTTP: Protocolo de transferencia de hipertexto definido por el RFC 1945 y el RFC 2616.
+                        - XML: Lenguaje de marcado extensible definido por el consorcio web.
+                        - HTML: Lenguaje de etiquetado de hipertexto, RFC 1866 (HTML 2.0), consorcio web (HTML 4.01), actualmente es un estándar vivo (modificado constantemente).
+                        - 
+                - Estándar URI 
+                    - Las URI (Uniform Resource Identifier), son estándares para identificar recursos en la web, estas pueden ser URL (Uniform resource locator) si especifican como localizar el recurso, o URN (Uniform Resource Name) si solo especifican un identificador. Las URI constan de 5 partes todas opcionales que son:
+                        - Esquema: terminado por el caracter** ******:****** , indica el tipo de contenido y en algunos casos el protocolo de acceso al recurso.**
+                        - Autoridad: precedida por los caracteres **//**, son un elemento jerárquico que identifica la autoridad de nombres, esto es: quien decide la estructura y los valores de las siguientes partes del URI. Puede incluir una identificación del usuario o del proceso mediente el numero de puerto (esquema://usuario:contraseña@host:puerto).
+                        - Ruta: se corresponde con la ruta donde se almacenan los recursos en el host.
+                        - Consulta: Precedida del caracter **?**, contiene información con estructura no jerárquica (en forma de pares clave = valor) que identifican el recurso.
+                        - Fragmento: precedido por el caracter **#** y que permite identificar una parte del recurso principal o una vista de representación de este.
+                - Cuando se omite alguna de estas partes, toman un valor defecto que depende de la herramienta en que se ubique. Los URI solo se pueden formar por un subconjunto de los caracteres ASCII. Actualmente se está implantando la extensión de los IRI (Internationalized Resource Identifier) que permite emplear Unicode.
+                - 
+        -  _**Tema 2. Introducción a los lenguajes de marcado**_  (2021)
+            - Un lenguaje de marcado codifica un documento incorporando etiquetas en un formato sintácticamente diferenciado del de los datos (HTML es el más común).
+            - **2.1. Origen de los lenguajes de marcado: SGML** 
+                - El origen de los lenguajes de marcado está en la industria tipográfica, basado en las anotaciones de los editores para dar instrucciones a los tipógrafos. Estas aportaban información sobre la estructura del contenido y su presentación.
+                - Existen 3 tipos de lenguajes de marcado: 
+                    - Procedimentales: Empleados para describir operaciones tipográficas o de presentación de los datos.
+                    - Estructurales: Describen la estructura lógica de un documento.
+                    - Híbridos: Combinan los dos tipos anteriores.
+            - En la década de los 60 se comenzó a separar la presentación de la estructura.
+            - IBM impulsó la creación del lenguaje GML, que derivo en SGML, el origen de los lenguajes de marca actuales. De este último derivan dos lenguajes principales: HTML y XML.
+            - **2.2. Principales lenguajes de marcado** 
+                - SGML(Standard Generalized Markup Language): Es un metalenguaje que permite definir lenguajes de marcado, destaca por su reutilización sencilla, integridad y control de datos.
+                - HTML(HyperText Markup Language): Está definido en SGML, su objetivo es presentar la información estética. Es intuitivo y muy popular pese a no ser un metalenguaje (Tiene un numero limitado de etiquetas) y no ser capaz de tratar la información dinámica.
+                - XML(eXtensible Markup Lenguage): Es una forma restringida de SGML optimizada para Internet. Surgió en 1996 con el objetivo de hacer un lenguaje estructurado, extensible, que se pudiera validar y que permitiera la transmisión de información realmente estructurada. Simple de usar, se  basa en etiquetas, soporta unicode, es orientado a la semántica de los datos y no a su representación, permite fácil intercambio de información entre aplicaciones y es extensible.
+                - XHTML (eXtensible HyperText Markup Language): Una versión de HTML compatible con la sintaxis de XML. Es una versión más limpia y estricta de HTML.
+                - 
+        -  _**Tema 2. Tecnologías y arquitecturas web**_  (2022)
+            - **2.1. Desarrollo web hoy** 
+                - Varios tipos de webs dependiendo de como usan las tecnologías cliente y servidor:
+                    - Página web (Servidor estático): El servidor sirve contenido almacenado en el disco duro.
+                        - Hay páginas web
+                            -  _Páginas web estáticas:_  
+                                - El navegador hace una petición al servidor mediante HTTP
+                                - El servidor transforma la URL a ruta en disco
+                                - El servidor devuelve el fichero de disco al navegador
+                                - El navegador visualiza la pagina HTML con estilos CSS e imágenes (Sin JS)
+                                - Cuando el usuario hace click en un enlace, el navegador repite el proceso con la url del link y recarga por completo la página web
+                                - Se utilizan librerías de componentes CSS (Bibliotecas de componentes predefinidos, diseño responsible (adaptado a móviles) y distribución de componentes)
+                            -  _Páginas web interactivas:_  
+                                - El contenido de la página es estático, pero el cliente es dinámico porque las páginas incluyen código JS que se ejecuta en el navegador.
+                                - JS se usa para incluir efectos gráficos que no se pueden implementar con CSS, mostrar u ocultar info según los elementos seleccionados, menús desplegables y buscadores.
+                                - Se implementan con HTML, CSS y JavaScript.
+                                - Para implementar interactividad en JS se suele usar la librería jQuery.
+                                - 
+                    - Aplicación web (Servidor dinámico):El servidor sirve contenido generado mediante código.
+                        - Hay aplicaciones web
+                            -  _Aplicaciones web Con cliente estático:_  
+                                - Cuando el servidor web recibe una petición dependiendo de la url: devuelve contenido del disco o ejecuta código para generar el recurso dinámicamente.
+                                - Cuando se ejecuta código normalmente se hacen consultas a una base de datos.
+                                - Si el usuario pulsa un link se recarga la página al completo.
+                            -  _Aplicaciones web con JS:_  
+                                -  _Aplicaciones web Interactivas:_  
+                                    - El JS se utiliza para crear efectos gráficos (como las páginas interactivas).S
+                                    - También se utilizan para validaciones de datos en formularios.![](https://remnote-user-data.s3.amazonaws.com/5WOPF_x3v5ZbvUyqjAxhRC7rB8cNHH_AD9wN3NMUK34v__TMrWlsY4cXLxdU9qXpyPgSiz8ZppXr_MJSTiYMTgFJJOT4O_QRA-o_aK3kE7TMvnRQNXEJKPScfSLvk4Dm.png) 
+                                    - La gran mayoría de apps web son de este tipo, y suelen utilizar jQuery.
+                                -  _Aplicaciones web Con AJAX:_  
+                                    - AJAX(Asynchronous JavaScript And XML).
+                                    - JavaScript se usa para no tener que recargar la página al pulsar un link.
+                                    - Peticiones al server en segundo plano (oculta al usuario).
+                                    - Cuando llega al navegador el resultado de la petición JS actualiza solo las partes necesarias.
+                                    - ![](https://remnote-user-data.s3.amazonaws.com/AigESe2lfJ0ZNWU-gUJzcub3_zKj_gRofv_3BTl4_9Vdm9XWZ0RNCrHmI6pRcXehSS1XiJETAjKdar_E8MGPCCUuR4R3xT0doeQk1k921LPiEDPE8vQGJBEnsnV7erlS.png) ![](https://remnote-user-data.s3.amazonaws.com/Kpz341raacALSjOIp-7gjPuTyqd0vOeAO1xFIS5UQbnnyip1Fc0dS1o82zcwS_O8s4YrMXzFRISD395e4_jIChGYLmNHQclvFcKcUHk5yqCtJEJ5541xVg6RmIkTaekw.png) 
+                                    - Usar AJAX en una página mejora la experiencia de usuario.
+                                    - Se suelen implementar con jQuery.
+                                    - Se puede usar para simular el efecto de scroll infinito y evitar los botones de anterior/siguiente. (por ejemplo google images frente a búsqueda de google normal donde si hay flecha de siguiente y no scroll infinito).
+                                    - Se puede enviar retroalimentación al usuario antes de enviar el formulario.![](https://remnote-user-data.s3.amazonaws.com/ha3awRPjay-SkJtXNJ-rAqu-FJ4pa4IzrzOdFq6tt9E4xQ9BgA_Yx0jkGzCrWk8rTwL88Ww6ucPgVwq4DkSwW5S2mN-hhenLvOck7Ec_qqYFQcE_24WP7Z5b-_yOw04Y.png) 
+                                    - Cuando el código JS hace peticiones el servidor puede devolver:![](https://remnote-user-data.s3.amazonaws.com/N05o_Vlp6hHXJQaz9hCGOIAbcPR03I5a1mIBkZnuHynzn6a6oJ4U6fsLTHoLN9NX4vVB3QxGDWkTuESkUAXMH_wTsLlRB-LcYemPJVjwIHLWcQEuRMdMV57EYhl8oN_7.png) 
+                                    - La información se representa en formato JSON:![](https://remnote-user-data.s3.amazonaws.com/nWupfFerW_yAdipA3ovSrj3Kz4zLwoIg_c-ie4J9xIwDu7YwtucbSAA75qadiPAWBlvSNiNsvNfm6V61Oi1DuL1ut5om_JOcDAMzJRZLd4rEKaXrnMgO8bmbF1MTs2dk.png) 
+                                -  _Aplicaciones web SPA:_  
+                                    - SPA(Single Page Aplication).
+                                    - La técnica AJAX se puede llevar al extremos y que toda la información del servidor sea obtenida con JS en segundo plano, haciendo peticiones a la API REST y obteniendo información en JSON.
+                                    - La aplicación web es un conjunto de recursos HTML, CSS y JS que se cargan en el navegador al acceder a la URL principal. (Gmail y google maps) (NO REFRESH).![](https://remnote-user-data.s3.amazonaws.com/bqCmyFqlvLr43JrO2v0Eo1Kq5IFwCHkPUhFPXtGg2b5eIquymL1ggOOmij7N0Gf2n7bLVEvmqWwSfcvRVdkgRQh6ipX_j4HINWGwGRbeneWMoqZTbBpXsINlTI9o-6GI.png) 
+                                    - En el lado cliente son aplicaciones autónomas que se comunican con el servidor con una API REST o WebSockets.
+                                    - Son las mas complejas de implementar.
+                                    - Experiencia interactiva y dinámica.
+                                    - Las tecnologías para su desarrollo son diferentes al resto.
+            - **2.2 Desarrollo de webs SPA** 
+                - Consultar apuntes
+        -  _**Tema 3. Lenguajes de marcado XML y JSON**_  
+            - **3.1. XML** 
+                - Es un lenguaje utilizado para el almacenamiento e intercambio de datos estructurados entre distintas plataformas.
+                - Se actualiza constantemente.
+                - Estandarizado por consorcio WWW (W3C).
+                - Es un metalenguaje, utilizado para definir dialectos XML.
+                - Está formado por elementos que vienen delimitados por las etiquetas inicial y final
+                - Los atributos son parte de los elementos XML. n elemento pede tener varios atributos. Estos proporcionan más información acerca de elementos, definen sus propiedades. Se conforman por un par nombre-valor.![](https://remnote-user-data.s3.amazonaws.com/xP7SG0zn5yRkclNHcXiB1uwt1OuLugY-g9NsGCzCm0nwj8cLjjG77z2cgGp5WChCc8goYsEIB21wS3j4k-NmAF9Ilo-z9yvuCyaNdaqd-gzlaJbdB_-SMZulfkiZdRDg.png) 
+                - ![](https://remnote-user-data.s3.amazonaws.com/lnnv370IbZLnLq_jUbPWvsN3JuemyU6NvU9A7SI3kRghFDXVFsIf7Y4LnsrR0FK03QorhPM_DNMoQDYs4ZEpozz-NluyQDrsUJQoERX3-zAgivNTB_W-oPCxALHh5BC7.png) 
+            - **3.2. Elemento XML** 
+                - Se pueden hacer estructuras complejas:![](https://remnote-user-data.s3.amazonaws.com/4gjeAqoafKWL9jYuQedXpq_cCe57LvbH2cgrUTNn6z_WqUw-jz2csLTxpDeBCr1CgGDpJp8H6OiNEc2SO6vuFa7GfWwCrdbwlQc-cLIcPZQOoyv4QByh_DoVTGxSZaEm.png) 
+            - **3.3. Atributo XML** 
+                - No está permitido repetir nombres de atributos.
+                - Atributos especiales:
+                    - id: asigna un identificador único.
+                    - lang: especifica el idioma en el que se escribe.
+                    - versión y encoding: al comienzo del documento y comienza por <? y acaba por ?> :![](https://remnote-user-data.s3.amazonaws.com/DTP5yqF7U7IxBJzi_ZTuKl4FcvMLN8DJ5xnha_KNb5P7OCRZfHDn7QUSHo6sGsuHyrfptm5Oq_qfE8_YlL1CgF9_P7H3jwpp29Sd4gkDJ_mjQ53_-6QXg0FfM9GyNQxg.png) 
+                    - standalone: toma los valores yes o no, y este indica si el documento depende de otros (EJ: Document Type Definition).
+                - Comentarios XML: <!‒ ‒>
+            - **3.4. JSON** 
+                - JavaScript Object Notation (.json).
+                - Formato ligero de texto para el intercambio de datos.
+                - Independiente del lenguaje de programación.
+                - Se desea evitar construir parsers (analizadores) cada vez que queremos intercambiar un mensaje con el servidor.
+                - XML no suele ser la opción más adecuada por ser demasiado "pesada".
+            - **3.5. Representación en JSON** 
+                - Value: string, número, booleano, objeto o array.
+    - Bloque II. Tecnologías de cliente web
+        - 
+        -  _**Tema 4. HTML **_  
+    - 
+    - 

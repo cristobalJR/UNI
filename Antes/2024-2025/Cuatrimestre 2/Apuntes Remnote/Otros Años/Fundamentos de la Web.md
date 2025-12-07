@@ -1,0 +1,154 @@
+- Bloque I. Introducción a la web
+    -  _**Tema 1. Introducción a la World Wide Web**_ ** ** 
+        - **1.1. Internet ** 
+            - Según la RAE es una red informática descentralizada formada por la conexión directa entre computadores mediante el protocolo de comunicación TCP/IP
+            -  _1.1.1. Origen de Internet_  
+                - Internet surgió a principios de los 60, gracias a las investigaciones de UK y EEUU sobre la teoría de conmutación de paquetes ⇒ Interconexiones en red flexibles
+                - Primera conexión documentada en el 62, la primera gran conexión en el 65 (Massachusetts-California)
+                - ARPANET (1969) red interna agencia defensa EEUU, llego a convertirse en internet.
+                - Primera versión del protocolo TCP/IP (1978)
+            -  _1.1.2 Capas y protocolos de Internet. Modelo TCP/IP_  
+                - El software que gestiona Internet es complejo, por lo que se divide en capas que proporcionan un conjunto de servicios
+                - Cada capa se comunica con las de su nivel siguiendo protocolos
+                - Los modelos de capas más empleados son:
+                    - Modelo OSI: 7 capas (Aplicación, presentación, sesión, transporte, red, enlace de datos y física) ⇒ Modelo teórico de referencia.
+                    - Modelo TCP/IP: Es el conjunto de protocolos en el que se basa la comunicación en Internet. 4 capas (Aplicación, transporte, Internet y acceso a red) ⇒Estándar de facto.
+            -  _1.1.3 DNS_ 
+                - Un dominio es un nombre que identifica una web. El DNS es capaz de asociar cada nombre a una IP ⇒ Actúa como un diccionario para conseguir la IP, que será necesária para enviar paquetes de datos con una petición HTTP.
+                - Hay varios cientos de dominios de nivel superior, cada uno abarca muchos host, estos pueden ser geográficos (.es, .fr, ...) o genéricos (.com, .net, .org, ...). Cada uno de estos dominios se divide en subdominios que se pueden dividir sucesivamente en otros, en este árbol, las hojas representan dominios que no tienen subdominios. Estos pueden representar un host o a una organización de cientos de hosts bajo el mismo nombre.
+            - 
+        - **1.2. Historia de la World Wide Web** 
+            - En 1945 se comenzó a desarrollar una interfaz que permitiría el acceso a información distribuida.
+            - En 1960 nace NLS, el primer sistema de navegación hipertextual.
+            - 1965 Se acuña la palabra hipertexto, referencia a documentos conectados entre si mediante enlaces hipertextuales.
+            - En 1989 Se creo la Web, un sistema de documentos de hipertexto enlazados y accesibles desde Internet. Los elementos fundamentales de la web son HTML (Lenguaje de marcado), el protocolo HTTP (Para la transferencia de documentos de hipertexto), el primer navegador web y un sistema de identificadores únicos, los URI.
+            -  _1.2.1 Historia de los navegadores web_  
+                - Los navegadores web interpretan el código HTML de una página y muestran su contenido.
+                - Primera herramienta de navegación hipertextual fue WorldWideWeb.
+                - En 1993 fue lanzado Mosaic, que supuso un punto de inflexión popularizando la WWW.
+            - 
+        - **1.3. Organizaciones y estándares web** 
+            - La conexión entre redes es posible gracias al uso de protocolos comunes que permiten establecer dominios e IPs unicas, y a la coordinación de los protocolos TCP/IP de forma común a todos los usuarios.
+            - De realizar estas tareas se encargan varias organizaciones mediante la estandarización de librerías y protocolos empleados. Ejemplos:
+                - ICANN (Internet Corporation for Assigned Names and Numbers): Administran la asignación de IPs y dominios de primer nivel.
+                - ISOC (Internet Society): Creación de nuevos modelos estándar.
+                - IETF (Internet Engineering Task Force): Producción documentos técnicos HQ.
+                - Consorcio Web: Comunidad internacional que desarrolla estándares para el crecimiento de la web a largo plazo.
+                - Web Standerds Project: Asociación de desarrolladores que promueve el uso de estándares.
+                - WHATWG (Web Hypertext Application Technology Working Group): Desarrollan especificaciónes HTML.
+                - 
+            -  _1.3.1. Estándares web_  
+                - Los estándares son conjuntos de reglas o características establecidas que certifican aspectos como su calidad, fiabilidad o eficiencia... Estos se clasifican en formales (iure ⇒ ISO, ANSI o IEEE) o de facto.
+                - Ejemplos de estándares web:
+                    - HTTP: Protocolo de transferencia de hipertexto definido por el RFC 1945 y el RFC 2616.
+                    - XML: Lenguaje de marcado extensible definido por el consorcio web.
+                    - HTML: Lenguaje de etiquetado de hipertexto, RFC 1866 (HTML 2.0), consorcio web (HTML 4.01), actualmente es un estándar vivo (modificado constantemente).
+                    - 
+            - Estándar URI 
+                - Las URI (Uniform Resource Identifier), son estándares para identificar recursos en la web, estas pueden ser URL (Uniform resource locator) si especifican como localizar el recurso, o URN (Uniform Resource Name) si solo especifican un identificador. Las URI constan de 5 partes todas opcionales que son:
+                    - Esquema: terminado por el caracter** ******:****** , indica el tipo de contenido y en algunos casos el protocolo de acceso al recurso.**
+                    - Autoridad: precedida por los caracteres **//**, son un elemento jerárquico que identifica la autoridad de nombres, esto es: quien decide la estructura y los valores de las siguientes partes del URI. Puede incluir una identificación del usuario o del proceso mediente el numero de puerto (esquema://usuario:contraseña@host:puerto).
+                    - Ruta: se corresponde con la ruta donde se almacenan los recursos en el host.
+                    - Consulta: Precedida del caracter **?**, contiene información con estructura no jerárquica (en forma de pares clave = valor) que identifican el recurso.
+                    - Fragmento: precedido por el caracter **#** y que permite identificar una parte del recurso principal o una vista de representación de este.
+            - Cuando se omite alguna de estas partes, toman un valor defecto que depende de la herramienta en que se ubique. Los URI solo se pueden formar por un subconjunto de los caracteres ASCII. Actualmente se está implantando la extensión de los IRI (Internationalized Resource Identifier) que permite emplear Unicode.
+            - 
+    -  _**Tema 2. Introducción a los lenguajes de marcado**_  (2021)
+        - Un lenguaje de marcado codifica un documento incorporando etiquetas en un formato sintácticamente diferenciado del de los datos (HTML es el más común).
+        - **2.1. Origen de los lenguajes de marcado: SGML** 
+            - El origen de los lenguajes de marcado está en la industria tipográfica, basado en las anotaciones de los editores para dar instrucciones a los tipógrafos. Estas aportaban información sobre la estructura del contenido y su presentación.
+            - Existen 3 tipos de lenguajes de marcado: 
+                - Procedimentales: Empleados para describir operaciones tipográficas o de presentación de los datos.
+                - Estructurales: Describen la estructura lógica de un documento.
+                - Híbridos: Combinan los dos tipos anteriores.
+        - En la década de los 60 se comenzó a separar la presentación de la estructura.
+        - IBM impulsó la creación del lenguaje GML, que derivo en SGML, el origen de los lenguajes de marca actuales. De este último derivan dos lenguajes principales: HTML y XML.
+        - **2.2. Principales lenguajes de marcado** 
+            - SGML(Standard Generalized Markup Language): Es un metalenguaje que permite definir lenguajes de marcado, destaca por su reutilización sencilla, integridad y control de datos.
+            - HTML(HyperText Markup Language): Está definido en SGML, su objetivo es presentar la información estética. Es intuitivo y muy popular pese a no ser un metalenguaje (Tiene un numero limitado de etiquetas) y no ser capaz de tratar la información dinámica.
+            - XML(eXtensible Markup Lenguage): Es una forma restringida de SGML optimizada para Internet. Surgió en 1996 con el objetivo de hacer un lenguaje estructurado, extensible, que se pudiera validar y que permitiera la transmisión de información realmente estructurada. Simple de usar, se  basa en etiquetas, soporta unicode, es orientado a la semántica de los datos y no a su representación, permite fácil intercambio de información entre aplicaciones y es extensible.
+            - XHTML (eXtensible HyperText Markup Language): Una versión de HTML compatible con la sintaxis de XML. Es una versión más limpia y estricta de HTML.
+            - 
+    -  _**Tema 2. Tecnologías y arquitecturas web**_  (2022)
+        - **2.1. Desarrollo web hoy** 
+            - Varios tipos de webs dependiendo de como usan las tecnologías cliente y servidor:
+                - Página web (Servidor estático): El servidor sirve contenido almacenado en el disco duro.
+                    - Hay páginas web
+                        -  _Páginas web estáticas:_  
+                            - El navegador hace una petición al servidor mediante HTTP
+                            - El servidor transforma la URL a ruta en disco
+                            - El servidor devuelve el fichero de disco al navegador
+                            - El navegador visualiza la pagina HTML con estilos CSS e imágenes (Sin JS)
+                            - Cuando el usuario hace click en un enlace, el navegador repite el proceso con la url del link y recarga por completo la página web
+                            - Se utilizan librerías de componentes CSS (Bibliotecas de componentes predefinidos, diseño responsible (adaptado a móviles) y distribución de componentes)
+                        -  _Páginas web interactivas:_  
+                            - El contenido de la página es estático, pero el cliente es dinámico porque las páginas incluyen código JS que se ejecuta en el navegador.
+                            - JS se usa para incluir efectos gráficos que no se pueden implementar con CSS, mostrar u ocultar info según los elementos seleccionados, menús desplegables y buscadores.
+                            - Se implementan con HTML, CSS y JavaScript.
+                            - Para implementar interactividad en JS se suele usar la librería jQuery.
+                            - 
+                - Aplicación web (Servidor dinámico):El servidor sirve contenido generado mediante código.
+                    - Hay aplicaciones web
+                        -  _Aplicaciones web Con cliente estático:_  
+                            - Cuando el servidor web recibe una petición dependiendo de la url: devuelve contenido del disco o ejecuta código para generar el recurso dinámicamente.
+                            - Cuando se ejecuta código normalmente se hacen consultas a una base de datos.
+                            - Si el usuario pulsa un link se recarga la página al completo.
+                        -  _Aplicaciones web con JS:_  
+                            -  _Aplicaciones web Interactivas:_  
+                                - El JS se utiliza para crear efectos gráficos (como las páginas interactivas).S
+                                - También se utilizan para validaciones de datos en formularios.![](https://remnote-user-data.s3.amazonaws.com/5WOPF_x3v5ZbvUyqjAxhRC7rB8cNHH_AD9wN3NMUK34v__TMrWlsY4cXLxdU9qXpyPgSiz8ZppXr_MJSTiYMTgFJJOT4O_QRA-o_aK3kE7TMvnRQNXEJKPScfSLvk4Dm.png) 
+                                - La gran mayoría de apps web son de este tipo, y suelen utilizar jQuery.
+                            -  _Aplicaciones web Con AJAX:_  
+                                - AJAX(Asynchronous JavaScript And XML).
+                                - JavaScript se usa para no tener que recargar la página al pulsar un link.
+                                - Peticiones al server en segundo plano (oculta al usuario).
+                                - Cuando llega al navegador el resultado de la petición JS actualiza solo las partes necesarias.
+                                - ![](https://remnote-user-data.s3.amazonaws.com/AigESe2lfJ0ZNWU-gUJzcub3_zKj_gRofv_3BTl4_9Vdm9XWZ0RNCrHmI6pRcXehSS1XiJETAjKdar_E8MGPCCUuR4R3xT0doeQk1k921LPiEDPE8vQGJBEnsnV7erlS.png) ![](https://remnote-user-data.s3.amazonaws.com/Kpz341raacALSjOIp-7gjPuTyqd0vOeAO1xFIS5UQbnnyip1Fc0dS1o82zcwS_O8s4YrMXzFRISD395e4_jIChGYLmNHQclvFcKcUHk5yqCtJEJ5541xVg6RmIkTaekw.png) 
+                                - Usar AJAX en una página mejora la experiencia de usuario.
+                                - Se suelen implementar con jQuery.
+                                - Se puede usar para simular el efecto de scroll infinito y evitar los botones de anterior/siguiente. (por ejemplo google images frente a búsqueda de google normal donde si hay flecha de siguiente y no scroll infinito).
+                                - Se puede enviar retroalimentación al usuario antes de enviar el formulario.![](https://remnote-user-data.s3.amazonaws.com/ha3awRPjay-SkJtXNJ-rAqu-FJ4pa4IzrzOdFq6tt9E4xQ9BgA_Yx0jkGzCrWk8rTwL88Ww6ucPgVwq4DkSwW5S2mN-hhenLvOck7Ec_qqYFQcE_24WP7Z5b-_yOw04Y.png) 
+                                - Cuando el código JS hace peticiones el servidor puede devolver:![](https://remnote-user-data.s3.amazonaws.com/N05o_Vlp6hHXJQaz9hCGOIAbcPR03I5a1mIBkZnuHynzn6a6oJ4U6fsLTHoLN9NX4vVB3QxGDWkTuESkUAXMH_wTsLlRB-LcYemPJVjwIHLWcQEuRMdMV57EYhl8oN_7.png) 
+                                - La información se representa en formato JSON:![](https://remnote-user-data.s3.amazonaws.com/nWupfFerW_yAdipA3ovSrj3Kz4zLwoIg_c-ie4J9xIwDu7YwtucbSAA75qadiPAWBlvSNiNsvNfm6V61Oi1DuL1ut5om_JOcDAMzJRZLd4rEKaXrnMgO8bmbF1MTs2dk.png) 
+                            -  _Aplicaciones web SPA:_  
+                                - SPA(Single Page Aplication).
+                                - La técnica AJAX se puede llevar al extremos y que toda la información del servidor sea obtenida con JS en segundo plano, haciendo peticiones a la API REST y obteniendo información en JSON.
+                                - La aplicación web es un conjunto de recursos HTML, CSS y JS que se cargan en el navegador al acceder a la URL principal. (Gmail y google maps) (NO REFRESH).![](https://remnote-user-data.s3.amazonaws.com/bqCmyFqlvLr43JrO2v0Eo1Kq5IFwCHkPUhFPXtGg2b5eIquymL1ggOOmij7N0Gf2n7bLVEvmqWwSfcvRVdkgRQh6ipX_j4HINWGwGRbeneWMoqZTbBpXsINlTI9o-6GI.png) 
+                                - En el lado cliente son aplicaciones autónomas que se comunican con el servidor con una API REST o WebSockets.
+                                - Son las mas complejas de implementar.
+                                - Experiencia interactiva y dinámica.
+                                - Las tecnologías para su desarrollo son diferentes al resto.
+        - **2.2 Desarrollo de webs SPA** 
+            - Consultar apuntes
+    -  _**Tema 3. Lenguajes de marcado XML y JSON**_  
+        - **3.1. XML** 
+            - Es un lenguaje utilizado para el almacenamiento e intercambio de datos estructurados entre distintas plataformas.
+            - Se actualiza constantemente.
+            - Estandarizado por consorcio WWW (W3C).
+            - Es un metalenguaje, utilizado para definir dialectos XML.
+            - Está formado por elementos que vienen delimitados por las etiquetas inicial y final
+            - Los atributos son parte de los elementos XML. n elemento pede tener varios atributos. Estos proporcionan más información acerca de elementos, definen sus propiedades. Se conforman por un par nombre-valor.![](https://remnote-user-data.s3.amazonaws.com/xP7SG0zn5yRkclNHcXiB1uwt1OuLugY-g9NsGCzCm0nwj8cLjjG77z2cgGp5WChCc8goYsEIB21wS3j4k-NmAF9Ilo-z9yvuCyaNdaqd-gzlaJbdB_-SMZulfkiZdRDg.png) 
+            - ![](https://remnote-user-data.s3.amazonaws.com/lnnv370IbZLnLq_jUbPWvsN3JuemyU6NvU9A7SI3kRghFDXVFsIf7Y4LnsrR0FK03QorhPM_DNMoQDYs4ZEpozz-NluyQDrsUJQoERX3-zAgivNTB_W-oPCxALHh5BC7.png) 
+        - **3.2. Elemento XML** 
+            - Se pueden hacer estructuras complejas:![](https://remnote-user-data.s3.amazonaws.com/4gjeAqoafKWL9jYuQedXpq_cCe57LvbH2cgrUTNn6z_WqUw-jz2csLTxpDeBCr1CgGDpJp8H6OiNEc2SO6vuFa7GfWwCrdbwlQc-cLIcPZQOoyv4QByh_DoVTGxSZaEm.png) 
+        - **3.3. Atributo XML** 
+            - No está permitido repetir nombres de atributos.
+            - Atributos especiales:
+                - id: asigna un identificador único.
+                - lang: especifica el idioma en el que se escribe.
+                - versión y encoding: al comienzo del documento y comienza por <? y acaba por ?> :![](https://remnote-user-data.s3.amazonaws.com/DTP5yqF7U7IxBJzi_ZTuKl4FcvMLN8DJ5xnha_KNb5P7OCRZfHDn7QUSHo6sGsuHyrfptm5Oq_qfE8_YlL1CgF9_P7H3jwpp29Sd4gkDJ_mjQ53_-6QXg0FfM9GyNQxg.png) 
+                - standalone: toma los valores yes o no, y este indica si el documento depende de otros (EJ: Document Type Definition).
+            - Comentarios XML: <!‒ ‒>
+        - **3.4. JSON** 
+            - JavaScript Object Notation (.json).
+            - Formato ligero de texto para el intercambio de datos.
+            - Independiente del lenguaje de programación.
+            - Se desea evitar construir parsers (analizadores) cada vez que queremos intercambiar un mensaje con el servidor.
+            - XML no suele ser la opción más adecuada por ser demasiado "pesada".
+        - **3.5. Representación en JSON** 
+            - Value: string, número, booleano, objeto o array.
+- Bloque II. Tecnologías de cliente web
+    - 
+    -  _**Tema 4. HTML **_  
+
+

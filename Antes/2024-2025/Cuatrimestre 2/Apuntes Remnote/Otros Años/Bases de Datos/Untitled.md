@@ -1,0 +1,2 @@
+[[Drawing 2025-08-26 20.54.41.excalidraw]]
+ 

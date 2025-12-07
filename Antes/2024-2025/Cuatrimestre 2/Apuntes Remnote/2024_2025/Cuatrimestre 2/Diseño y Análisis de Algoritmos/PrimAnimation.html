@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmo de Prim - Visualización Interactiva</title>
+    <style>
+        /*
+        --- ADAPTACIÓN GENERAL: ANCHO DEL RECIPIENTE, SCROLL VERTICAL AUTOMÁTICO ---
+        1. `width: 100%` para que el cuerpo ocupe todo el ancho disponible.
+        2. `overflow-x: hidden;` ESENCIAL para asegurar que NO haya scroll horizontal.
+        3. `overflow-y: auto;` para que aparezca el scroll vertical SOLO si el contenido es más alto.
+        4. `box-sizing: border-box` se mantiene para un mejor control del layout.
+        */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%; /* Ocupa el 100% del ancho del iframe */
+            /* No especificamos una altura fija para html/body, permitiendo que crezcan */
+            overflow-x: hidden; /* ¡Importante! Evita el scroll horizontal */
+            overflow-y: auto;   /* Permite scroll vertical si el contenido es más alto que el iframe */
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
+            min-height: 100%; /* Asegura una altura mínima del 100%, pero puede crecer */
+        }
+
+        /*
+        --- CONTAINER ADAPTATION ---
+        Se mantiene el ancho flexible y el margen automático.
+        */
+        .container {
+            width: calc(100% - 20px); /* Ocupa casi todo el ancho, dejando un padding de 10px a los lados */
+            margin: 10px auto; /* Pequeño margen superior/inferior, centrado horizontalmente */
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden; /* Importante para que los border-radius se apliquen correctamente a los hijos */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /*
+        --- HEADER ADAPTATION ---
+        Se adapta al ancho con padding y font-size relativos a 'vw'.
+        */
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 2vh 2vw;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5vw;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            white-space: nowrap;
+            min-font-size: 1.5em;
+        }
+        .header p {
+            font-size: 1.2vw;
+            min-font-size: 0.8em;
+        }
+
+        /*
+        --- MAIN CONTENT ADAPTATION ---
+        Mantiene el diseño flexbox para la distribución horizontal.
+        */
+        .main-content {
+            display: flex;
+            /* Se podría añadir un min-height si la sección necesita una altura mínima visual */
+        }
+
+        /*
+        --- GRAPH AND INFO PANEL ADAPTATION ---
+        Mantiene la distribución proporcional de ancho.
+        */
+        .graph-container {
+            flex: 2;
+            padding: 2vh 2vw;
+            background: #f8f9ff;
+            display: flex;
+            flex-direction: column;
+            /* La altura se adapta al contenido del SVG y controles */
+        }
+
+        .info-panel {
+            flex: 1;
+            padding: 2vh 2vw;
+            background: #fff;
+            border-left: 3px solid #4facfe;
+            overflow-y: auto; /* Permite scroll vertical SOLO en este panel si el contenido es muy largo */
+        }
+
+        /*
+        --- SVG GRAPH ADAPTATION ---
+        El SVG tomará el 100% del ancho y 100% del alto de su contenedor (`graph-container`).
+        Asegúrate de que las coordenadas de los nodos estén dentro del rango de tamaño esperado para el SVG.
+        */
+        #graph {
+            width: 100%;
+            height: 500px; /* Aquí le damos una altura explícita al SVG para que tenga un tamaño fijo */
+            /* Si quieres que el SVG se estire para llenar el espacio disponible verticalmente,
+               entonces el graph-container debería tener una altura explícita o un flex-grow.
+               Para este escenario, una altura fija puede ser más predecible si el contenido varía.
+            */
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: white;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /*
+        --- CONTROLES Y LEYENDA ADAPTACIÓN ---
+        Mantienen su comportamiento de adaptación al ancho.
+        */
+        .controls {
+            margin-top: 1.5vh;
+            text-align: center;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1.2vh 2vw;
+            margin: 0.5vh 0.5vw;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.6vw;
+            min-font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .step-info, .algorithm-info, .mst-info {
+            padding: 1.5vh 1.5vw;
+            border-radius: 10px;
+            margin-bottom: 1.5vh;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            font-size: 1.1vw;
+            min-font-size: 13px;
+        }
+
+        .step-title {
+            font-size: 1.8vw;
+            min-font-size: 16px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 1vh;
+        }
+
+        .algorithm-info {
+            background: #e8f4fd;
+            border-left: 5px solid #4facfe;
+        }
+
+        .mst-info {
+            background: #e8f5e8;
+            border-left: 5px solid #28a745;
+        }
+
+        .cost-display {
+            font-size: 1.8vw;
+            min-font-size: 15px;
+            font-weight: bold;
+            text-align: center;
+            padding: 1vh 1vw;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            border-radius: 10px;
+            margin-top: 1.5vh;
+            color: #2d3436;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 1.5vh;
+            padding: 1vh 1vw;
+            background: #f1f3f4;
+            border-radius: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 1.2vw;
+            min-font-size: 12px;
+            margin: 0.5vh 1vw;
+        }
+
+        .legend-color {
+            width: 2vw;
+            height: 2vw;
+            min-width: 15px;
+            min-height: 15px;
+            border-radius: 50%;
+            margin-right: 0.8vw;
+        }
+
+        /*
+        --- ELEMENTOS SVG (Nodos y Aristas) ADAPTACIÓN ---
+        Los tamaños de los nodos y las etiquetas dentro del SVG se mantienen fijos.
+        */
+        .node {
+            fill: #74b9ff;
+            stroke: #0984e3;
+            stroke-width: 2;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .node.in-mst {
+            fill: #00b894;
+            stroke: #00a085;
+            stroke-width: 3;
+        }
+
+        .node.current {
+            fill: #fdcb6e;
+            stroke: #e17055;
+            stroke-width: 4;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { r: 20; }
+            50% { r: 25; }
+        }
+
+        .edge {
+            stroke: #ddd;
+            stroke-width: 2;
+            transition: all 0.3s ease;
+        }
+
+        .edge.candidate {
+            stroke: #e17055;
+            stroke-width: 4;
+            stroke-dasharray: 5,5;
+            animation: dash 1s linear infinite;
+        }
+
+        .edge.in-mst {
+            stroke: #00b894;
+            stroke-width: 4;
+        }
+
+        @keyframes dash {
+            to { stroke-dashoffset: -10; }
+        }
+
+        .edge-label {
+            fill: #2d3436;
+            font-size: 1.2vw;
+            min-font-size: 12px;
+            font-weight: bold;
+            text-anchor: middle;
+            dominant-baseline: central;
+            background: white;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        .node-label {
+            fill: white;
+            font-size: 1.4vw;
+            min-font-size: 14px;
+            font-weight: bold;
+            text-anchor: middle;
+            dominant-baseline: central;
+        }
+
+        /* --- MEDIA QUERIES PARA PANTALLAS PEQUEÑAS (RECOMENDADO) --- */
+        @media (max-width: 800px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .graph-container, .info-panel {
+                flex: none;
+                width: 100%;
+                border-left: none;
+            }
+
+            .info-panel {
+                margin-top: 20px;
+                border-top: 3px solid #4facfe;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+            .header p {
+                font-size: 1em;
+            }
+
+            .btn {
+                font-size: 1em;
+                padding: 10px 15px;
+            }
+
+            .legend-item {
+                font-size: 0.9em;
+                margin: 5px;
+            }
+
+            .legend-color {
+                width: 15px;
+                height: 15px;
+            }
+
+            .step-info, .algorithm-info, .mst-info {
+                font-size: 1em;
+            }
+            .step-title {
+                font-size: 1.2em;
+            }
+            .cost-display {
+                font-size: 1.1em;
+            }
+            .edge-label, .node-label {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌳 Algoritmo de Prim - Árbol de Expansión Mínima</h1>
+            <p>Visualización interactiva paso a paso</p>
+        </div>
+
+        <div class="main-content">
+            <div class="graph-container">
+                <svg id="graph"></svg>
+                <div class="controls">
+                    <button class="btn" id="prevBtn">⬅️ Anterior</button>
+                    <button class="btn" id="resetBtn">🔄 Reiniciar</button>
+                    <button class="btn" id="nextBtn">Siguiente ➡️</button>
+                    <button class="btn" id="autoBtn">▶️ Auto</button>
+                </div>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #74b9ff;"></div>
+                        <span>Nodo no visitado</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #00b894;"></div>
+                        <span>En MST</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #fdcb6e;"></div>
+                        <span>Nodo actual</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #e17055;"></div>
+                        <span>Arista candidata</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="step-info" id="stepInfo">
+                    <div class="step-title">Algoritmo de Prim</div>
+                    <p>El algoritmo de Prim encuentra el árbol de expansión mínima (MST) de un grafo conectado y ponderado.</p>
+                </div>
+
+                <div class="algorithm-info">
+                    <h3>🔍 Cómo funciona:</h3>
+                    <ol>
+                        <li>Comenzamos con un nodo arbitrario</li>
+                        <li>Añadimos la arista de menor peso que conecte el MST con un nodo no visitado</li>
+                        <li>Repetimos hasta incluir todos los nodos</li>
+                    </ol>
+                </div>
+
+                <div class="mst-info" id="mstInfo">
+                    <h3>🌳 MST Actual:</h3>
+                    <div id="mstEdges">Ninguna arista seleccionada</div>
+                    <div class="cost-display" id="totalCost">Costo Total: 0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Datos del grafo
+        const edges = [
+            {from: 0, to: 2, weight: 125},
+            {from: 0, to: 8, weight: 59},
+            {from: 1, to: 4, weight: 89},
+            {from: 1, to: 7, weight: 24},
+            {from: 2, to: 7, weight: 90},
+            {from: 3, to: 5, weight: 86},
+            {from: 3, to: 9, weight: 15},
+            {from: 4, to: 7, weight: 47},
+            {from: 5, to: 7, weight: 43},
+            {from: 5, to: 9, weight: 36},
+            {from: 6, to: 8, weight: 57},
+            {from: 7, to: 8, weight: 80},
+            {from: 7, to: 9, weight: 103}
+        ];
+
+        const nodes = Array.from({length: 10}, (_, i) => i);
+
+        // Posiciones de los nodos (distribuidas de forma circular y ajustadas)
+        // Estas coordenadas son fijas para el SVG, pero el SVG se escalará.
+        const nodePositions = {
+            0: {x: 150, y: 100},
+            1: {x: 300, y: 50},
+            2: {x: 100, y: 200},
+            3: {x: 450, y: 400},
+            4: {x: 400, y: 150},
+            5: {x: 350, y: 350},
+            6: {x: 50, y: 350},
+            7: {x: 250, y: 250},
+            8: {x: 100, y: 350},
+            9: {x: 400, y: 450}
+        };
+
+        let currentStep = 0;
+        let steps = [];
+        let autoInterval = null;
+
+        // Generar pasos del algoritmo de Prim
+        function generatePrimSteps() {
+            const mst = [];
+            const visited = new Set();
+            const candidateEdges = [];
+            const allSteps = [];
+
+            // Paso inicial
+            allSteps.push({
+                type: 'start',
+                description: 'Iniciamos el algoritmo de Prim. Seleccionamos el nodo 0 como punto de partida.',
+                visited: new Set([0]),
+                mst: [],
+                candidateEdges: [],
+                currentNode: 0,
+                totalCost: 0
+            });
+
+            visited.add(0);
+
+            // Añadir aristas candidatas del nodo inicial
+            edges.forEach(edge => {
+                if (edge.from === 0 || edge.to === 0) {
+                    candidateEdges.push(edge);
+                }
+            });
+
+            while (visited.size < nodes.length) {
+                // Encontrar la arista de menor peso
+                let minEdge = null;
+                let minWeight = Infinity;
+
+                candidateEdges.forEach(edge => {
+                    const nodeA = edge.from;
+                    const nodeB = edge.to;
+
+                    // Una arista es válida si conecta un nodo visitado con uno no visitado
+                    if ((visited.has(nodeA) && !visited.has(nodeB)) ||
+                        (visited.has(nodeB) && !visited.has(nodeA))) {
+                        if (edge.weight < minWeight) {
+                            minWeight = edge.weight;
+                            minEdge = edge;
+                        }
+                    }
+                });
+
+                if (minEdge) {
+                    const newNode = visited.has(minEdge.from) ? minEdge.to : minEdge.from;
+
+                    // Paso de evaluación
+                    allSteps.push({
+                        type: 'evaluate',
+                        description: `Evaluando aristas candidatas. La arista de menor peso es ${minEdge.from}-${minEdge.to} con peso ${minEdge.weight}.`,
+                        visited: new Set(visited),
+                        mst: [...mst],
+                        candidateEdges: candidateEdges.filter(e =>
+                            (visited.has(e.from) && !visited.has(e.to)) ||
+                            (visited.has(e.to) && !visited.has(e.from))
+                        ),
+                        selectedEdge: minEdge,
+                        totalCost: mst.reduce((sum, e) => sum + e.weight, 0)
+                    });
+
+                    // Añadir arista al MST
+                    mst.push(minEdge);
+                    visited.add(newNode);
+
+                    // Añadir nuevas aristas candidatas
+                    edges.forEach(edge => {
+                        if (edge.from === newNode || edge.to === newNode) {
+                            if (!candidateEdges.includes(edge)) {
+                                candidateEdges.push(edge);
+                            }
+                        }
+                    });
+
+                    // Paso de adición
+                    allSteps.push({
+                        type: 'add',
+                        description: `Añadimos la arista ${minEdge.from}-${minEdge.to} al MST y el nodo ${newNode} a los visitados.`,
+                        visited: new Set(visited),
+                        mst: [...mst],
+                        candidateEdges: candidateEdges.filter(e =>
+                            (visited.has(e.from) && !visited.has(e.to)) ||
+                            (visited.has(e.to) && !visited.has(e.from))
+                        ),
+                        currentNode: newNode,
+                        addedEdge: minEdge,
+                        totalCost: mst.reduce((sum, e) => sum + e.weight, 0)
+                    });
+                }
+            }
+
+            // Paso final
+            allSteps.push({
+                type: 'complete',
+                description: `¡Algoritmo completado! El MST tiene un costo total de ${mst.reduce((sum, e) => sum + e.weight, 0)}.`,
+                visited: new Set(visited),
+                mst: [...mst],
+                candidateEdges: [],
+                totalCost: mst.reduce((sum, e) => sum + e.weight, 0)
+            });
+
+            return allSteps;
+        }
+
+        // Inicializar visualización
+        function initVisualization() {
+            steps = generatePrimSteps();
+            currentStep = 0;
+            drawGraph();
+            updateInfo();
+        }
+
+        // Dibujar el grafo
+        function drawGraph() {
+            const svg = document.getElementById('graph');
+            svg.innerHTML = '';
+
+            const step = steps[currentStep];
+
+            // Dibujar aristas
+            edges.forEach(edge => {
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                const pos1 = nodePositions[edge.from];
+                const pos2 = nodePositions[edge.to];
+
+                line.setAttribute('x1', pos1.x);
+                line.setAttribute('y1', pos1.y);
+                line.setAttribute('x2', pos2.x);
+                line.setAttribute('y2', pos2.y);
+                line.setAttribute('class', 'edge');
+
+                // Colorear según el estado
+                if (step.mst && step.mst.includes(edge)) {
+                    line.classList.add('in-mst');
+                } else if (step.selectedEdge === edge) {
+                    line.classList.add('candidate');
+                } else if (step.candidateEdges && step.candidateEdges.includes(edge)) {
+                    line.classList.add('candidate');
+                }
+
+                svg.appendChild(line);
+
+                // Etiqueta del peso
+                const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                label.setAttribute('x', (pos1.x + pos2.x) / 2);
+                label.setAttribute('y', (pos1.y + pos2.y) / 2);
+                label.setAttribute('class', 'edge-label');
+                label.textContent = edge.weight;
+                svg.appendChild(label);
+            });
+
+            // Dibujar nodos
+            nodes.forEach(node => {
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                const pos = nodePositions[node];
+
+                circle.setAttribute('cx', pos.x);
+                circle.setAttribute('cy', pos.y);
+                circle.setAttribute('r', 20); // Node radius is fixed, relies on SVG scaling
+                circle.setAttribute('class', 'node');
+
+                // Colorear según el estado
+                if (step.visited && step.visited.has(node)) {
+                    circle.classList.add('in-mst');
+                }
+                if (step.currentNode === node) {
+                    circle.classList.add('current');
+                }
+
+                svg.appendChild(circle);
+
+                // Etiqueta del nodo
+                const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                label.setAttribute('x', pos.x);
+                label.setAttribute('y', pos.y);
+                label.setAttribute('class', 'node-label');
+                label.textContent = node;
+                svg.appendChild(label);
+            });
+        }
+
+        // Actualizar información
+        function updateInfo() {
+            const step = steps[currentStep];
+            const stepInfo = document.getElementById('stepInfo');
+            const mstInfo = document.getElementById('mstEdges');
+            const totalCost = document.getElementById('totalCost');
+
+            stepInfo.innerHTML = `
+                <div class="step-title">Paso ${currentStep + 1} de ${steps.length}</div>
+                <p>${step.description}</p>
+            `;
+
+            if (step.mst && step.mst.length > 0) {
+                const edgesText = step.mst.map(e => `${e.from}-${e.to} (${e.weight})`).join('<br>');
+                mstInfo.innerHTML = edgesText;
+            } else {
+                mstInfo.innerHTML = 'Ninguna arista seleccionada';
+            }
+
+            totalCost.textContent = `Costo Total: ${step.totalCost || 0}`;
+
+            // Actualizar botones
+            document.getElementById('prevBtn').disabled = currentStep === 0;
+            document.getElementById('nextBtn').disabled = currentStep === steps.length - 1;
+        }
+
+        // Event listeners
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                drawGraph();
+                updateInfo();
+            }
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentStep > 0) {
+                currentStep--;
+                drawGraph();
+                updateInfo();
+            }
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            currentStep = 0;
+            if (autoInterval) {
+                clearInterval(autoInterval);
+                autoInterval = null;
+                document.getElementById('autoBtn').textContent = '▶️ Auto';
+            }
+            drawGraph();
+            updateInfo();
+        });
+
+        document.getElementById('autoBtn').addEventListener('click', () => {
+            if (autoInterval) {
+                clearInterval(autoInterval);
+                autoInterval = null;
+                document.getElementById('autoBtn').textContent = '▶️ Auto';
+            } else {
+                autoInterval = setInterval(() => {
+                    if (currentStep < steps.length - 1) {
+                        currentStep++;
+                        drawGraph();
+                        updateInfo();
+                    } else {
+                        clearInterval(autoInterval);
+                        autoInterval = null;
+                        document.getElementById('autoBtn').textContent = '▶️ Auto';
+                    }
+                }, 2000);
+                document.getElementById('autoBtn').textContent = '⏸️ Pausar';
+            }
+        });
+
+        // Inicializar
+        initVisualization();
+    </script>
+</body>
+</html>

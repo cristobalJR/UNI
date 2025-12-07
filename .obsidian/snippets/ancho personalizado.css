@@ -1,0 +1,7 @@
+/* Aplica un ancho máximo y centra el contenido en todos los modos */
+.markdown-source-view,
+.markdown-preview-view {
+  max-width: 800px; /* Ajusta este valor según tus preferencias */
+  margin-left: auto;
+  margin-right: auto;
+}
