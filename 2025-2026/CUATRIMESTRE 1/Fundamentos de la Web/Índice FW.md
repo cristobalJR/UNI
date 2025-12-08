@@ -4,7 +4,7 @@
 
 | <font color="#4bacc6">Prueba | <font color="#4bacc6">Peso respecto de la nota final</font> | <font color="#4bacc6">Nota Mínima</font> | <font color="#4bacc6">Fecha del Examen</font> |
 | ---------------------------- | ----------------------------------------------------------- | ---------------------------------------- | --------------------------------------------- |
-| Práctica 1                   | 20%                                                         | 5                                        | 15 Octubre                                    |
+| Práctica 1 HTML/CSS          | 20%                                                         | 5                                        | 15 Octubre                                    |
 | Práctica 2                   | 20%                                                         | 5                                        | 19 Noviembre                                  |
 | Práctica 3                   | 20%                                                         | 5                                        | 17 Diciembre                                  |
 
