@@ -2,7 +2,7 @@
 
 
 ## Criterios de Evaluación:
-### 1. Teoría
+
 
 | <font color="#4bacc6">Examen | <font color="#4bacc6">Peso respecto de la nota final</font> | <font color="#4bacc6">Nota Mínima</font> | <font color="#4bacc6">Contenidos</font> | <font color="#4bacc6">Fecha del Examen</font> | <font color="#4bacc6">Reevaluable en Junio</font> |
 | ---------------------------- | ----------------------------------------------------------- | ---------------------------------------- | --------------------------------------- | --------------------------------------------- | ------------------------------------------------- |

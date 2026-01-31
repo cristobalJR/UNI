@@ -50,7 +50,7 @@ crtl+L:
 - [ ] dasdad
 
 
-link: [[Índice DAA | Asi se le pone nombre al link]]
+link: [[Antes/2024-2025/Cuatrimestre 2/Diseño y Análisis de Algoritmos/Índice DAA| Asi se le pone nombre al link]]
 
 links en la misma pagina: [[COMO USAR MARKDDOWN EN OBSIDIAN#Header]]
 
