@@ -31,8 +31,8 @@ Existen empresas que se acercan a porcentajes del 95% de los recursos dedicados 
 **Cuestiones asociadas al coste** en la evolución del sistema/software:
 - Analizar los cambios desde la perspectiva técnica *y de negocio*. Los cambios que tienen que contribuir a los objetivos de negocio, no simplemente a los objetivos técnicos.
 - Los *subsistemas no* son nunca completamente *independientes*, los cambios en uno, pueden afectar de forma adversa al funcionamiento o comportamiento de los otros. Por lo tanto, también hay que cambiar éstos.
-- A menudo no sr registran las decisiones de diseño original. Al no estar registradas dichas decisiones, los responsables de la evolución tienen que resolver porque se tomaron esas decisiones particulares de diseño con el fin de conservarlas (si eso es lo mejor).
-- La estructura original se va corrompiendo por el camino, de tal forma que se incrementan los costos de cambio adicionales.
+- A menudo *no se registran* las *decisiones* de diseño original. Al no estar registradas dichas decisiones, los responsables de la evolución *tienen que resolver* porque se tomaron esas decisiones particulares de diseño con el fin de conservarlas (si eso es lo mejor).
+- La *estructura original se va corrompiendo* por el camino, de tal forma que se incrementan los costos de cambio adicionales.
 
 ## 2.1 Coste del mantenimiento
 Entre el 80% y el 90% del presupuesto de muchas empresas de informática se gasta en mantenimiento.
@@ -42,20 +42,20 @@ Los costes de mantenimiento son difíciles de estimar.
 ![[Tema 1 Evolución(graficaCostedelMantenimiento).png]]
 
 ## 2.2 Predicción del mantenimiento
-- La *aceptación* o no de un cambio en un software/sistema depende de la mantenibilidad de los componentes afectados por dicho cambio.
-- La *implementación* de los cambios del sistema tiende a degradar la estructura de dicho sistema y, por lo tanto, reduce su mantenibilidad.
-- Los *costes* de mantenimiento dependen del número de cambios, y los costes de la implementación de los cambios dependen de la mantenibilidad de los componentes del sistema.
+- La *aceptación* o no de un cambio en un software/sistema depende de la <u>mantenibilidad de los componentes afectados</u> por dicho cambio.
+- La *implementación de los cambios* del sistema tiende a degradar la estructura de dicho sistema y, por lo tanto, <u>reduce su mantenibilidad</u>.
+- Los *costes* de mantenimiento <u>dependen del número de cambios</u>, y los costes de la implementación de los cambios <u>dependen de la mantenibilidad de los componentes</u> del sistema.
 
 ### 2.2.1 Nº Peticiones de cambio:
 La predicción del número de peticiones de cambios para un sistema requiere entender la relación entre el sistema y su entorno. Algunos sistemas tienen una relación muy compleja con su entorno y los cambios en ese entorno inevitablemente provocan cambios en el sistema. Hay que tener en cuenta:
-- El número y la complejidad de interfaces del sistema, ya que a mayores sean, es más probable que se aumenten las peticiones de cambio.
-- El número de requisitos del sistema intrínsecamente volátiles. Los requisitos que reflejan políticas y procedimientos organizacionales son probablemente más volátiles que los requisitos que se basan en características estables del dominio.
-- Los procesos de negocios en los que se utiliza el sistema. Puesto que los procesos de negocios evolucionan, generan peticiones de cambio en un sistema. Cuanto más procesos de negocios utilice el sistema, más peticiones de cambio habrá.
+- El *número y la complejidad de interfaces* del sistema, ya que a mayores sean, es más probable que se aumenten las peticiones de cambio.
+- El *número de requisitos* del sistema *intrínsecamente volátiles*. Los requisitos que <u>reflejan políticas y procedimientos organizacionales</u> son probablemente más volátiles que los requisitos que se basan en características estables del dominio.
+- Los *procesos de negocios* en los que se utiliza el sistema. Puesto que los procesos de negocios evolucionan, generan peticiones de cambio en un sistema. Cuanto <u>más procesos de negocios</u> utilice el sistema, <u>más peticiones de cambio</u> habrá.
 
 ### 2.2.2 Mantenibilidad:
-La predicción de la mantenibilidad de un sistema tiene que ver con el número y los tipos de relaciones entre los componentes del mismo. Cuanto más complejo es un sistema o componente, más caro es de mantener. Hay estudios sobre los diferentes tipos de complejidad (McCabe, 1976), y sobre la relación entre complejidad y mantenibilidad (Kafura y Reddy, 1987).
+La predicción de la *mantenibilidad* de un sistema tiene que ver con el número y los tipos de *relaciones entre los componentes* del mismo. Cuanto más complejo es un sistema o componente, más caro es de mantener. Hay estudios sobre los diferentes tipos de complejidad (McCabe, 1976), y sobre la relación entre complejidad y mantenibilidad (Kafura y Reddy, 1987).
 Reducir los costes de mantenimiento pasa por reemplazar los componentes complejos.
-Métricas para evaluar la mantenibilidad una vez que el sistema se ha puesto en funcionamiento.
+[[#7.2 Métricas de predicción del mantenimiento]]
 
 # 3. Procesos Diferenciados versus Único Proceso
 *Históricamente* siempre se ha diferenciado entre desarrollo y evolución/mantenimiento, considerándose el desarrollo divertido y creativo y el mantenimiento algo más aburrido.
