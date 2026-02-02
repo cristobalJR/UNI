@@ -10,3 +10,4 @@ Partes importantes Enunciado antes de entregar:
 [[Enunciado Proyecto v5.pdf#page=4&selection=101,0,103,8|Enunciado Proyecto v5, page 4]]
 [[Enunciado Proyecto v5.pdf#page=8&selection=12,0,68,33|Enunciado Proyecto v5, page 8]]
 [[Enunciado Proyecto v5.pdf#page=10&selection=48,0,80,7|Enunciado Proyecto v5, page 10]]
+[[Enunciado Proyecto v5.pdf#page=13&selection=87,0,88,19|Enunciado Proyecto v5, page 13]]
