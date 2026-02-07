@@ -49,3 +49,76 @@ La especificación de un tipo de datos es la definición formal de su contrato. 
 - *Axioma*: Define la "semántica" o comportamiento de las operaciones. Describe cómo interactúan entre sí, a menudo mediante reglas o pre/postcondiciones. Por ejemplo: un axioma para una cola podría ser: "Desencolar aplicado a una cola resultante de Encolar(X, C)" debe devolver X y una cola equivalente a C".
 Esta separación entre qué hace (especificación) y cómo lo hace (implementación) es el núcleo de la programación abstracta y permite diseñar programas más flexibles y fáciles de mantener, un objetivo fundamental dentro de la ingeniería del software.
 # 3. Memoria dinámica
+Hasta ahora, hemos trabajado principalmente estructuras de datos estáticas, aunque son útiles presentan rigideces importantes:
+- *Tamaño fijo*: su capacidad debe conocerse en tiempo de compilación, algo que no siempre es posible. No se puede redimensionar un array estándar durante la ejecución del programa.
+- *Reorganización costosa*: modificar el orden de los elementos puede requerir desplazar muchos elementos, una operación ineficiente.
+Para superar estas limitaciones y poder crear estructuras que se adapten a necesidades desconocidas antes de la ejecución, necesitamos gestionar la memoria de forma dinámica. La herramienta fundamental para esto, en lenguaje Pascal, es el puntero.
+Para entender punteros, es útil visualizar como se organiza la memoria de un programa en ejecución (proceso). Esta memoria generalmente se divide en cuatro segmentos:
+- **Segmento de código**(code): Contiene las instrucciones del programa. Asignación automática.
+- **Segmento de Datos Globales**(Global/BSS): Almacena variables globales y *static*. Asignación automática.
+- **Pila**(Stack): Gestiona la memoria local de las funciones. Cada llamada a función reserva un "marco de pila" para sus parámetros variables y locales. Es de tamaño limitado y su gestión es automática (LIFO: Last-In, First-Out).
+- **Montículo**(Heap): Un bloque grande de memoria para asignación manual. Aquí es donde se reserva la memoria dinámica. El programador es responsable de pedir (new) y liberar (dispose) espacio aquí.
+
+ ![[Tema 1 Introducción(bloquesMemoriaProgramaEjecucion)-1.png]]
+ Un ejemplo de código que utiliza la pila sería el siguiente, donde en la declaración de la variable global “precio” se almacenan datos en el segmento global, en la llamada a la función Calculo Iva y en el retorno de la misma se utiliza la pila y finalmente en la propia llamada (dentro del writeln en el programa principal) se crea una pila para la llamada donde se “deja pendiente” la ejecución del resto del programa principal y se activa la ejecución de la función:
+
+```pascal
+program Memoria;
+var 
+	precio: real; // Se almacena en el segmento global
+function CalculoIVA(p: real): real; // p y el valor de retorno usan la pila
+begin
+	CalculoIVA := p * 0.21;
+end;
+begin
+	precio := 200.25; 
+	writeln('El IVA es: ', CalculoIVA(precio)); // Una pila para la llamada
+end.
+```
+
+## 3.1 Punteros en Pascal: Concepto y declaración
+Un puntero es una variable cuyo valor no es un dato "normal"(como un número o un carácter), sino una dirección de memoria. Es decir, en lugar de almacenar un dato entero, real, o booleano, almacena una dirección de memoria de otro dato, por lo que se dice que apunta a la ubicación donde realmente se almacena el dato de interés.
+Se puede declarar de dos formas:
+- Tipo anónimo(directo): VAR miPuntero: ^integer;
+- Tipo definido por el usuario (recomendado para claridad):
+```pascal
+type 
+	TPunteroEntero = ^integer; // Define un tipo "puntero a entero" 
+var 
+	pEntero: TPunteroEntero; // Declara una variable de ese tipo
+```
+donde el símbolo ^ (acento circunflejo) se lee como "puntero a". El tipo base (en este caso integer) indica qué tipo de dato se espera encontrar en la dirección apuntada. 
+
+Es esencial a la hora de manejarlos el distinguir siempre entre *puntero*(la variable que guarda una dirección) y *puntero^*(el valor almacenado en esa dirección).
+## 3.2 Operaciones con punteros
+
+ Operador *@ (referencia)* devuelve la dirección de memoria de una variable:
+```pascal
+var 
+	precioPan: integer;
+	pEntero: ^integer;
+begin 
+	BEGIN precioPan := 85;
+	pEntero := @precioPan; // pEntero ahora guarda la dirección de 'precioPan'
+```
+
+Operador *^ (desreferenciación)* accede al valor almacenado en la dirección a la que apunta un puntero:
+```pascal
+pEntero^ := 100; // Modifica el valor en la dirección
+apuntadawriteln(precioPan); // Imprime 100, porque precioPan y pEntero^ son sinónimos
+```
+Los punteros permiten llevar a cabo la gestión de memoria dinámica mediante las instrucciones *new* y *dispose*.
+
+La instrucción **new** reserva(asigna) un nuevo bloque de memoria en el *montículo* con el tamaño suficiente para almacenar el valor del tipo base del puntero. Como resultado de su ejecución la variable puntero pasada como argumento queda apuntando a ese nuevo bloque de memoria.
+Téngase en cuenta que el contenido del bloque es inicialmente definido("basura").
+```pascal
+new(pEntero); // Reserva espacio en memoria para un entero en el montículo y // pone pEntero a apuntar allí
+pEntero^ := 50; // Asignamos un valor a ese espacio
+```
+Por el contrario, la instrucción **dispose** libera (devuelve al sistema) el bloque de memoria del *heap* que está siendo apuntado por *puntero*. Es crítico llamar a **dispose** para cada bloque reservado con el new cuando ya no se necesite, pues no hacerlo causa un efecto indeseado denominado fugas de memoria (memory leaks), que consiste en que el montículo se va llenando de memoria inaccesible pero no se puede reutilizar al estar marcada como en uso, lo cual puede llevar al agotamiento de la memoria y al fallo del programa o sistema.
+
+Por último, **NIL** es una constante especial que representa un puntero que no apunta a ninguna dirección de memoria válida. Es una práctica excelente asignar NIL a un puntero tras liberar su memoria con dispose, para evitar su uso accidental (dangling pointer).
+```pascal
+dispose(pEntero);
+pEntero := NIL; // Buen hábito: lo marcamos como "no válido"
+```
