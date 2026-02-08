@@ -48,4 +48,4 @@ Registran los cambios de los archivos en comparación a la versión anterior.
 - git commit -m "Agregar archivo de texto" -> Si el commit es muy pequeño hacerlo así
 - git commit (abre el editor de texto default (vsCode) y te permite escribir ahí el mensaje 
 - git commit --amend (modifica un commit, mejor solo hacerlo en local para no modificar el historial de algo que otros pueden estar usando)
-- 
+
