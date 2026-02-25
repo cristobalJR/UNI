@@ -1,0 +1,19 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+    grid-template-rows: repeat(2, auto); /* Dos filas */
+    gap: 10px; /* Espacio entre las celdas */
+  }
+  
+  .formulario {
+    padding: 10px;
+    border: 1px solid #ccc;
+    align-items: center;
+  }
+
+  .encabezado {
+    background-image: url('logo.jpeg');
+    background-size: 25%; /* Cambia el valor para ajustar el tamaño de la imagen de fondo */
+    height: 300px; /* Altura del encabezado */
+    max-width: fit-content;
+  }

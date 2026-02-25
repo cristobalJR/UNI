@@ -1,0 +1,74 @@
+@startuml
+classDiagram
+
+class Jugador{
+  nombre: String
+  color: String
+  saldo: int
+  propiedades: List<Propiedad>
+  casas: int
+  hoteles: int
+  hipotecas: List<Propiedad>
+}
+
+class Propiedad{
+  código: int
+  nombre: String
+  precio: int
+  precioPorCasa: int
+  precioPorHotel: int
+  renta: int
+  propietario: Jugador?
+  númeroDeCasas: int
+  númeroDeHoteles: int
+  hipotecada: bool
+}
+
+class Banca{
+  dinero: int
+}
+
+class Operación{
+  tipo: string
+  datos: any
+}
+
+class GestorDeOperaciones{
+  realizarOperación(jugador: Jugador, operación: Operación): void
+}
+
+class Casilla{
+  código: int
+  nombre: String
+  tipo: TipoCasilla
+  operación: Operación
+}
+
+class Carta{
+  código: int
+  efecto: EfectoCarta
+}
+
+class GestorDeCasillas{
+  obtenerCasilla(código): Casilla
+  getListaCasillas(tipo): List<Casilla>
+}
+
+class GestorDeCartas{
+  obtenerCarta(código): Carta
+  getListaCartas(tipo): List<Carta>
+}
+
+Jugador "1..*" - "0..*" Propiedad
+Propiedad "1" - "1" Jugador
+Propiedad "0..*" - "1" Banca
+Operación "1" - "0..1" Jugador
+Operación "1" - "0..1" Banca
+GestorDeOperaciones "1" - "1..*" Operación
+Casilla "1" - "1" Tablero
+Carta "1" - "1" Mazo
+Tablero "1" - "1" GestorDeCasillas
+Mazo "1" - "1" GestorDeCartas
+Jugador "1" - "0..*" Casilla
+Jugador "1" - "0..*" Carta
+@enduml

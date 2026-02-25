@@ -1,0 +1,112 @@
+/* Estilos generales */
+@font-face {
+    font-family: 'Montserrat-Ace-Medium';
+    src: url('./fonts/Montserrat-Ace-Medium.otf');
+}
+*{
+    font-family: 'Montserrat-Ace-Medium', sans-serif;
+}
+
+html, body {
+    background-color: #FFAF9D !important;
+    margin: 0;
+    padding: 0;
+}
+
+.btn {
+    text-decoration: none;
+    width: 125px;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    backdrop-filter: blur(5px); /* Ajusta según tus necesidades */
+    background: #FFAF9D;
+    border-color: white;
+    text-decoration: solid;
+    border-radius: 20px;
+}
+
+/* Estilos para el contenedor grid */
+.grid_flashcard {
+    display: grid;
+    grid-template-columns: [x0] 0fr [x1] 0.5fr [x2] 0.5fr [x3] 0.5fr [x4];
+    grid-template-rows: [y0] 0.5fr [y1] 0.5fr [y2] 0.5fr [y3] 0.5fr [y4];
+    width: 60%;
+    height: fit-content;
+    margin-left: 20%;
+    gap: 20px;
+    background: rgba(255, 211, 160, 1);
+    border: 1px solid white;
+    border-radius: 10%;
+    backdrop-filter: blur(5px);
+    text-align: center;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Estilos para elementos dentro del contenedor */
+.item_pregunta {
+    margin: 10%;
+    margin-top: 25px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 38px;
+    height: 150px;
+    color: white;
+    grid-column: x0 / x4;
+    grid-row: y0 / y1;
+    text-decoration: underline;
+    text-wrap: wrap;
+}
+
+.item_imagen {
+    grid-column: x0 / x4;
+    grid-row: y1 / y2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: -10%;
+}
+
+.item_imagen img {
+    width: 320px;
+    height: 280px;
+    margin-bottom: 10px;
+    border-radius: 20%;
+    
+}
+.item_comentarios{
+    width: 80%;
+    grid-column: x0 / x4;
+    grid-row: y1.5 / y4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: -5%;
+    margin-bottom: 10px;
+    border-radius: 20PX; 
+    background: #FFAF9D;
+    border: 2px solid white;
+}
+#formulario-container {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+#miFormulario {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#texto {
+    flex-grow: 1;
+}
+
+#resultado {
+    margin-top: 10px;
+}

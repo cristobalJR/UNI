@@ -1,0 +1,2 @@
+Se cree de la materia que tiende al orden, se comenta del propio que suena y se ve hermoso. Pero yo conozco que el equilibrio perfecto es el cero más vacío y absoluto, negro.
+Aprecio las similitudes entre este oscuro y la pobreza del lodo. Si la ciencia es cierta, y el decaer es inevitable, que esta ose a explicar ese punto, tan menudo que se hace inevitable reparar en su cegador destello y como este no cesa su labor de faro, rodeado ya del heterogéneo y corrupto lodo

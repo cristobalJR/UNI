@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Memo Mate</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/detalle.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+
+<body class="bg-light p-4" style="background-color: #FFAF9D !important;">
+
+    <header class="text-center py-4">
+        <nav>
+            <img src="/images/header.jpeg" class="img-fluid" alt="Logo">
+        </nav>
+    </header>
+    {{#preguntas}}
+    <div class="container mt-4">
+        <div class="row justify-content-center m-0 p-0">
+            <div class="col-md-4 text-center mb-4 h-auto w-auto">
+                <a href="/" class="btn btn-primary btn-sm d-flex align-items-center  h-auto w-auto">
+                    <img src="/images/home.png" alt="Home Icon" class="img-fluid" style="width: 25px; height: 25px;">
+                    <h1 class="ms-2 fs-4 m-0">Ver todas</h1>
+                </a>
+            </div>
+            <div class="col-md-4 text-center mb-4 h-auto w-auto m-0 p-0">
+                <form action="/edit/{{id}}" method="get">
+                    <button type="submit" class="btn btn-danger btn-sm d-flex align-items-center h-auto w-auto">
+                        <img src="/images/edit.png" alt="Edit Icon" class="img-fluid"
+                            style="width: 25px; height: 25px;">
+                        <h1 class="ms-2 fs-4 m-0">Editar</h1>
+                    </button>
+                </form>
+            </div>
+            <div class="col-md-4 text-center mb-4 h-auto w-auto m-0 p-0">
+                <form action="/delete/{{id}}" method="post">
+                    <button type="submit" class="btn btn-danger btn-sm d-flex align-items-center h-auto w-auto">
+                        <img src="/images/trash.png" alt="Trash Icon" class="img-fluid"
+                            style="width: 25px; height: 25px;">
+                        <h1 class="ms-2 fs-4 m-0">Eliminar</h1>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <section class="container mt-4" id="container_pregunta">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="grid_flashcard">
+                    <div class="item_pregunta w-auto h-auto align-content-md-center m-2 pt-4"
+                        style="word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">
+                        <h1 class="h-auto w-auto text-center mb-0">{{pregunta}}</h1>
+                        <div
+                            class="d-flex flex-column flex-md-row justify-content-sm-center text-white fw-bolder mt-0 pt-3">
+                            <h3 class="text-center pe-5 fs-1 mb-0">Tema - {{tema}}</h3>
+                            <h3 class="text-center fs-1">Dificultad {{dificultad}}</h3>
+                        </div>
+                    </div>
+                    <div class="item_imagen text-center w-auto h-auto align-content-md-center p-3">
+                        <img src="{{{imagen_pregunta_url}}}" alt="Imagen" class="img-fluid"
+                            style="width: 250pt; height: 250pt; border-radius: 20px;">
+                    </div>
+                    <div class="item_pregunta w-auto h-auto align-content-md-center m-2 pt-4"
+                        style="word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">
+                            <h1 class="h-auto w-auto text-center mb-0">COMENTARIOS: </h1>
+                            <div id="formulario-container" class="d-flex flex-row justify-content-center align-items-center align-content-center text-white fw-bolder mt-0 pt-3">
+                                <form id="miFormulario" style="background-color: #FFAF9D; padding: 15px;">
+                                    <div class="contenedorFormulario text-center" style="display: inline-flex;">
+                                        <label for="relevancia_i" class="h4" style="padding-left: 10px; padding-right: 10px;">Relevancia (1-5 estrellas): </label>
+                                        <input name="RelevanciaNuevo" type="number" id="relevancia_i" min="1" max="5" required>
+                                        <div id="mensajeRelevancia" class="invalid-tooltip">El campo de relevancia tiene que valer entre 1 y 5.</div>
+                                    </div>
+                                    <div class="contenedorFormulario text-center position-relative" style="display: inline-flex;">
+                                        <label for="usuario_i" class="h4" style="padding-left: 10px; padding-right: 10px;">Usuario: </label>
+                                        <input name="UsuarioNuevo" type="text" id="usuario_i" required>
+                                        <div id="mensajeUsuario" class="invalid-tooltip">El campo de usuario no puede estar vacío.</div>
+                                    </div>
+                                    <div class="contenedorFormulario text-center position-relative" style="display: inline-flex;">
+                                        <label for="comentario_i" class="h4" style="padding-left: 10px; padding-right: 10px;">Comentario: </label>
+                                        <input name="ComentarioNuevo" type="text" id="comentario_i" required>
+                                        <div id="mensajeComentarioNUevo" class="invalid-tooltip">El campo de comentario no puede estar vacío.</div>
+                                    </div>
+                        
+                                    <input type="button" value="Agregar Comentario" onclick="agregarNuevoComentario()">
+                                </form>
+                            </div>
+                            <div id="comentarios-container" class="d-flex flex-column justify-content-center align-items-center align-content-center text-white fw-bolder mt-0 pt-3">
+                                <!-- Container para comentarios -->
+                            </div>
+                            <a href="/respuesta/{{id}}" class="btn btn-primary btn-sm d-flex justify-content-center align-items-center align-content-center h-auto w-30% mx-auto" style="background-color: #FFAF9D ;color: white; font-size: 16px; border-color: #FFAF9D; width: fit-content; border-radius: 10%; margin-bottom: 20px;">
+                                <img src="/images/add.png" alt="Add Icon" class="img-fluid" style="width: 25px; height: 25px;">
+                                <h1 class="ms-2 fs-9 m-0" style="text-align: center;">Respuesta</h1>
+                            </a>
+                        </div>
+                        
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <script>
+        function agregarNuevoComentario() {
+            // Obtener el ID de la pregunta (puedes modificar esto según tu implementación)
+            var idPregunta = obtenerIdDeURL();
+
+            // Obtener el valor del comentario desde el input
+            var nuevoComentario = document.getElementById('comentario_i').value;
+            var nuevoComentarioScore = document.getElementById('relevancia_i').value;
+            var nuevoComentarioUsuario = document.getElementById('usuario_i').value;
+
+            // Realizar la petición Ajax para agregar el comentario al servidor
+            if(nuevoComentario != "" && nuevoComentarioScore != "" && nuevoComentarioUsuario != "" && nuevoComentarioScore >= 1 && nuevoComentarioScore <= 5){
+                $.ajax({
+                    url: '/addComentario/' + idPregunta,
+                    type: 'post',
+                    data: { ComentarioNuevo: nuevoComentario, nuevoComentarioScore: nuevoComentarioScore,  nuevoComentarioUsuario: nuevoComentarioUsuario},
+                    success: function(data) {
+                        // Después de agregar el comentario con éxito, actualizar los comentarios
+                        var comentariosContainer = document.getElementById('comentarios-container');
+                        var comentarioElemento = crearComentario(idPregunta, nuevoComentario, nuevoComentarioScore, nuevoComentarioUsuario);
+                        comentariosContainer.appendChild(comentarioElemento);
+
+                        // Limpiar el campo de entrada
+                        document.getElementById('comentario_i').value = '';
+                    },
+                    error: function(error) {
+                        res.status(404).redirect(`/error/addComentario/No se pudo agregar el nuevo comentario`)
+                    }
+                });
+            }
+        }
+
+        function guardarEditComentario() {
+            var id = id;
+            var comentarios = document.getElementById('comentario').value;
+
+            // Crear un formulario dinámico para enviar los datos al servidor
+            var form = document.createElement('form');
+            form.action = '/actualizarPregunta/{{id}}';  // Reemplaza con la URL correcta
+            form.method = 'POST'
+            // Crear campos de formulario y agregarlos al formulario
+            var campos = {
+                comentarios: comentarios
+            };
+
+            for (var key in campos) {
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = campos[key];
+                form.appendChild(input);
+            }
+
+            // Agregar el formulario al cuerpo del documento y enviarlo
+            document.body.appendChild(form);
+            form.submit();
+        }
+
+        // Función para crear un comentario con botones + y -
+        function crearComentario(id, comentario, relevancia, usuario) {
+            console.log(id, comentario, relevancia, usuario)
+            var div = document.createElement('div');
+            div.className = 'd-flex flex-row justify-content-center align-items-center align-content-center text-center mb-2';
+
+            // Texto del comentario
+            var h3 = document.createElement('h3');
+            h3.className = 'fs-1 mb-0 text-break';
+            // Establecer estilos condicionales para el fondo
+            if (relevancia === '3' || relevancia === '4' || relevancia === '5') {
+                h3.style = 'border: 1px solid black; border-radius: 10px; padding: 4px; margin-right: 10px; background-color: green;';
+            } else {
+                h3.style = 'border: 1px solid black; border-radius: 10px; padding: 4px; margin-right: 10px; background-color: red;';
+            }
+            h3.textContent = relevancia;
+            div.appendChild(h3);
+            var h4 = document.createElement('h4');
+            h4.className = 'text-start fw-bold fs-italic mb-0';
+            h4.style = 'padding: 4px; margin-right: 10px'
+            h4.textContent = usuario + ': ';
+            div.appendChild(h4);
+            var h3 = document.createElement('h3');
+            h3.className = 'text-center pe-5 fs-1 mb-0 text-break';
+            h3.textContent = comentario;
+            div.appendChild(h3);
+
+            // Botón de -
+            var imgMenos = document.createElement('img');
+            imgMenos.src = '/images/trash.png'; // Reemplaza con la ruta de tu imagen
+            imgMenos.alt = 'Menos';
+            imgMenos.width = 40; // Tamaño en píxeles
+            imgMenos.height = 40; // Tamaño en píxeles
+            imgMenos.style.cursor = 'pointer'; // Para que se muestre el cursor como puntero al pasar por encima
+            imgMenos.addEventListener('click', function() {
+                // Imprimir el comentario referenciado al hacer clic en la imagen
+                DelComentarioPorId(id, comentario);
+                div.remove();
+            });
+            div.appendChild(imgMenos);
+
+            return div;
+        }
+
+        // Obtener el contenedor de comentarios
+        var comentariosContainer = document.getElementById('comentarios-container');
+
+        function ComentariosPorId(idPregunta) {
+                $.ajax({
+                    url: '/getComentariosPorId',
+                    type: 'GET',
+                    data: { id: idPregunta },
+                    dataType: 'json',
+                    success: function(data) {
+                        data.comentarios.forEach(function(comentario) {
+                            if (comentario == null) {
+                                return;
+                            }
+                            var comentarioElemento = crearComentario(idPregunta, comentario[0], comentario[1], comentario[2]);
+                            comentariosContainer.appendChild(comentarioElemento);
+                        });
+                    },
+                    error: function(error) {
+                        res.status(404).redirect(`/error/obetenerComentarios/Error al obtener los comentarios`)
+                    }
+                });
+            }
+
+            function DelComentarioPorId(id, comentario) {
+                $.ajax({
+                    url: '/delComentariosPorId',
+                    type: 'GET',
+                    data: { id: id.toString(), comentario_a_eliminar: comentario },
+                    dataType: 'json',
+                    success: function(data) {
+                        return;
+                    },
+                    error: function(error) {
+                        res.status(404).redirect(`/error/eliminarComentraio/Error al eliminar el comentario`)
+                    }
+                });
+            }
+
+        function obtenerIdDeURL() {
+            // Obtener la URL actual del navegador
+            var url = window.location.href;
+
+            // Dividir la URL en partes usando '/' como separador
+            var partesDeURL = url.split('/');
+
+            // Obtener el último segmento que debería ser el ID
+            var id = partesDeURL.pop();
+
+            // Asegurarse de que el ID sea un número antes de devolverlo
+            return isNaN(id) ? null : id;
+        }
+
+        function verificarCampoEnTiempoReal(campoId, regex, mensajeId, mensajeError) {
+            var campo = document.getElementById(campoId);
+            var mensaje = document.getElementById(mensajeId);
+
+            campo.addEventListener('input', function () {
+                var valor = campo.value.trim();
+
+                if (!regex.test(valor) && valor !== '') {
+                    mostrarMensajeError(mensaje, mensajeError);
+                    campo.classList.add('is-invalid');
+                } else if (valor === ''){
+                    ocultarMensajeError(mensaje);
+                    mostrarMensajeError(mensaje, 'El campo no puede estar vacío.');
+                    campo.classList.add('is-invalid');
+                
+                } else {
+                    ocultarMensajeError(mensaje);
+                    campo.classList.remove('is-invalid');
+                }
+            });
+        }
+
+        function mostrarMensajeError(elemento, mensaje) {
+            if (elemento) {
+                elemento.textContent = mensaje;
+                elemento.style.display = 'inline-block';
+            }
+        }
+
+        function ocultarMensajeError(elemento) {
+            if (elemento) {
+                elemento.style.display = 'none';
+            }
+        }
+
+        verificarCampoEnTiempoReal('relevancia_i', /^[1-5]{1}/, 'mensajeRelevancia', 'La relevancia tiene que ser entre 1 y 5 (ambos incluidos).');
+        verificarCampoEnTiempoReal('usuario_i', /^.{1,50}/, 'mensajeUsuario', 'La pregunta debe comenzar con una letra mayúscula.');
+        verificarCampoEnTiempoReal('comentario_i', /^.{1,250}/, 'mensajeComentarioNuevo', 'La respuesta debe comenzar con una letra mayúscula.');
+        // Obtener el ID de la URL
+        var idPregunta = obtenerIdDeURL().toString();
+        ComentariosPorId(idPregunta);
+    </script>
+
+    {{/preguntas}}
+</body>
+
+</html>

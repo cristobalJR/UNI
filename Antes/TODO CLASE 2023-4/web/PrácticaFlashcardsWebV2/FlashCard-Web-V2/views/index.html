@@ -1,0 +1,190 @@
+<!-- views/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Memo Mate</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body class="bg-light" style="background-color: #FFAF9D !important;">
+
+    <header class="bg-white text-center py-4" style="background-color: #FFAF9D !important;">
+        <nav class="d-flex justify-content-center align-items-center">
+            <img src="images/header.jpeg" alt="Logo" class="img-fluid" style="max-width: auto; height: auto;">
+        </nav>
+    </header>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center m-0 p-0">
+            <div class="col-md-4 text-center mb-4 h-auto w-auto">
+                <a href="/" class="btn btn-primary btn-sm d-flex align-items-center h-auto w-auto">
+                    <img src="images/home.png" alt="Home Icon" class="img-fluid" style="width: 25px; height: 25px;">
+                    <h1 class="ms-2 fs-4 m-0">Ver todas</h1>
+                </a>
+            </div>
+            <div class="col-md-4 text-center mb-4 h-auto w-auto">
+                <a href="/crearFlashcard" class="btn btn-primary btn-sm d-flex align-items-center h-auto w-auto">
+                    <img src="images/add.png" alt="Add Icon" class="img-fluid" style="width: 25px; height: 25px;">
+                    <h1 class="ms-2 fs-4 m-0">Crear Flashcard</h1>
+                </a>
+            </div>
+            <div class="col-md-4 text-center mb-4 h-auto w-auto" id="loadMore">
+                <a class="btn btn-primary btn-sm d-flex align-items-center h-auto w-auto">
+                    <h1 class="ms-2 fs-4 m-0">Cargar más</h1>
+                </a>
+            </div>
+        </div>
+        <!-- Barra de búsqueda y Filtro por temas -->
+        <div class="row justify-content-center m-0 p-0">
+            <div class="input-group col-md-4 text-center mb-4 d-flex align-items-center h-auto w-auto">
+                <h1 class="ms-2 fs-4 m-0" style="color: white; border: 1px solid white; padding: 5px;">Filtrar por temas</h1>
+                <select id="filtrarTemas" name="preguntas" style="margin-left: 10px; margin-right: 10px;"></select>
+            </div>
+            <div class="input-group col-md-4 text-center mb-4 d-flex align-items-center h-auto w-auto">
+                <input type="text" class="form-control btn-sm d-flex align-items-center" placeholder="Buscar preguntas..." id="searchInput">
+                <button class="btn btn-outline-primary" style="color: white;" type="button" id="searchButton">Buscar</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <section class="container mt-4" style="background-color: #FFAF9D !important;">
+        <div class="btn-group d-flex flex-wrap justify-content-center">
+            <script>
+            var limit = 5;
+            var skip = 0;
+            
+            function loadPreguntas() {
+                $.ajax({
+                    url: '/getPreguntas',
+                    type: 'GET',
+                    data: {
+                        limit: limit,
+                        skip: skip
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        var preguntas = data.preguntas;
+                        var btnGroup = $('.btn-group');
+            
+                        preguntas.forEach(function(pregunta) {
+                            var btn = $('<a href="/detalle/' + pregunta.id + '" class="btn btn-secondary mb-3" style="word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">' + pregunta.pregunta + '</a>');
+                            btnGroup.append(btn);
+                        });
+            
+                        skip += limit;
+                    },
+                    error: function(error) {
+                        res.status(404).redirect(`/error/getPreguntas/No se pudo obtener las preguntas`)
+                    }
+                });
+            }
+            
+            $(document).ready(function(){
+                loadPreguntas();
+            
+                $('#loadMore').click(function() {
+                    loadPreguntas();
+                });
+            });
+
+            // Función para realizar la búsqueda
+            function searchPreguntas() {
+                var searchTerm = $('#searchInput').val();
+                console.log(searchTerm)
+                $.ajax({
+                    url: '/searchPreguntas',
+                    type: 'GET',
+                    data: { searchTerm: searchTerm },
+                    dataType: 'json',
+                    success: function(data) {
+                        var preguntas = data.preguntas;
+                        var btnGroup = $('.btn-group');
+                        btnGroup.empty(); // Limpiar resultados anteriores
+            
+                        preguntas.forEach(function(pregunta) {
+                            var btn = $('<a href="/detalle/' + pregunta.id + '" class="btn btn-secondary mb-3" style="word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">' + pregunta.pregunta + '</a>');
+                            btnGroup.append(btn);
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+            // Función para filtrar preguntas por tema seleccionado
+            function cargarFiltroTemas() {
+                $.ajax({
+                    url: '/getFiltro',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        var temasUnicos = [...new Set(data.preguntas.map(pregunta => pregunta.tema))];
+                        // Ordena los temas alfabéticamente
+                        temasUnicos.sort();
+
+                        var temasListBox = $('#filtrarTemas');
+                        temasListBox.empty();
+                        
+                        // Agrega una opción vacía o deshabilitada al principio
+                        temasListBox.append('<option disabled selected value="">Selecciona un tema</option>');
+
+                        temasUnicos.forEach(function(tema) {
+                            var opcion = $('<option value="' + tema + '">' + tema + '</option>');
+                            temasListBox.append(opcion);
+                        });
+
+                        // Agrega la opción "Ninguna" al principio
+                        temasListBox.append('<option value="">Ninguna</option>');
+
+                        temasListBox.change(function() {
+                            var temaSeleccionado = $(this).val();
+                            filtrarPreguntasPorTema(temaSeleccionado);
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+            function filtrarPreguntasPorTema(tema) {
+                $.ajax({
+                    url: '/getPreguntasPorTema',
+                    type: 'GET',
+                    data: { tema: tema },
+                    dataType: 'json',
+                    success: function(data) {
+                        var preguntasContainer = $('.btn-group');
+                        preguntasContainer.empty();
+
+                        data.preguntas.forEach(function(pregunta) {
+                            var preguntaElement = $('<a href="/detalle/' + pregunta.id + '" class="btn btn-secondary mb-3" style="word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">' + pregunta.pregunta + '</a>');
+                            preguntasContainer.append(preguntaElement);
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+            // Llamar a la función de búsqueda al hacer clic en el botón
+            $('#searchButton').click(function() {
+                searchPreguntas();
+            });
+              // Llama a la función para cargar las preguntas al cargar la página
+            cargarFiltroTemas();
+            </script>
+        </div>
+    </section>
+    
+</body>
+
+</html>

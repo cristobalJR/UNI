@@ -1,0 +1,48 @@
+/* main.css */
+@font-face {
+    font-family: 'Montserrat-Ace-Medium';
+    src: url('./fonts/Montserrat-Ace-Medium.otf');
+}
+
+* {
+    font-family: 'Montserrat-Ace-Medium', sans-serif;
+}
+
+html, body {
+    background-color: #FFAF9D !important;
+    margin: 0;
+    padding: 0;
+}
+
+.btn {
+    text-decoration: none;
+    width: 125px;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    backdrop-filter: blur(5px); /* Ajusta según tus necesidades */
+    background: #FFAF9D;
+    border-color: white;
+    text-decoration: solid;
+}
+
+.btn-group {
+    gap: 10px;
+}
+
+.btn-group a {
+    text-decoration: none;
+}
+
+.btn-group .btn {
+    width: 125px;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    backdrop-filter: blur(5px); /* Ajusta según tus necesidades */
+    min-height: 120px;
+    min-width: 120px;
+    background: rgb(255, 189, 113);
+    border-color: white;
+    text-decoration: solid;
+}

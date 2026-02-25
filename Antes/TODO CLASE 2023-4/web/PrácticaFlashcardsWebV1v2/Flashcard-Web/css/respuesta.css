@@ -1,0 +1,39 @@
+/* Estilos generales */
+@font-face {
+    font-family: 'Montserrat-Ace-Medium';
+    src: url('./fonts/Montserrat-Ace-Medium.otf');
+}
+*{
+    font-family: 'Montserrat-Ace-Medium', sans-serif;
+}
+
+html, body {
+    background-color: #FFAF9D !important;
+    margin: 0;
+    padding: 0;
+}
+
+.btn {
+    text-decoration: none;
+    width: 125px;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    backdrop-filter: blur(5px); /* Ajusta según tus necesidades */
+    background: #FFAF9D;
+    border-color: white;
+    text-decoration: solid;
+    border-radius: 20px;
+}
+
+#container_pregunta{
+    background-color: rgba(255, 211, 160, 1);
+    border-radius: 20px;
+    padding: 20px;
+}
+.item_pregunta h1{
+    font-size: 58px;
+    color: white;
+    text-decoration: underline;
+    text-align: center;
+}

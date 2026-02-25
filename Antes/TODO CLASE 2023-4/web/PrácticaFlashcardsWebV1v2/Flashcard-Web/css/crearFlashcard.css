@@ -1,0 +1,146 @@
+/* Estilos generales */
+@font-face {
+  font-family: 'Montserrat-Ace-Medium';
+  src: url('./fonts/Montserrat-Ace-Medium.otf');
+}
+
+* {
+  font-family: 'Montserrat-Ace-Medium', sans-serif;
+}
+
+body {
+  background-color: #FFAF9D;
+  margin: 10px;
+  padding: 0;
+  justify-content: center;
+  text-align: center;
+  min-width: 540px;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+
+header nav {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+header nav img {
+  width: 380px;
+  height: 70px;
+  margin-top: 40px;
+}
+
+input {
+  border-radius: 10px;
+  /* Redondear los bordes de los campos de entrada */
+  padding: 5px;
+  /* Agregar relleno interno para separar el texto del borde */
+  margin: 5px;
+  /* Agregar margen para separar los campos entre sí */
+  
+}
+ textarea{
+  resize: none;
+  border-color: #FFDCA8;
+  border-width: 4px;
+  margin-left: 10px;
+  margin-right: 10px;
+ }
+
+.form-buttons {
+
+  margin-top: -15px;
+
+}
+.btn-save button
+{
+  text-decoration: none;
+  padding: 10px 50px;
+  gap: 10px;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+  cursor: pointer;
+  background-color: #16e021;
+  color: #fff;
+}
+
+.btn-cancel button{
+  text-decoration: none;
+  padding: 10px 50px;
+  gap: 10px;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+  cursor: pointer;
+  background-color: #f81414;
+  color: #fff;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+  grid-template-rows: repeat(2, auto); /* Cuatro filas */
+  gap: 50px; /* Espacio entre las celdas */
+  margin-top: 5%;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-left: 10px;
+  border-right: 10px;
+  background-color: #FFDCA8;
+  border: 50px solid #FFDCA8;
+  border-radius: 10px;
+  justify-content: center;
+  text-align: center;
+  overflow: auto; /* Agregar esta propiedad para el desbordamiento */
+  overflow-x: hidden;
+}
+
+.contenedorFormulario h2{
+  color: white;
+}
+.formulario textarea {
+  align-items: center;
+  max-width: 390px;
+  max-height: 127px;
+  min-width: 390px;
+  min-height: 127px;
+  border-radius: 7px;
+}
+
+.encabezado {
+  background-image: url('logo.jpeg');
+  background-size: 25%;
+  /* Cambia el valor para ajustar el tamaño de la imagen de fondo */
+  height: 200px;
+  /* Altura del encabezado */
+  max-width: fit-content;
+}
+.contenedorFormulario{
+  
+  height: 260px;
+  background-color: #FFAF9D;
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+
+}
+
+@media (max-width: 1100px)  {
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr; /* Una sola columna */
+    grid-template-rows: repeat(4, auto); /* Cuatro filas */
+    gap: 50px; /* Espacio entre las celdas */
+    margin-top: 5%;
+    background-color: #FFDCA8;
+    border: 50px solid #FFDCA8;
+    border-radius: 10px;
+    justify-content: center;
+    text-align: center;
+  }
+
+}

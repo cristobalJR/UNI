@@ -100,14 +100,89 @@ Actualizaciones comunes para mantener la operatividad del software
 
 ## 7.1 Tipos de mantenimiento
 
-**Mantenimiento perfectivo**:
-- Conjunto de actividades para mejorar o añadir nuevas funcionalidades requeridas por el usuario
-**Mantenimiento adaptativo**:
-- Conjunto de actividades para adaptar el sistema a los cambios (hardware o software) en su entorno tecnológico
 **Mantenimiento correctivo**:
-- Conjunto de actividades dedicadas a corregir defectos en el hardware o en el software detectados por los usuarios durante la exposición del sistema
+- Conjunto de actividades dedicadas a corregir defectos en el hardware o en el software detectados por los usuarios durante la exposición del sistema.
+- Modificar el sistema tras la detección de defectos, ambigüedades o errores.
+- Incluye diagnóstico y corrección de errores
+- El origen de los problemas:
+	- Requisitos
+	- Diseño (entre diseño y requisitos está el origen del 80% de los problemas)
+	- Codificación
+- Tipos:
+	- De emergencia(código).
+	- Planificado (desde requisitos)
+![[Tema 1 Evolución y Mantenimiento del Software(costeMantenimientoFrenteACicloVida).png]]
+- Defecto: Cualquier problema con el hardware, software o documentación
+- Ejemplos:
+	- Un programa falla o interrumpe su ejecución.
+	- Un programa produce resultados que no están de acuerdo con los requisitos.
+	- Un componente hardware (un disco, un procesador de E/S) falla causando un fallo del sistema.
+	- La documentación del software no encaja con el software al que da soporte.
+	- La documentación de usuario confunde al usuario, indicándole que realice actividades que le llevan a un resultado incorrecto o un fallo en el sistema.
+- Problemas:
+	- Poco tiempo → Poco cuidado en diseño e integración (No se actualiza la documentación)
+	- No mantiene la misma persona que escribió el código
+	- Se introducen nuevos errores (20-50%)
+	- Se suele centrar en un programa, pero afecta al sistema entero
+	- Incremento de las pruebas. Consume más recursos en pruebas que ninguna otra actividad de codificación. →  Degradación del sistema (erosión/deriva)→ Los cambios son cada vez más difíciles
+
+**Mantenimiento adaptativo**:
+- Conjunto de actividades para adaptar el sistema a los cambios (hardware o software) en su entorno tecnológico.
+- Modificar el sistema para acomodarlo a los cambios físicos del entorno.
+- Incluye:
+	- Actividades para ajustar el software a un entorno nuevo (hw/sw).
+	- Actividades para añadir nuevos periféricos.
+	- Actividades para ajustar el software a cambios en fuentes externas (ej: leyes).
+- Causas para realizar mantenimiento adaptativo:
+	- Necesidades internas (ej: cambiar el pago de semanal a mensual)
+	- Competencia de otras compañías
+	- Requisitos externos(leyes)
+**Cambios Urgentes**:
+- Fallos que corregir para que el sistema siga operando
+- Cambios en el entorno que provocan efectos inesperados en el sistema
+- Cambios no anticipados en el negocio que se pueden deber a nuevos competidores o cambios de legislación
+- →Reparaciones de emergencia → Degradación
+![[Tema 1 Evolución y Mantenimiento del Software(cambiosUrgentes).png]]
+**Mantenimiento perfectivo**:
+- Conjunto de actividades para mejorar o añadir nuevas funcionalidades requeridas por el usuario.
+- Mejorar el sistema para cumplir con las nuevas necesidades/ peticiones de los usuarios/negocio.
+	- Mejoras en las funciones existentes
+	- Nuevas propiedades
+	- Nuevas funcionalidades
+- Incluye:
+	- Mejoras en el software para aumentar la eficiencia, rendimiento, seguridad, etc.
+	- Actividades necesarias para cumplir nuevos requisitos relativos a fuentes externas (ej: nuevo formato de informes).
+	- Definir nuevos requisitos.
 **Mantenimiento preventivo**:
-Conjunto de actividades para facilitar el mantenimiento futuro del sistema
+-  Conjunto de actividades para facilitar el mantenimiento futuro del sistema.
+- Modificar el sistema con los cambios necesarios para mantener la eficiencia y fiabilidad del software.  → Va siempre orientada a la calidad, no a la funcionalidad.
+- Incluye:
+	- Revisión periódica de equipos, periféricos y protocolos asociados.
+- Pruebas y revisiones periódicas del software:
+	- Monitorizar el rendimiento, comprobar la precisión de los resultados, monitorizar el incremento en el tráfico de datos, comprobar backups y recuperación de errores, monitorizar el crecimiento del tamaño de los ficheros/bbdd.
+- Beneficios:
+	- Reduce el riesgo al aumentar la calidad
+	- Reduce el coste de mantenimiento, mejorando el 20% de los programas que consumen el 80% de los recursos.
+	- Más tiempo para incrementos y nuevos desarrollos.
+	- Aumenta la mantenibilidad del sistema.
+- La clave no es cuándo (no es que se haga "antes")
+	- Sino que no responde a una petición (externa)
+	- No es correctiva, no es perfectiva, no es adaptativa → pero puede tener actuaciones en común con todas ellas
+	- No es reactiva, sino preventiva (identifica el problema) → se hace siempre planificada
+**Mantenimiento Estructural**:
+- Modificar la arquitectura interna del sistema con el objetivo de mejorar su mantenibilidad
+- Es transversal: se pretende mantener la mantenibilidad
+	- O, incluso, mejorarla
+	- La mantenibilidad se degrada: es necesario actuar para mantenerla (ref. Segunda Ley de Lehman)
+	- Puede considerarse un caso particular del preventivo → pero tiene características específicas
+- Incluye:
+	- Mejorar la documentación existente.
+	- Reestructurar el código para mejorar la legibilidad.
+	- Efectuar reingeniería del software para incrementar su modularidad.
+	![[Tema 1 Evolución y Mantenimiento del Software()mantenimientoEstructural.png]]
+	![[Tema 1 Evolución y Mantenimiento del Software(mentenimientoEstructural2).png]]
+	![[Tema 1 Evolución y Mantenimiento del Software(mantenimiento estructural).png]]
+
 ![[Tema 1 Evolución(porcentajesTipoMantenimiento).png]]
 ![[Tema 1 Evolución(DistribucionTareasMantenimiento).png]]
 
