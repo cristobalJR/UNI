@@ -79,7 +79,8 @@ Veamos a continuación un ejemplo para un TAD sencillo: el contador. Su  interfa
 unit ucontador;
 interface
 type
-	contador = ^tcontador; //tipo opaco: el usuario solo ve un puntero
+	contador = ^tcontador; //tipo opaco:
+	 el usuario solo ve un puntero
 	tcontador = record    //definición interna (invisible externamente)
 		valor: integer;
 	end;
