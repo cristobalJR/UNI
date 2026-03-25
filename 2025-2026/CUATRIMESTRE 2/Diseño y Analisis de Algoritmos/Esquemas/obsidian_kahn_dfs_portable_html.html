@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kahn vs DFS TopSort</title>
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #cbd5e1;
+      --blue: #2563eb;
+      --blue-soft: #dbeafe;
+      --gray: #9ca3af;
+      --black: #111827;
+      --green: #16a34a;
+      --amber: #f59e0b;
+      --code-bg: #020617;
+      --code-text: #e2e8f0;
+      --active-line: rgba(245, 158, 11, 0.18);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 16px 18px 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .card-body {
+      padding: 16px 18px 18px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.4fr 0.8fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 0 0 10px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .stats {
+      display: grid;
+      gap: 10px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      font-size: 0.95rem;
+    }
+
+    .mono {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    .input-block {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      white-space: pre-wrap;
+      font-size: 0.9rem;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      background: #e2e8f0;
+      padding: 8px;
+      border-radius: 16px;
+    }
+
+    .tab-btn {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-weight: 700;
+      background: transparent;
+      cursor: pointer;
+      color: #334155;
+    }
+
+    .tab-btn.active {
+      background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      color: var(--text);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    button, select, input[type="range"] {
+      font: inherit;
+    }
+
+    .control-btn {
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 12px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .control-btn.primary {
+      background: var(--blue);
+      color: white;
+      border-color: var(--blue);
+    }
+
+    .control-btn:hover { filter: brightness(0.98); }
+
+    .slider-wrap {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .layout-top,
+    .layout-bottom {
+      display: grid;
+      gap: 18px;
+    }
+
+    .layout-top { grid-template-columns: 1.2fr 1fr; }
+    .layout-bottom { grid-template-columns: 1.05fr 0.95fr; }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .graph-box {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: white;
+      padding: 10px;
+    }
+
+    svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: white;
+      border-radius: 12px;
+    }
+
+    .code-box {
+      background: var(--code-bg);
+      color: var(--code-text);
+      border-radius: 16px;
+      overflow: auto;
+      padding: 12px;
+      border: 1px solid #1e293b;
+    }
+
+    .code-line {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 12px;
+      padding: 3px 8px;
+      border-radius: 8px;
+      white-space: pre;
+    }
+
+    .code-line.active {
+      background: var(--active-line);
+      outline: 1px solid rgba(245, 158, 11, 0.6);
+    }
+
+    .line-no { color: #64748b; }
+
+    .kv-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .kv-card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      background: white;
+    }
+
+    .kv-title {
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .small {
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+      vertical-align: middle;
+      border: 1px solid rgba(0,0,0,0.15);
+    }
+
+    .footer-note {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 1050px) {
+      .hero,
+      .layout-top,
+      .layout-bottom {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      body { padding: 10px; }
+      .title { font-size: 1.5rem; }
+      .tabs { grid-template-columns: 1fr; }
+      .toolbar { flex-direction: column; align-items: stretch; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="card">
+      <div class="card-body hero">
+        <div>
+          <h1 class="title">Animación didáctica: Kahn vs TopSort con DFS</h1>
+        </div>
+        <div class="stats">
+          <div><strong>Nodos:</strong> 5</div>
+          <div><strong>Aristas:</strong> 6</div>
+          <div><strong>Salida Kahn:</strong> <span id="hero-kahn" class="mono"></span></div>
+          <div><strong>Salida DFS:</strong> <span id="hero-dfs" class="mono"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-header">Entrada del problema</div>
+      <div class="card-body">
+        <div class="input-block mono">5 6
+0 2
+2 4
+0 1
+1 2
+0 4
+2 3</div>
+        <p>
+          Ambos algoritmos producen un orden topológico válido para este DAG (Grafo Acíclico Dirigido), pero <strong>no tienen por qué producir el mismo</strong>. En esta implementación concreta, con el orden exacto de aristas y vecinos usado en el código, los resultados finales son <strong>Kahn = [0, 1, 2, 4, 3]</strong> y <strong>DFS = [0, 1, 2, 3, 4]</strong>. Ambos son correctos porque respetan todas las dependencias del grafo.
+        </p>
+        <p>
+          <strong>Idea clave:</strong> en ordenación topológica puede haber varias salidas válidas. El resultado depende del criterio de desempate: en Kahn influye el orden en la cola y el orden de inserción de vecinos; en DFS influye el orden en que se recorren los vecinos y el momento en que se invierte el postorden.
+        </p>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-body">
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="kahn">Algoritmo de Kahn</button>
+          <button class="tab-btn" data-tab="dfs">TopSort con DFS</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-header">Controles</div>
+      <div class="card-body">
+        <div class="toolbar">
+          <button class="control-btn primary" id="playPauseBtn">Reproducir</button>
+          <button class="control-btn" id="prevBtn">Anterior</button>
+          <button class="control-btn" id="nextBtn">Siguiente</button>
+          <button class="control-btn" id="resetBtn">Reiniciar</button>
+          <label class="small">Velocidad:
+            <select id="speedSelect" class="control-btn" style="padding:8px 10px; margin-left:8px;">
+              <option value="2200">Lenta</option>
+              <option value="1600" selected>Normal</option>
+              <option value="900">Rápida</option>
+            </select>
+          </label>
+        </div>
+        <div class="slider-wrap">
+          <div id="sliderLabel" class="small"></div>
+          <input id="stepSlider" type="range" min="0" max="0" value="0" />
+        </div>
+      </div>
+    </section>
+
+    <section class="layout-top">
+      <div class="card">
+        <div class="card-header">Grafo y estado visual</div>
+        <div class="card-body">
+          <div class="graph-box">
+            <svg id="graphSvg" viewBox="0 0 530 360" aria-label="grafo dirigido"></svg>
+          </div>
+          <div id="legendBadges" class="badges" style="margin-top:12px;"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">Explicación del paso</div>
+        <div class="card-body">
+          <div id="stepBadges" class="badges"></div>
+          <p id="stepExplanation"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="layout-bottom">
+      <div class="card">
+        <div class="card-header">Código Python animado</div>
+        <div class="card-body">
+          <div id="codeBox" class="code-box mono"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">Variables relevantes</div>
+        <div class="card-body">
+          <div id="variablesBox" class="kv-list"></div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    const nodes = [0, 1, 2, 3, 4];
+    const edges = [
+      [0, 2],
+      [2, 4],
+      [0, 1],
+      [1, 2],
+      [0, 4],
+      [2, 3],
+    ];
+
+    const positions = {
+      0: { x: 80, y: 160 },
+      1: { x: 250, y: 80 },
+      2: { x: 250, y: 240 },
+      3: { x: 450, y: 280 },
+      4: { x: 450, y: 120 },
+    };
+
+    const pythonKahn = [
+      'from collections import deque',
+      '',
+      'def kahn_toposort(n, edges):',
+      '    graph = [[] for _ in range(n)]',
+      '    indeg = [0] * n',
+      '    for u, v in edges:',
+      '        graph[u].append(v)',
+      '        indeg[v] += 1',
+      '',
+      '    q = deque()',
+      '    for i in range(n):',
+      '        if indeg[i] == 0:',
+      '            q.append(i)',
+      '',
+      '    order = []',
+      '    while q:',
+      '        u = q.popleft()',
+      '        order.append(u)',
+      '        for v in graph[u]:',
+      '            indeg[v] -= 1',
+      '            if indeg[v] == 0:',
+      '                q.append(v)',
+      '',
+      '    return order if len(order) == n else None',
+    ];
+
+    const pythonDFS = [
+      'def dfs_toposort(n, edges):',
+      '    graph = [[] for _ in range(n)]',
+      '    for u, v in edges:',
+      '        graph[u].append(v)',
+      '',
+      '    visited = [0] * n  # 0=blanco, 1=gris, 2=negro',
+      '    postorder = []',
+      '',
+      '    def dfs(u):',
+      '        visited[u] = 1',
+      '        for v in graph[u]:',
+      '            if visited[v] == 1:',
+      '                raise ValueError("El grafo tiene un ciclo")',
+      '            if visited[v] == 0:',
+      '                dfs(v)',
+      '        visited[u] = 2',
+      '        postorder.append(u)',
+      '',
+      '    for i in range(n):',
+      '        if visited[i] == 0:',
+      '            dfs(i)',
+      '',
+      '    postorder.reverse()',
+      '    return postorder',
+    ];
+
+    function clone(obj) {
+      return JSON.parse(JSON.stringify(obj));
+    }
+
+    function buildAdjacency() {
+      const g = Object.fromEntries(nodes.map((n) => [n, []]));
+      for (const [u, v] of edges) g[u].push(v);
+      return g;
+    }
+
+    function buildIndeg() {
+      const indeg = Object.fromEntries(nodes.map((n) => [n, 0]));
+      for (const [, v] of edges) indeg[v] += 1;
+      return indeg;
+    }
+
+    function nodeColorsForDFS(state) {
+      const map = {};
+      for (const n of nodes) {
+        const v = state.visited?.[n] ?? 0;
+        map[n] = v === 0 ? 'white' : v === 1 ? 'gray' : 'black';
+      }
+      return map;
+    }
+
+    function generateKahnSteps() {
+      const g = buildAdjacency();
+      const indeg = buildIndeg();
+      const q = [];
+      const order = [];
+      const steps = [];
+
+      const pushStep = (extra) => {
+        steps.push({
+          ...extra,
+          indeg: clone(indeg),
+          queue: [...q],
+          order: [...order],
+        });
+      };
+
+      pushStep({
+        line: 4,
+        title: 'Inicialización',
+        explanation:
+          'Se crean la lista de adyacencia y el vector de grados de entrada. El grado de entrada de cada nodo cuenta cuántas aristas llegan a él.',
+        activeNodes: [],
+        activeEdges: [],
+        variables: { graph: JSON.stringify(g), indeg: JSON.stringify(indeg) },
+      });
+
+      for (const n of nodes) {
+        pushStep({
+          line: 11,
+          title: 'Búsqueda de nodos fuente',
+          explanation: `Se examina el nodo ${n}. Si su grado de entrada es 0, puede entrar en la cola porque no depende de ningún otro nodo.`,
+          activeNodes: [n],
+          activeEdges: [],
+          variables: { checkingNode: n, indegNode: indeg[n] },
+        });
+        if (indeg[n] === 0) {
+          q.push(n);
+          pushStep({
+            line: 13,
+            title: 'Nodo añadido a la cola',
+            explanation: `El nodo ${n} tiene indegree 0, así que se añade a la cola. En Kahn, la cola contiene los nodos que ya se pueden procesar.`,
+            activeNodes: [n],
+            activeEdges: [],
+            variables: { pushed: n },
+          });
+        }
+      }
+
+      while (q.length) {
+        const u = q.shift();
+        pushStep({
+          line: 16,
+          title: 'Extraer de la cola',
+          explanation: `Se extrae ${u} de la cola. Ese nodo ya puede fijarse en el orden topológico.`,
+          activeNodes: [u],
+          activeEdges: [],
+          variables: { popped: u },
+        });
+
+        order.push(u);
+        pushStep({
+          line: 18,
+          title: 'Añadir al resultado',
+          explanation: `Se añade ${u} al orden topológico parcial. El orden actual es [${order.join(', ')}].`,
+          activeNodes: [u],
+          activeEdges: [],
+          variables: { order: `[${order.join(', ')}]` },
+        });
+
+        for (const v of g[u]) {
+          indeg[v] -= 1;
+          pushStep({
+            line: 19,
+            title: 'Eliminar efecto de una arista',
+            explanation: `Se procesa la arista ${u} → ${v}. Como ${u} ya está resuelto, el grado de entrada de ${v} disminuye a ${indeg[v]}.`,
+            activeNodes: [u, v],
+            activeEdges: [[u, v]],
+            variables: { edge: `${u} -> ${v}`, indegUpdated: JSON.stringify(indeg) },
+          });
+          if (indeg[v] === 0) {
+            q.push(v);
+            pushStep({
+              line: 22,
+              title: 'Nuevo nodo disponible',
+              explanation: `El nodo ${v} ha quedado con indegree 0, así que ahora puede añadirse a la cola.`,
+              activeNodes: [v],
+              activeEdges: [[u, v]],
+              variables: { pushed: v },
+            });
+          }
+        }
+      }
+
+      pushStep({
+        line: 24,
+        title: 'Resultado final de Kahn',
+        explanation: `La cola queda vacía y el orden final es [${order.join(', ')}]. Como se procesaron los ${nodes.length} nodos, el grafo es acíclico y el orden es válido.`,
+        activeNodes: [...order],
+        activeEdges: [],
+        variables: { finalOrder: `[${order.join(', ')}]` },
+      });
+
+      return steps;
+    }
+
+    function generateDFSSteps() {
+      const g = buildAdjacency();
+      const visited = Object.fromEntries(nodes.map((n) => [n, 0]));
+      const postorder = [];
+      const stack = [];
+      const steps = [];
+
+      const pushStep = (extra) => {
+        steps.push({
+          ...extra,
+          visited: clone(visited),
+          postorder: [...postorder],
+          recursionStack: [...stack],
+          nodeColors: nodeColorsForDFS({ visited }),
+        });
+      };
+
+      pushStep({
+        line: 2,
+        title: 'Construcción del grafo',
+        explanation: 'DFS también construye la lista de adyacencia, pero no necesita indegrees. Su idea es profundizar y registrar el postorden.',
+        activeNodes: [],
+        activeEdges: [],
+        variables: { graph: JSON.stringify(g) },
+      });
+
+      function dfs(u) {
+        visited[u] = 1;
+        stack.push(u);
+        pushStep({
+          line: 10,
+          title: 'Entrar en DFS(u)',
+          explanation: `Se entra en dfs(${u}). El nodo pasa a gris: está en exploración activa dentro de la pila de recursión.`,
+          activeNodes: [u],
+          activeEdges: [],
+          variables: { entered: u },
+        });
+
+        for (const v of g[u]) {
+          pushStep({
+            line: 11,
+            title: 'Explorar vecino',
+            explanation: `Desde ${u} se examina el vecino ${v}. Si ${v} está blanco, DFS profundiza en él antes de cerrar ${u}; si estuviera gris, eso indicaría un ciclo.`,
+            activeNodes: [u, v],
+            activeEdges: [[u, v]],
+            variables: { edge: `${u} -> ${v}`, stateOfV: visited[v] },
+          });
+          if (visited[v] === 1) {
+            pushStep({
+              line: 12,
+              title: 'Detección de ciclo',
+              explanation: `El nodo ${v} está gris, así que existe una arista de retroceso y el grafo no sería un DAG. En este ejemplo no ocurre.`,
+              activeNodes: [u, v],
+              activeEdges: [[u, v]],
+              variables: { cycleEdge: `${u} -> ${v}` },
+            });
+          }
+          if (visited[v] === 0) {
+            pushStep({
+              line: 15,
+              title: 'Llamada recursiva',
+              explanation: `El nodo ${v} está blanco, así que se hace dfs(${v}).`,
+              activeNodes: [u, v],
+              activeEdges: [[u, v]],
+              variables: { call: `dfs(${v})` },
+            });
+            dfs(v);
+          }
+        }
+
+        visited[u] = 2;
+        stack.pop();
+        pushStep({
+          line: 16,
+          title: 'Nodo completado',
+          explanation: `Todos los descendientes de ${u} ya fueron explorados. El nodo pasa a negro: queda completamente procesado.`,
+          activeNodes: [u],
+          activeEdges: [],
+          variables: { finished: u },
+        });
+
+        postorder.push(u);
+        pushStep({
+          line: 17,
+          title: 'Añadir a postorder',
+          explanation: `Se añade ${u} al final del postorden. En DFS TopSort, el orden topológico se obtiene invirtiendo este vector al final.`,
+          activeNodes: [u],
+          activeEdges: [],
+          variables: { postorder: `[${postorder.join(', ')}]` },
+        });
+      }
+
+      for (const i of nodes) {
+        pushStep({
+          line: 19,
+          title: 'Bucle principal de nodos',
+          explanation: `Se revisa el nodo ${i}. Si sigue blanco, se lanza una nueva DFS desde él.`,
+          activeNodes: [i],
+          activeEdges: [],
+          variables: { checkingNode: i, color: visited[i] },
+        });
+        if (visited[i] === 0) {
+          pushStep({
+            line: 21,
+            title: 'Nueva componente DFS',
+            explanation: `El nodo ${i} no ha sido visitado aún, así que comienza una exploración desde ese nodo.`,
+            activeNodes: [i],
+            activeEdges: [],
+            variables: { startDFS: i },
+          });
+          dfs(i);
+        }
+      }
+
+      const finalOrder = [...postorder].reverse();
+      pushStep({
+        line: 23,
+        title: 'Invertir el postorden',
+        explanation: `El postorden es [${postorder.join(', ')}]. Al invertirlo obtenemos el orden topológico final: [${finalOrder.join(', ')}].`,
+        activeNodes: [...finalOrder],
+        activeEdges: [],
+        variables: { finalOrder: `[${finalOrder.join(', ')}]` },
+      });
+
+      return steps;
+    }
+
+    const kahnSteps = generateKahnSteps();
+    const dfsSteps = generateDFSSteps();
+
+    const state = {
+      mode: 'kahn',
+      stepIndex: 0,
+      playing: false,
+      timer: null,
+      speed: 1600,
+    };
+
+    const els = {
+      tabButtons: Array.from(document.querySelectorAll('.tab-btn')),
+      playPauseBtn: document.getElementById('playPauseBtn'),
+      prevBtn: document.getElementById('prevBtn'),
+      nextBtn: document.getElementById('nextBtn'),
+      resetBtn: document.getElementById('resetBtn'),
+      speedSelect: document.getElementById('speedSelect'),
+      stepSlider: document.getElementById('stepSlider'),
+      sliderLabel: document.getElementById('sliderLabel'),
+      graphSvg: document.getElementById('graphSvg'),
+      legendBadges: document.getElementById('legendBadges'),
+      stepBadges: document.getElementById('stepBadges'),
+      stepExplanation: document.getElementById('stepExplanation'),
+      codeBox: document.getElementById('codeBox'),
+      variablesBox: document.getElementById('variablesBox'),
+      heroKahn: document.getElementById('hero-kahn'),
+      heroDfs: document.getElementById('hero-dfs'),
+    };
+
+    els.heroKahn.textContent = '[' + kahnSteps[kahnSteps.length - 1].order.join(', ') + ']';
+    els.heroDfs.textContent = dfsSteps[dfsSteps.length - 1].variables.finalOrder;
+
+    function getSteps() {
+      return state.mode === 'kahn' ? kahnSteps : dfsSteps;
+    }
+
+    function getCode() {
+      return state.mode === 'kahn' ? pythonKahn : pythonDFS;
+    }
+
+    function setMode(mode) {
+      state.mode = mode;
+      state.stepIndex = 0;
+      stopPlayback();
+      render();
+    }
+
+    function stopPlayback() {
+      state.playing = false;
+      if (state.timer) clearInterval(state.timer);
+      state.timer = null;
+    }
+
+    function startPlayback() {
+      stopPlayback();
+      state.playing = true;
+      state.timer = setInterval(() => {
+        const steps = getSteps();
+        if (state.stepIndex >= steps.length - 1) {
+          stopPlayback();
+          render();
+          return;
+        }
+        state.stepIndex += 1;
+        render();
+      }, state.speed);
+    }
+
+    function togglePlayback() {
+      if (state.playing) stopPlayback();
+      else startPlayback();
+      render();
+    }
+
+    function lineEl(n, active, text) {
+      const div = document.createElement('div');
+      div.className = 'code-line' + (active ? ' active' : '');
+      const no = document.createElement('span');
+      no.className = 'line-no';
+      no.textContent = n;
+      const code = document.createElement('span');
+      code.textContent = text || ' ';
+      div.appendChild(no);
+      div.appendChild(code);
+      return div;
+    }
+
+    function badge(text) {
+      const span = document.createElement('span');
+      span.className = 'badge';
+      span.textContent = text;
+      return span;
+    }
+
+    function kvCard(title, value) {
+      const wrap = document.createElement('div');
+      wrap.className = 'kv-card';
+      const t = document.createElement('div');
+      t.className = 'kv-title';
+      t.textContent = title;
+      const v = document.createElement('div');
+      v.className = 'mono';
+      v.textContent = value;
+      wrap.appendChild(t);
+      wrap.appendChild(v);
+      return wrap;
+    }
+
+    function escapeAttr(v) {
+      return String(v).replace(/"/g, '&quot;');
+    }
+
+    function renderGraph(step) {
+      const svg = els.graphSvg;
+      svg.innerHTML = '';
+
+      const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+      const marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+      marker.setAttribute('id', 'arrowhead');
+      marker.setAttribute('markerWidth', '10');
+      marker.setAttribute('markerHeight', '7');
+      marker.setAttribute('refX', '9');
+      marker.setAttribute('refY', '3.5');
+      marker.setAttribute('orient', 'auto');
+      const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+      polygon.setAttribute('points', '0 0, 10 3.5, 0 7');
+      polygon.setAttribute('fill', '#94a3b8');
+      marker.appendChild(polygon);
+      defs.appendChild(marker);
+      svg.appendChild(defs);
+
+      const activeEdges = new Set((step.activeEdges || []).map(([u, v]) => `${u}-${v}`));
+      const activeNodes = new Set(step.activeNodes || []);
+      const nodeColors = step.nodeColors || {};
+
+      for (const [u, v] of edges) {
+        const p1 = positions[u];
+        const p2 = positions[v];
+        const dx = p2.x - p1.x;
+        const dy = p2.y - p1.y;
+        const len = Math.sqrt(dx * dx + dy * dy);
+        const ux = dx / len;
+        const uy = dy / len;
+        const r = 26;
+        const x1 = p1.x + ux * r;
+        const y1 = p1.y + uy * r;
+        const x2 = p2.x - ux * r;
+        const y2 = p2.y - uy * r;
+
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', x1);
+        line.setAttribute('y1', y1);
+        line.setAttribute('x2', x2);
+        line.setAttribute('y2', y2);
+        line.setAttribute('stroke', activeEdges.has(`${u}-${v}`) ? '#2563eb' : '#94a3b8');
+        line.setAttribute('stroke-width', activeEdges.has(`${u}-${v}`) ? '4' : '2.5');
+        line.setAttribute('marker-end', 'url(#arrowhead)');
+        svg.appendChild(line);
+      }
+
+      for (const n of nodes) {
+        const p = positions[n];
+        const isActive = activeNodes.has(n);
+        const colorMode = state.mode === 'dfs' ? nodeColors[n] : 'default';
+
+        let fill = '#f8fafc';
+        if (colorMode === 'gray') fill = '#9ca3af';
+        else if (colorMode === 'black') fill = '#111827';
+        else if (isActive) fill = '#60a5fa';
+
+        const stroke = isActive ? '#2563eb' : '#475569';
+        const textColor = colorMode === 'black' ? '#ffffff' : '#0f172a';
+
+        const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', p.x);
+        circle.setAttribute('cy', p.y);
+        circle.setAttribute('r', isActive ? '28' : '26');
+        circle.setAttribute('fill', fill);
+        circle.setAttribute('stroke', stroke);
+        circle.setAttribute('stroke-width', isActive ? '4' : '2.5');
+
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', p.x);
+        text.setAttribute('y', p.y + 6);
+        text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('font-size', '18');
+        text.setAttribute('font-weight', '700');
+        text.setAttribute('fill', textColor);
+        text.textContent = n;
+
+        group.appendChild(circle);
+        group.appendChild(text);
+        svg.appendChild(group);
+      }
+    }
+
+    function renderLegend(step) {
+      els.legendBadges.innerHTML = '';
+      if (state.mode === 'kahn') {
+        els.legendBadges.appendChild(badge('Azul: nodo o arista activa'));
+        els.legendBadges.appendChild(badge('Cola: [' + (step.queue || []).join(', ') + ']'));
+        els.legendBadges.appendChild(badge('Orden: [' + (step.order || []).join(', ') + ']'));
+      } else {
+        els.legendBadges.appendChild(badge('Blanco: no visitado'));
+        els.legendBadges.appendChild(badge('Gris: en recursión'));
+        els.legendBadges.appendChild(badge('Negro: terminado'));
+        els.legendBadges.appendChild(badge('Pila recursiva: [' + (step.recursionStack || []).join(', ') + ']'));
+      }
+    }
+
+    function renderStepInfo(step, totalSteps) {
+      els.stepBadges.innerHTML = '';
+      els.stepBadges.appendChild(badge('Paso ' + (state.stepIndex + 1) + ' / ' + totalSteps));
+      els.stepBadges.appendChild(badge(step.title));
+      els.stepBadges.appendChild(badge('Línea ' + step.line));
+      els.stepExplanation.textContent = step.explanation;
+    }
+
+    function renderCode(step) {
+      els.codeBox.innerHTML = '';
+      const code = getCode();
+      code.forEach((line, idx) => {
+        els.codeBox.appendChild(lineEl(idx + 1, idx + 1 === step.line, line));
+      });
+    }
+
+    function renderVariables(step) {
+      els.variablesBox.innerHTML = '';
+
+      if (state.mode === 'kahn') {
+        els.variablesBox.appendChild(kvCard('indegree', JSON.stringify(step.indeg)));
+        els.variablesBox.appendChild(kvCard('cola', '[' + (step.queue || []).join(', ') + ']'));
+        els.variablesBox.appendChild(kvCard('orden parcial', '[' + (step.order || []).join(', ') + ']'));
+      } else {
+        els.variablesBox.appendChild(kvCard('visited (0 blanco, 1 gris, 2 negro)', JSON.stringify(step.visited)));
+        els.variablesBox.appendChild(kvCard('pila de recursión', '[' + (step.recursionStack || []).join(', ') + ']'));
+        els.variablesBox.appendChild(kvCard('postorder', '[' + (step.postorder || []).join(', ') + ']'));
+      }
+
+      if (step.variables) {
+        const wrap = document.createElement('div');
+        wrap.className = 'kv-card';
+        const title = document.createElement('div');
+        title.className = 'kv-title';
+        title.textContent = 'Detalle del paso';
+        wrap.appendChild(title);
+
+        for (const [k, v] of Object.entries(step.variables)) {
+          const row = document.createElement('div');
+          row.className = 'mono';
+          row.style.fontSize = '0.84rem';
+          row.style.marginTop = '6px';
+          row.innerHTML = '<strong>' + escapeHtml(k) + '</strong>: ' + escapeHtml(String(v));
+          wrap.appendChild(row);
+        }
+        els.variablesBox.appendChild(wrap);
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function render() {
+      const steps = getSteps();
+      const step = steps[state.stepIndex];
+
+      els.tabButtons.forEach((btn) => {
+        btn.classList.toggle('active', btn.dataset.tab === state.mode);
+      });
+
+      els.playPauseBtn.textContent = state.playing ? 'Pausar' : 'Reproducir';
+      els.stepSlider.max = Math.max(steps.length - 1, 0);
+      els.stepSlider.value = state.stepIndex;
+      els.sliderLabel.textContent = 'Posición de la animación: ' + (state.stepIndex + 1) + ' / ' + steps.length;
+
+      renderGraph(step);
+      renderLegend(step);
+      renderStepInfo(step, steps.length);
+      renderCode(step);
+      renderVariables(step);
+    }
+
+    els.tabButtons.forEach((btn) => {
+      btn.addEventListener('click', () => setMode(btn.dataset.tab));
+    });
+
+    els.playPauseBtn.addEventListener('click', togglePlayback);
+    els.prevBtn.addEventListener('click', () => {
+      stopPlayback();
+      state.stepIndex = Math.max(0, state.stepIndex - 1);
+      render();
+    });
+    els.nextBtn.addEventListener('click', () => {
+      stopPlayback();
+      const steps = getSteps();
+      state.stepIndex = Math.min(steps.length - 1, state.stepIndex + 1);
+      render();
+    });
+    els.resetBtn.addEventListener('click', () => {
+      stopPlayback();
+      state.stepIndex = 0;
+      render();
+    });
+    els.speedSelect.addEventListener('change', (e) => {
+      state.speed = Number(e.target.value);
+      if (state.playing) startPlayback();
+      render();
+    });
+    els.stepSlider.addEventListener('input', (e) => {
+      stopPlayback();
+      state.stepIndex = Number(e.target.value);
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>

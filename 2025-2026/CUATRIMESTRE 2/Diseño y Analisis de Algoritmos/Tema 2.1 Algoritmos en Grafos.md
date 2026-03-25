@@ -94,16 +94,16 @@ El **breath-first search**(bfs) recorre la frontera en anchura
 
 # 3. Algoritmos Sobre Grafos
 ## Ordenación topológica:
-Ordenamiento no comparativo, no se tiene un orden total (a<b<c), se tiene un orden parcial (a<b, c<b, no tenemos relación entre a y c (a,c,b / c,a,b ) → Los dos serían ordenes válidos (Orden de vestirse)).
+Ordenamiento no comparativo(La ordenación topológica no ordena según un orden total entre claves, sino según una **relación de precedencia** dada por un **orden parcial**) , no se tiene un orden total (a<b<c), se tiene un orden parcial (a<b, c<b, no tenemos relación entre a y c (a,c,b / c,a,b ) → Los dos serían ordenes válidos (Orden de vestirse)).
 Dado un grafo dirigido y acíclico, se denomina ordenación topológica a una disposición lineal de los nodos tal que, dado un arco (u,v), el nodo u esté antes que v en la ordenación.
 - Un vértice se visita solo si se han visitado sus predecesores
-- En caso de los grafos cíclicos, el algoritmo sigue siendo válido, pero la interpretación no es directa
+- En presencia de ciclos, el DFS permite **detectarlos** (aristas hacia nodos grises), lo que indica que no es posible construir una ordenación topológica.
 *Aplicaciones teóricas*:
 - Tareas a realizar (algunas antes que otras).
 - Makefile: algunas cosas se compilan antes que otras.
 - Plan de estudios: hay materias que tienen que hacerse unas antes que otras.
 - Fases de un proyecto (PERT).
-**Técnica**:
+**Técnica** Método 1: DFS:
 Usando un recorrido DFS con muy poca modificación. (va recorriendo hasta que llega a un final, por ejemplo taller 1 en el grafo de arriba y lo mete en una pila, asegurando que salga el último)
 - Se realiza un recorrido en profundidad "coloreando" los nodos.
 - Inicialmente los todos nodos son blancos
@@ -119,12 +119,24 @@ El algoritmo anterior tiene el problema de no garantizar determinismo
 - Misma entrada → Misma salida
 Lo habitual es establecer un orden entre las tareas que pueden realizarse en el mismo momento del tiempo
 - Orden lexicográfico
-**Implementación alternativa**:
-Similar a recorrido BFS (basado en los grados de entrada de cada uno de los vértices(cuantas aristas le llegan)). ==// No estoy seguro de esto==
-- Basada en contar aristas incidentes a cada nodo para ver cuándo pueden comenzar a realizar sus tareas
-- Primero se realizan las tareas con 0 aristas incidentes
+**Implementación alternativa** Método 2: algoritmo de Kahn:
+Similar a recorrido BFS (basado en los grados de entrada de cada uno de los vértices(cuantas aristas le llegan)).En lugar de recorrer el grafo por niveles de distancia, procesa los vértices en función de su grado de entrada, comenzando por aquellos con grado 0 y actualizando dinámicamente el resto.
+Basada en contar aristas incidentes(**grado de entrada** (*in-degree*)) a cada nodo para ver cuándo pueden comenzar a realizar sus tareas
+- Primero se realizan las tareas con 0 aristas incidentes ()
 - A continuación actualizamos el valor para cada vértice y continuamos
+
+	**Técnica**:
+	- se meten inicialmente en una cola los vértices con **grado de entrada 0**;
+	- se extrae uno,
+	- se añade al orden,
+	- se “eliminan” sus aristas salientes,
+	- si algún vecino pasa a tener grado de entrada 0, se añade a la cola;
+	- si al final no has sacado todos los vértices, hay ciclo.
 ![[Tema 2.1 Algoritmos en Grafos(ordenacionTopologicaBFS).png]]
+## Animación Método DFS vs Kahn:
+```custom-frames
+frame: Kahn vs TopSort con DFS
+```
 # 4. Conectividad
 Un *grafo conexo* es un grafo no dirigido donde existe un camino entre cualquier par de nodos. Un *grafo fuertemente conexo* es un grafo dirigido donde existe un camino entre cualquier par de nodos, considerando la dirección de las aristas.
 Para descomponer un grafo G en sus componentes fuertemente conexas:
@@ -162,3 +174,8 @@ Sea V cualquier vértice del árbol (excepto la raíz) y X un hijo de V:
 - Caminos y ciclos eulerianos.
 - Cierre transitivo.
 - Caminos entre un origen y un destino con K aristas.
+
+# PREGUNTAS A PROFESORES:
+1. <u>Subject: Problem explorando: Explorando Mazmorras</u> 
+	- **Pregunta**: Buenas, estoy intentando hacer este ejercicio utilizando un DFS iterativo, simplemente porque el anterior lo hice con uno recursivo y quiero variar, pero me estoy dando cuenta de que necesito muchas más variables para poder traquear todo correctamente, evitando que las decisiones se tomen por orden lexicográfico, todo está apuntando a que es más conveniente utilizar la implementación recursiva, aparte de confirmar esto, me gustaría saber como puedo en el futuro elegir la mejor implementación, que no me vaya a hacer perder tiempo en el examen en estos casos.
+	- *Respuesta*: Buenas! Siempre es mejor una implementación iterativa que una recursiva si puedes hacerla, sobre todo si el tamaño del problema es grande. Normalmente, para grafos con más de 50-100 nodos, e incluso menos si el grafo es muy denso, el algoritmo recursivo fallará al alcanzar el máximo de recursión que admite la pila del sistema. Si tienes que elegir entre un algoritmo recursivo o uno iterativo, siempre es mejor iterativo. Sobre este problema, observa que no necesitas más variables por ser recursivo o no, simplemente tener clara la idea y cómo usar las características de Python en tu favor. Supongo que tu problema viene al guardar un camino, pero nada te impide almacenar en la cola una tupla y que lo recuperes de la propia cola, algo como q.enqueue((nodo, \[camino])). Por otra parte, para el orden lexicográfico, es suficiente con hacer un sort() sobre los adyacentes de un nodo cuando los visitas durante tu recorrido o una vez has leído la entrada. ¡Ánimo! Pelearse con los algoritmos es la mejor forma de entenderlos e interiorizarlos.

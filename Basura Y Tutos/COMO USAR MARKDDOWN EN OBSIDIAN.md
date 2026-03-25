@@ -162,3 +162,9 @@ Alice -> Bob: hello
 [[MP_Tema_5_Patrones_de_diseño.pdf]]
 
 ![[COMO USAR MARKDDOWN EN OBSIDIAN 2025-09-18 15.31.25.excalidraw]]
+
+
+```custom-frames
+frame: Kahn vs TopSort con DFS
+```
+

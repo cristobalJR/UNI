@@ -1,0 +1,22 @@
+el enunciado dice que los grafos son conexos pero tengo que blindar el programa, porque el juez le aporta grafos no conexos.
+
+ayudaría bastante que el juez te enseñase en que caso falla o algun log mínimo sobre que es lo que está pasando en el programa.
+es muy dificil acertar en si el problema es un fallo en el enunciado, como por ejemplo la cadena de texto MON TOYA POR FAVOR que se muestra de dos formas distintas, si es un fallo a la hora de formatear la salida, o si es un fallo en el limite de algún problema, el proceso de entender los problemas sin recurrir constantemente a la IA se hace muy pesado y largo para la cantidad de ejercicios
+entiendo los algoritmos y como funcionan, entiendo que tenga que pasar gran parte del proceso estudiando el mejor tipo de algoritmo e implementación menos compleja a la hora de resolver los problemas, pero averiguar que es lo que está mal me toma mucho más tiempo
+
+
+ if sorted([i,f]) not in trails:
+        ans = bfs(i, f, m)
+        if ans != -1:
+            trails.append((sorted([i, f]))
+            if ans == -2:
+                print("MON TOYA POR FAVOR")
+        else:
+            print(ans)
+    else:
+ if limit < 1:
+        return -1
+    elif init == end:
+        return 1
+    elif limit == 2 and end not in graph[init]:
+        return -1

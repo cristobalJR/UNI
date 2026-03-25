@@ -1,19 +1,32 @@
-M, N , P= map(str, input().split())
-M = int(M)
+N, M, P = input().split()
 N = int(N)
-gente = [[] for i in range(M)]
+M = int(M)
+
 saga = []
-for i in range(M):
-    saga.append(str(input()))
 for _ in range(N):
-    n,m = map(int, input().split())
-    if saga[n] == P and saga[m] == P:
-        gente[n].append(m)
-        gente[m].append(n)
-    elif saga[n] == P and saga[m] != P:
+    saga.append(input().strip())
 
-print(gente)
-print(saga)
+gente = [[] for _ in range(N)]
 
-visited = [False for i in range(M)]
+for _ in range(M):
+    a, b = map(int, input().split())
+    if saga[a] == P and saga[b] == P:
+        gente[a].append(b)
+        gente[b].append(a)
+
+visitado = [False] * N
+salas = 0
+
+def dfs(u):
+    visitado[u] = True
+    for v in gente[u]:
+        if not visitado[v]:
+            dfs(v)
+
+for i in range(N):
+    if saga[i] == P and not visitado[i]:
+        salas += 1
+        dfs(i)
+
+print(salas)
 
