@@ -13,25 +13,34 @@
 - Asegura acceso rápido a la hora de comprobar si hay una arista entre dos vértices.
 - Requiere memoria de 0(V<sup>2</sup>) y no depende de la densidad del grafo
 - Permite comprobar adyacencia en tiempo constante
-- No depende del número de aristas, por lo que es <u>adecuada para grafos densos</u>
+- No depende del número de aristas, por lo que es <u>adecuada para grafos densos</u> $|E| \cong |V|^2$ Aristas $\cong$ Vértices<sup>2</sup>
 ![[Tema 2.1 Algoritmos en Grafos(matrizAdyacencia).png|550]]
 ### Implementación:
 **Costos**:
 - *Espacio* → O(V<sup>2</sup>)
 - Agregar vértice → O(V<sup>2</sup>)
-- Agregar arista → O(1)
-- Ver si son adyacentes → O(1)
-- Obtener vecinos → O(V<sup>2</sup>)
+- Agregar arista → O(1) *(Mucho menos O() que Lista Ady.)*
+- Ver si dos vértices son adyacentes → O(1) *(Mucho menos O() que Lista Ady.)*
+- Obtener vecinos → O(V)
 ## Lista de adyacencia
 - Representación compacta para<u> grafos dispersos (pocas aristas)</u>($|E| \ll|V|^2$).
 - No aseguran acceso rápido a la hora de comprobar si hay una arista entre dos vértices.
 ![[Tema 2.1 Algoritmos en Grafos(listaAdyacencia).png|600]]
 ### Implementaciones:
 **Lista de listas**: Para grafos no muy densos que den listas cortas.
- ![[Tema 2.1 Algoritmos en Grafos(costesListaDeListas).png|550]]
+```python
+adj = [
+    [1, 3],    # vecinos de 0
+    [0, 2],
+    [1],
+    [0] 
+]
+```
+
+![[Tema 2.1 Algoritmos en Grafos(costesListaDeListas).png|550]]
 **Diccionario de listas**: parecido a lista de listas. (Misma complejidad menos acceso al vértice → O(1) promedio)
 **Diccionario de diccionarios**: si es muy denso o no se sabe, conviene:
-- *Espacio*, igual O(V+E).
+- *Espacio*, igual O(V+E). 
 	- n listas (una por vértice)
 	- En total se almacenan E aristas
 	- En no dirigido se almacenan 2E, pero sigue siendo O(V+E).
