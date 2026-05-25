@@ -1,4 +1,6 @@
 # Índice 
+**Recuperación**
+|26-06-2026|17:00 - 19:00|
 
 104 Aulario I / No se pasa asistencia
 ## Criterios de Evaluación:

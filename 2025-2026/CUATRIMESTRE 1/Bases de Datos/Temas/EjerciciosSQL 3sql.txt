@@ -1,0 +1,153 @@
+-- Clase BD - GIS 17/11/2025 
+
+SELECT * FROM EMPLEADO;
+
+SELECT * FROM DEPARTAMENTO;
+
+SELECT * 
+FROM EMPLEADO E, DEPARTAMENTO D
+WHERE E.ID_DEPARTAMENTO=D.ID_DEPARTAMENTO;
+
+
+SELECT * 
+FROM EMPLEADO E
+JOIN DEPARTAMENTO D
+  ON E.ID_DEPARTAMENTO=D.ID_DEPARTAMENTO;
+  
+  
+-- 1.  Nombre, apellidos y nombre de departamento de los empleados
+SELECT E.NOMBRE, E.APELLIDO, D.NOMBRE "DEPARTAMENTO"
+FROM  EMPLEADO E
+ JOIN DEPARTAMENTO D ON E.ID_DEPARTAMENTO = D.ID_DEPARTAMENTO;
+
+SELECT COUNT(ID_EMPLEADO) FROM EMPLEADO;
+
+SELECT * FROM EMPLEADO;
+
+
+-- Ejemplo de natural join (los atributos de la combinación se llaman igual
+-- No implemenatado en esta versión de Oracle.
+-- SELECT E.NOMBRE, E.APELLIDO, D.NOMBRE "DEPARTAMENTO"
+-- FROM EMPLEADO E NATURAL JOIN DEPARTAMENTO D;
+
+
+-- 2. Nombre, apellidos y nombre del proyecto donde trabajan los empleados
+
+SELECT E.NOMBRE, E.APELLIDO, P.NOMBRE "PROYECTO"
+FROM EMPLEADO E
+JOIN TRABAJA T  ON E.ID_EMPLEADO = T.ID_EMPLEADO
+JOIN PROYECTO P ON P.ID_PROYECTO = T.ID_PROYECTO;
+
+-- 3. Salario medio de los empleados por dirección
+
+SELECT D.DIRECCION, AVG(E.SALARIO) "SALARIO_MEDIO"
+FROM  EMPLEADO E
+ JOIN DEPARTAMENTO D ON E.ID_DEPARTAMENTO = D.ID_DEPARTAMENTO
+GROUP BY D.DIRECCION;
+
+
+-- 4. Nombre del proyecto, nombre del empleado y fecha de comienzo de participación 
+--   ordenado de forma descendente por fecha de incorporación
+
+SELECT P.NOMBRE, E.NOMBRE, T.FECHA
+FROM EMPLEADO E
+JOIN TRABAJA T  ON E.ID_EMPLEADO = T.ID_EMPLEADO
+JOIN PROYECTO P ON P.ID_PROYECTO = T.ID_PROYECTO
+ORDER BY 3 DESC;
+
+-- 5. Nombre de los proyectos en los que trabaje mas de un empleado
+
+SELECT *
+FROM PROYECTO
+WHERE ID_PROYECTO IN (
+    SELECT ID_PROYECTO
+    FROM TRABAJA T
+    GROUP BY ID_PROYECTO
+    HAVING COUNT(ID_EMPLEADO)>1);
+
+SELECT P.NOMBRE
+FROM TRABAJA T
+JOIN PROYECTO P ON T.ID_PROYECTO = P.ID_PROYECTO
+GROUP BY P.NOMBRE
+HAVING COUNT(ID_EMPLEADO)>1;
+
+
+SELECT *
+FROM TRABAJA T
+JOIN PROYECTO P ON T.ID_PROYECTO = P.ID_PROYECTO;
+
+
+-- 6. Nombre de los proyectos en los que no trabajan empleados
+SELECT NOMBRE FROM PROYECTO WHERE ID_PROYECTO IN (
+    SELECT ID_PROYECTO FROM PROYECTO
+    MINUS
+    SELECT ID_PROYECTO FROM TRABAJA);
+
+-- 7. Nombre de los empleados que no trabajan en ningún proyecto
+SELECT NOMBRE, APELLIDO FROM EMPLEADO WHERE ID_EMPLEADO IN (
+    SELECT ID_EMPLEADO FROM EMPLEADO
+    MINUS
+    SELECT ID_EMPLEADO FROM TRABAJA);
+
+-- 1.  Nombre, apellidos y nombre de departamento de los empleados
+SELECT E.NOMBRE, E.APELLIDO, D.NOMBRE "DEPARTAMENTO"
+FROM  EMPLEADO E
+ LEFT JOIN DEPARTAMENTO D ON E.ID_DEPARTAMENTO = D.ID_DEPARTAMENTO;
+ 
+ 
+ SELECT *
+ FROM EMPLEADO E
+ FULL OUTER JOIN TRABAJA T  ON E.ID_EMPLEADO = T.ID_EMPLEADO
+ FULL OUTER JOIN PROYECTO P ON P.ID_PROYECTO = T.ID_PROYECTO; 
+-- ------------------------------------------------------------------------- 
+-- Ejemplo de Exists de y consultas equivalentes con subselect y join
+-- ------------------------------------------------------------------------- 
+
+SELECT *
+FROM EMPLEADO E WHERE EXISTS
+  (SELECT * FROM TRABAJA T WHERE t.id_empleado= E.ID_EMPLEADO);
+  
+ SELECT * FROM EMPLEADO WHERE ID_EMPLEADO IN (SELECT ID_EMPLEADO FROM TRABAJA);
+
+SELECT * 
+   FROM EMPLEADO E
+   JOIN TRABAJA T ON E.ID_EMPLEADO = T.ID_EMPLEADO;
+   
+-- 9. Empleados con salario superior a cualquier empleado del departamento 10 
+
+SELECT * FROM EMPLEADO WHERE SALARIO > ANY (
+    SELECT SALARIO FROM EMPLEADO WHERE ID_DEPARTAMENTO=10)
+    AND ID_DEPARTAMENTO <> 10;
+
+
+-- 10 . Empleado con salario superior a todos los empleados del departamento 10
+   
+SELECT * FROM EMPLEADO WHERE SALARIO > ALL (
+    SELECT NVL(SALARIO,0) FROM EMPLEADO WHERE ID_DEPARTAMENTO=10)
+    AND ID_DEPARTAMENTO <> 10;  
+ 
+ SELECT MAX(SALARIO) FROM EMPLEADO;   
+ 
+ CREATE VIEW EMPLEADOS_SALARIO_MAYOR_70000 AS (
+     SELECT NOMBRE, APELLIDO, SALARIO
+     FROM EMPLEADO
+     WHERE SALARIO>70000);
+       
+SELECT * FROM EMPLEADOS_SALARIO_MAYOR_70000;
+
+-- Crear una vista Empleados por Departamento que contenga el nombre de 
+--  los departamentos y el número de empelados de cada uno de ellos.
+
+CREATE OR REPLACE VIEW EMPLEADOS_POR_DEPARTAMENTO (NOMBRE_DEPARTAMENTO, NUM_EMPLEADOS) AS (
+    SELECT D.NOMBRE, COUNT(ID_EMPLEADO)
+    FROM DEPARTAMENTO D
+    JOIN EMPLEADO E ON E.ID_DEPARTAMENTO = D.ID_DEPARTAMENTO
+    GROUP BY D.NOMBRE);
+
+SELECT * FROM EMPLEADOS_POR_dEPARTAMENTO;
+
+-- Crear una vista llamada Empleados sin asignar que contenga: nombre, apellidos
+--  salario y años en la empresa de aquellos empleados que no estén asignados a 
+--  ningun proyecto
+   
+   

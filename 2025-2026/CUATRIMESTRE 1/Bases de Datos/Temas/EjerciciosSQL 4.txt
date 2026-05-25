@@ -1,0 +1,47 @@
+-- Clase 4: 17/11/2025
+
+select * from departamento;
+
+-- 1. Insertar los siguiente departamentos;
+-- 40; Marketing; NEW YORK
+-- 50; Sales; CHICAGO
+
+DELETE FROM departamento WHERE id_departamento=40;
+INSERT INTO departamento (id_departamento, nombre, direccion) 
+        VALUES (40, 'Marketing','NEW YORK');
+DELETE FROM departamento WHERE id_departamento=50;
+INSERT INTO departamento VALUES (50, 'Sales', 'CHICAGO');
+
+SELECT * FROM departamento;
+
+-- 2. Insertarnos como empleados del departamento de Marketing
+DELETE FROM empleado WHERE id_empleado = 1;
+INSERT INTO empleado VALUES (1, 'Iván','Santiago', '17/11/2025', 90000, null, 40);
+
+-- 3. Insertar el proyecto BBDD y asignarnos desde hoy
+DELETE FROM proyecto WHERE id_proyecto=4;
+INSERT INTO proyecto VALUES (4, 'BBDD');
+DELETE FROM trabaja where id_proyecto=4 and id_empleado=1;
+INSERT INTO trabaja VALUES (4,1,'17/11/2025');
+
+SELECT * FROM PROYECTO;
+SELECT * FROM TRABAJA;
+
+-- 4. Bajar el 10% del salario a los empleados;
+UPDATE empleado
+   SET salario=salario*0.9;
+   
+-- 5. Asignar el dapartamento 50 a todos aquellos empleado que no tienen actualmente departamento
+UPDATE empleado
+   SET id_departamento = 50
+ WHERE id_departamento IS NULL;
+
+-- 6. Asignarnos como jefes de los empleados que no tengan y subirle el salario un 15%
+UPDATE empleado
+   SET  JEFE = (SELECT ID_EMPLEADO FROM EMPLEADO WHERE NOMBRE = 'Iván')
+      , SALARIO = SALARIO*1.15
+WHERE JEFE IS NULL;
+
+   
+
+

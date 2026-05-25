@@ -1,5 +1,8 @@
 
 # Índice
+**Recuperación**
+|18-06-2026|15:00 - 19:00|
+En muchos de los temas hay videos explicativos en el Aula Virtual
 ## Criterios de Evaluación:
 ### 1.  Prácticas => 60%
 

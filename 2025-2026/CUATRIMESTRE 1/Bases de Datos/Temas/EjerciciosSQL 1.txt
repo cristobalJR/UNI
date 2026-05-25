@@ -1,0 +1,114 @@
+-- Listar la tabla paises
+
+SELECT *
+FROM HR.COUNTRIES;
+
+
+-- Listado de paises
+
+SELECT COUNTRY_NAME
+FROM HR.COUNTRIES; 
+
+-- Listado de paises (distintos)
+
+SELECT DISTINCT(COUNTRY_NAME)
+FROM HR.COUNTRIES;
+
+-- Nombre, apellido, email y número de telefono de los empleados ordenados por nombre
+
+SELECT FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER
+FROM HR.EMPLOYEES
+ORDER BY FIRST_NAME ASC;
+
+
+-- Nombre, apellido, email, número de telefono, salario y salario anual de los empleados ordenados por salario
+
+
+SELECT FIRST_NAME, LAST_NAME, EMAIL, SALARY, SALARY*12 "ANNUAL SALARY"
+FROM HR.EMPLOYEES
+ORDER BY 5 DESC;
+
+
+
+SELECT FIRST_NAME, LAST_NAME, EMAIL, SALARY, SALARY*12 "ANNUAL SALARY", TO_CHAR(HIRE_DATE,'yyyy') "HIRE_YEAR", COMMISSION_PCT, MANAGER_ID, SYSDATE
+FROM HR.EMPLOYEES
+WHERE 1=1
+    AND TO_CHAR(HIRE_DATE,'yyyy') >= TO_CHAR(SYSDATE,'yyyy') -8 
+    
+ORDER BY 5 DESC;
+
+-- Empleados con sueldo mensual entre 10.000 y 15.000 $
+
+
+-- Empleados con sueldo mensual entre 10.000 $ y 15.000 $ y sin procentaje de comisión
+
+
+
+-- Empleados cuyo nombre empieza por A
+
+
+
+-- Empleados cuyo nombre empieza por A o su apellido contiene el texto 'nb'
+
+SELECT FIRST_NAME, LAST_NAME, EMAIL, SALARY, SALARY*12 "ANNUAL SALARY", TO_CHAR(HIRE_DATE,'yyyy') "HIRE_YEAR"
+FROM HR.EMPLOYEES
+WHERE 1=1
+   AND FIRST_NAME LIKE 'A%'
+   OR LAST_NAME LIKE '%nb%'
+ORDER BY 5 DESC;
+
+-- Empleados contratados el último año
+
+
+
+-- Empleados cuyo manager sea 100, 101, 109 o 149
+
+
+SELECT *
+FROM HR.COUNTRIES;
+
+SELECT COUNTRY_NAME
+FROM HR.COUNTRIES;
+
+
+SELECT DISTINCT(COUNTRY_NAME)
+FROM HR.COUNTRIES;
+
+SELECT FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER
+FROM HR.EMPLOYEES;
+
+SELECT FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER
+FROM HR.EMPLOYEES
+ORDER BY FIRST_NAME ASC;
+
+
+SELECT FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER
+FROM HR.EMPLOYEES
+ORDER BY 2 DESC;
+
+
+
+
+SELECT FIRST_NAME, LAST_NAME, EMAIL, SALARY, SALARY*12 "ANNUAL SALARY"
+FROM HR.EMPLOYEES
+WHERE SALARY>10000
+ORDER BY 5 DESC;
+
+
+-- Empleados con sueldo mensual entre 10.000 y 15.000 $
+
+
+-- Empleados con sueldo mensual entre 10.000 $ y 15.000 $ y sin procentaje de comisión
+
+-- Empleados cuyo nombre empieza por A
+
+-- Empleados cuyo nombre empieza por A o su apellido contiene el texto 'nb'
+
+-- Empleados contratados el último año
+
+-- Empleados cuyo manager sea 100, 101, 109 o 149
+
+
+
+
+TO_CHAR(HIRE_DATE,'yyyy') "HIRE_YEAR"

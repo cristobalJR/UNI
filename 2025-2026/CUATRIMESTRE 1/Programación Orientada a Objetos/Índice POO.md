@@ -1,4 +1,6 @@
 # Índice
+**Recuperación**
+|16-06-2026|15:00 - 18:00|
 ## Criterios de Evaluación:
 ## Profesorado:
 ### José Francisco Vélez

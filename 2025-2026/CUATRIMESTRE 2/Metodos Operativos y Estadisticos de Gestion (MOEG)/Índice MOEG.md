@@ -1,4 +1,7 @@
 # Índice 
+**Recuperación**
+|29-06-2026|15:00 - 18:00|
+Resumen algunas reglas moeg: https://www.aulavirtual.urjc.es/moodle/mod/forum/discuss.php?d=935875#p1797917
 ## Criterios de Evaluación:
 
 | <font color="#4bacc6">Prueba | <font color="#4bacc6">Peso respecto de la nota final</font> | <font color="#4bacc6">Nota Mínima</font> | <font color="#4bacc6">Contenidos</font> | <font color="#4bacc6">Fecha del Examen</font> | <font color="#4bacc6">Reevaluable en Junio</font> |

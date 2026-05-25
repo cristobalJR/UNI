@@ -1,5 +1,6 @@
 # Índice 
-
+**Recuperación**
+|26-06-2026|12:00 - 15:00|
 
 ## Criterios de Evaluación:
 

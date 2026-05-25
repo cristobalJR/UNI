@@ -1,4 +1,6 @@
 # Índice
+**Recuperación**
+|11-06-2026|08:00 - 12:00|
 ## Criterios de Evaluación:
 ### 1.  Teoría => 50%
 

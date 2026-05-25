@@ -1,4 +1,5 @@
 # Índice 
+Los exámenes de **recuperación** de la asignatura serán en los Laboratorios Polivalentes III - Aula Informática 102 el día **10 de Junio de 15-18**. 10-06-2026
 ## Criterios de Evaluación:
 ### 1. Pruebas escritas o tipo test => 70%
 
