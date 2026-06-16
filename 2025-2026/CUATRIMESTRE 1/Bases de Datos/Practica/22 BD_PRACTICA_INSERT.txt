@@ -1,0 +1,69 @@
+/* ============================================================
+   2.1–2.2  INSERTS de datos mínimos (Filmoteca)
+   ============================================================ */
+
+-- PRODUCTORAS (incluye RCA para la prueba de 2.3)
+INSERT INTO PRODUCTORA (nombre, telefono, direccion, pais) VALUES ('RCA',      '911000001', 'C/ Gran Vía, 1',   'Espanya');
+INSERT INTO PRODUCTORA (nombre, telefono, direccion, pais) VALUES ('Warner',   '911000002', 'C/ Alcalá, 2',     'EEUU');
+INSERT INTO PRODUCTORA (nombre, telefono, direccion, pais) VALUES ('Universal','911000003', 'Av. Diagonal, 3',  'EEUU');
+
+-- CANALES_TV (CineClásico / CinePlus se usan en 2.4.2)
+INSERT INTO CANAL_TV (nombre, direccion, web, email, telefono) VALUES
+('CineClásico', 'C/ Prado, 10', 'https://www.cineclasico.es', 'contacto@cineclasico.es', '915000010');
+INSERT INTO CANAL_TV (nombre, direccion, web, email, telefono) VALUES
+('CinePlus',    'Av. Cibeles, 1', 'https://www.cineplus.tv', 'info@cineplus.tv', '915000011');
+INSERT INTO CANAL_TV (nombre, direccion, web, email, telefono) VALUES
+('TeleMadrid',  'C/ Fuencarral, 77', 'https://www.telemadrid.es', 'redaccion@telemadrid.es', '915000012');
+
+-- ESTUDIO (El Deseo)
+INSERT INTO ESTUDIO (nombre, anyoFundacion, pais) VALUES ('El Deseo', 1986, 'Espanya');
+
+-- PELICULA + EDICION_CINE + TRAILER (Almodóvar)  [PADRES → HIJOS]
+-- Película principal
+INSERT INTO PELICULA (ISPN, fechaEstreno, entradasVendidas, estudio, productora)
+VALUES (6000000001, DATE '1989-03-15', 2500000, 'El Deseo', 'RCA');
+
+-- Edición de cine (mismo ISPN que la película principal)
+INSERT INTO EDICION_CINE (ISPN, titulo, copiasLanzamiento)
+VALUES (6000000001, 'Edición Cine – La Ley del Deseo', 5000);
+
+-- *** IMPORTANTE: fila padre para el TRÁILER (subtipo de PELICULA) ***
+INSERT INTO PELICULA (ISPN, fechaEstreno, entradasVendidas, estudio, productora)
+VALUES (7000000001, DATE '1989-03-01', 0, 'El Deseo', 'RCA');
+
+-- Tráiler (ISPN propio, FK a PELICULA y a la EDICION_CINE de la que procede)
+INSERT INTO TRAILER (ISPN, ISPNEDICION) VALUES (7000000001, 6000000001);
+
+-- ESCENAS (una en tráiler y otra solo en edición)
+INSERT INTO ESCENA (codigo, titulo, duracion, autor,
+                    edicion, rolloEdicion, ordenEdicion,
+                    trailer, rolloTrailer, ordenTrailer)
+VALUES ('E-0001', 'Confesión en el teatro', 210, 'P. Almodóvar',
+        6000000001, 'A', 1,
+        7000000001, 'A', 1);
+
+INSERT INTO ESCENA (codigo, titulo, duracion, autor,
+                    edicion, rolloEdicion, ordenEdicion,
+                    trailer, rolloTrailer, ordenTrailer)
+VALUES ('E-0002', 'Persecución por Madrid', 185, 'P. Almodóvar',
+        6000000001, 'B', 2,
+        NULL, NULL, NULL);
+
+-- EMISIONES TV (después de crear CANAL_TV y ESCENA)
+INSERT INTO EMISION_TV (canal_tv, fechaHora, escena)
+VALUES ('CineClásico', TO_DATE('01/04/1981 21:30','DD/MM/YYYY HH24:MI'), 'E-0001');
+
+INSERT INTO EMISION_TV (canal_tv, fechaHora, escena)
+VALUES ('TeleMadrid', TO_DATE('02/04/1981 22:00','DD/MM/YYYY HH24:MI'), 'E-0002');
+
+-- FESTIVALES y SELECCION_OFICIAL (tras EDICION_CINE)
+INSERT INTO FESTIVAL (nombre, pais, ciudad, web)
+VALUES ('San Sebastián', 'Espanya', 'Donostia', 'https://www.sansebastianfestival.com');
+
+INSERT INTO FESTIVAL (nombre, pais, ciudad, web)
+VALUES ('Cannes', 'Francia', 'Cannes', 'https://www.festival-cannes.com');
+
+INSERT INTO SELECCION_OFICIAL (festival, edicion_cine, anyo)
+VALUES ('San Sebastián', 6000000001, 1989);
+
+COMMIT;

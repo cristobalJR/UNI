@@ -51,7 +51,7 @@ Una *relación r(R) (extensión)* es un conjunto de m elementos denominados tupl
 r(R) = t<sub>j</sub> {(<A<sub>1</sub>:v<sub>1j</sub>>,...<A<sub>i</sub>:v<sub>ij</sub>>,...<A<sub>n</sub>:v<sub>nj</sub>>): v<sub>ij</sub> $\in$ D<sub>i</sub>}
 
  ![[Tema 6a Modelado Relacional Estático(relacionIntensionYExtension).png]]
-## Claves
+## Claves (Grafo relacional)
 - **Clave candidata**: Es el conjunto no vacío de atributos que identifica <u>unívoca</u> y <u>mínimamente</u> cada tupla en una relación
 - **Clave primaria (primary key)**: Es la clave candidata que elige el usuario para identificar las tuplas de la relación. Se dice que una clave primaria es compuesta cuando está formada por más de un atributo.
 	- **Regla de integridad de entidad**: Ningún atributo principal, es decir, ningún atributo que forme parte de la clave primaria puede tomar un valor nulo.
@@ -60,10 +60,15 @@ r(R) = t<sub>j</sub> {(<A<sub>1</sub>:v<sub>1j</sub>>,...<A<sub>i</sub>:v<sub>ij
 	- La clave ajena y la correspondiente clave primaria han de estar definidas sobre los mismos dominios
 	- La clave ajena sirve para relacionar tablas.
  ![[Tema 6a Modelado Relacional Estático(grafoRelacional).png]]
+ *Ejemplo de relación entre tablas 1:N*
  ![[Tema 6a Modelado Relacional Estático(ejRelacionTablas1N).png]]
- Nombre-e es la clabe ajena de LIBRO, y referencia a EDITORIAL (nombre-e es clave primaria de EDITORIAL). Esta última tabla se denomina tabla referenciada.
- ![[Tema 6a Modelado Relacional Estático(reglaDeIntegridadReferencial).png]]
+ Nombre-e es la clave ajena de LIBRO, y referencia a EDITORIAL (nombre-e es clave primaria de EDITORIAL). Esta última tabla se denomina tabla referenciada.
+
+ **Regla de integridad referencial**![[Tema 6a Modelado Relacional Estático(reglaDeIntegridadReferencial).png]]
+ *Ejemplo de relación entre tablas N:M*
+ ![[Tema 6a Modelado Relacional Estático(EjemploRelacionTablasNM).png]]
 ## Restricciones
+**Restricciones inherentes**
 ### Derivadas de la definición de la relación:
 - No hay dos tuplas iguales (obligatoriedad de la clave primaria)
 - El orden de las tuplas no es significativo
@@ -75,11 +80,14 @@ Ningún atributo que forme parte de la clave primaria puede tomar valor nulo
 ### Regla de integridad referencial:
 Si una relación R2 tiene atributo(s) que es clave primaria de la relación R1, entonces los valores de dicho(s) atributo(s) deben concordar con los de la clave primaria o tener valores nulos.
 
+**Restricciones semánticas**
 ### Restricciones semánticas:
 - <u>Clave primaria</u> (PRIMARY KEY): Permite declarar un atributo o un conjunto de atributos como clave primaria de una relación por lo que sus valores no se podrán repetir ni se admitirán los nulos (o desconocidos).
 - <u>Unicidad</u> (UNIQUE): Mediante la cual se indica que los valores de un conjunto de atributos (uno o más) no pueden repetirse en una relación. Esta restricción permite la definición de claves alternativas.
 - <u>Obligatoriedad</u> (NOT NULL) de uno o mas atributos, con lo que se indica que el conjunto de atributos no admite valores nulos.
 - <u>Integridad referencial</u> (FOREING KEY). Si una relación R2(relación que referencia) tiene un descriptor que es clave principal de una relación R1(relación referenciada), todo valor de dicho descriptor debe, bien concordar con un valor de la clave principal referenciada de R1, bien ser nulo. El descriptor es, por tanto, una clave ajena de la relación R2. Las relaciones R1 y R2 no son necesariamente distintas. Además, cabe destacar que la clave ajena podría ser a su vez parte (o la totalidad) de la clave primaria de R2.
+
+*Ejemplo SQL*
  ![[Tema 6a Modelado Relacional Estático(ejemploSQL).png]]
 
 ### Opciones de borrado y actualización en la clave ajena:
@@ -111,13 +119,14 @@ Se denominan las 12 Reglas de Codd, aunque en realidad definió 13 reglas para c
 Toda información almacenada en una base de datos relacional debe representarse *explícitamente a nivel lógico*, y de manera *única*, por medio de *valores en tablas*. Podríamos decir que éste es el <u>principio básico del modelo relacional</u>
 
 Los nombres de las tablas, nombres de los atributos y toda la info necesaria para el funcionamiento de la BD se representa mediante tablas: <u>Catálogo del sistema es una base de datos relacional</u>
+![[Tema 6a Modelado Relacional Estático(ReglaCodd1).png]]
 
 ## Regla 2: Acceso garantizado
 Todo dato debe ser *accesible* mediante una combinación de un nombre de *tabla*, un valor de su *clave*, y el nombre de una *columna*. Es una forma de <u>insistir en la obligatoriedad de la clave primaria</u>.
-
+![[Tema 6a Modelado Relacional Estático(ReglaCodd2).png]]
 ## Regla 3: Tratamiento sistemático de valores nulos
 Los valores nulos, información desconocida o inaplicable, han de ser tratados sistemáticamente por el sistema, el cual ha de ofrecer las facilidades necesarias para su tratamiento.
-
+![[Tema 6a Modelado Relacional Estático()ReglaCodd3.png]]
 ## Regla 4: Catálogo activo en línea basado en el modelo relacional
 La representación de la metainformación (descripción de la base de datos) debe ser igual a la de otros datos y su acceso debe poder realizarse por medio del mismo lenguaje relacional que se utiliza para los demás datos; es decir, el *modelo de datos para la metainformación debe de ser también relacional*
 

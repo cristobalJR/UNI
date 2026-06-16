@@ -19,13 +19,17 @@ Lenguajes relacionales (lenguajes de especificación):
 |                         | Diferencia $\color{red}-$                |                        |                                                            |
 |                         | Producto Cartesiano $\color{red} \times$ |                        | Se pueden expresar en función de los operadores primitivos |
 
+# Operadores primitivos
+
 ## Proyección ($\color{red}\pi$):
 La proyección de una relación sobre un conjunto de sus atributos es otra relación definida sobre estos, eliminando las tuplas duplicadas que hubieran podido resultar.
 ![[Tema 6b Modelado Relacional Dinámico(proyección).png]]
 ## Selección ($\color{red}\sigma$):
 La selección de una relación mediante una expresión lógica (predicado de selección) da como resultado una relación formada por el conjunto de tuplas que satisfacen dicha expresión
 ![[Tema 6b Modelado Relacional Dinámico(seleccion).png]]
-# Operadores primitivos
+
+
+## *
 Dos relaciones son compatibles en si esquema si:
 - Tienen el mismo <u>grado</u>.
 - Si se puede hacer una <u>correspondencia</u> de cada uno de los atributos de las dos relaciones y si esos están definidos sobre el mismo dominio
@@ -47,7 +51,7 @@ La combinación $\theta$ de dos relaciones R1 y R2 respecto a una cierta condici
 La condición de combinación, en el caso más sencillo, está referida a dos atributos A1i y A2j, cada uno de los cuales pertenece a una de las relaciones, unidos por un operador de comparación. Cuando el operador es igualdad, se denomina combinación neutral (\*). 
 ![[Tema 6b Modelado Relacional Dinámico(combinacionJoin).png]]
 
-"combinación expresada en función de operadores primitivos":
+*combinación expresada en función de operadores primitivos*:
 ![[Tema 6b Modelado Relacional Dinámico(joinFuncionTiposPrimitivos).png]]
 ![[Tema 6b Modelado Relacional Dinámico(joinOperadoresPrimitivos).png]]
 ![[Tema 6b Modelado Relacional Dinámico(joinOperadoresPrimitivos)-1.png]]

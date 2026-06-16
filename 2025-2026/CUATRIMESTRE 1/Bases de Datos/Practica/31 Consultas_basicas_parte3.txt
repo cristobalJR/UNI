@@ -1,0 +1,115 @@
+-- =======================
+-- Consultas básicas 
+-- =======================
+
+-- 3.1 Nombre de los estudios españoles
+SELECT nombre
+FROM ESTUDIO
+WHERE pais = 'Espanya';
+
+-- 3.2 Nombre y web de los canales de TV con dominio de España (.es/ o .es)
+SELECT nombre, web
+FROM CANAL_TV
+WHERE LOWER(web) LIKE '%.es/%'
+   OR LOWER(web) LIKE '%.es';
+
+-- 3.3 Estudios y número de entradas totales vendidas (desc)
+SELECT e.nombre, SUM(p.entradasVendidas) AS TotalEntradas
+FROM ESTUDIO e
+JOIN PELICULA p ON p.estudio = e.nombre
+GROUP BY e.nombre
+ORDER BY TotalEntradas DESC;
+
+-- 3.4 Autores (sin repetir) de escenas que están en tráilers
+SELECT DISTINCT autor
+FROM ESCENA
+WHERE trailer IS NOT NULL;
+
+-- 3.5 Para las ediciones con tráilers: ISPN de la edición y nº de tráilers
+SELECT ec.ISPN, COUNT(*) AS NumTrailers
+FROM EDICION_CINE ec
+JOIN TRAILER t ON t.ISPNEDICION = ec.ISPN
+GROUP BY ec.ISPN;
+
+-- 3.6 Título de ediciones con título, autor y duración de sus escenas
+SELECT ec.titulo  AS TituloEdicion,
+       s.titulo   AS TituloEscena,
+       s.autor,
+       s.duracion
+FROM EDICION_CINE ec
+JOIN ESCENA s ON s.edicion = ec.ISPN
+ORDER BY ec.titulo, s.ordenEdicion;
+
+-- 3.7 Título y estudio de ediciones que superan en entradas a copias de lanzamiento
+SELECT ec.titulo, p.estudio
+FROM EDICION_CINE ec
+JOIN PELICULA p ON p.ISPN = ec.ISPN
+WHERE p.entradasVendidas > ec.copiasLanzamiento;
+
+-- 3.8 Título de escenas nunca emitidas en TV
+SELECT s.titulo
+FROM ESCENA s
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM EMISION_TV e
+  WHERE e.escena = s.codigo
+);
+
+-- 3.9 ISPN y título de ediciones de estudios españoles
+SELECT ec.ISPN, ec.titulo
+FROM EDICION_CINE ec
+JOIN PELICULA p ON p.ISPN = ec.ISPN
+JOIN ESTUDIO e  ON e.nombre = p.estudio
+WHERE e.pais = 'Espanya';
+
+-- 3.10 Nombre y país de las productoras estadounidenses
+SELECT nombre, pais
+FROM PRODUCTORA
+WHERE pais = 'EEUU';
+
+-- 3.11 ISPN, título de la EDICION_CINE y fecha de estreno de películas de 1989
+SELECT p.ISPN, ec.titulo, p.fechaEstreno
+FROM PELICULA p
+JOIN EDICION_CINE ec ON ec.ISPN = p.ISPN
+WHERE EXTRACT(YEAR FROM p.fechaEstreno) = 1989;
+
+-- 3.12 Nombre y web de canales con teléfono desconocido (NULL)
+SELECT nombre, web
+FROM CANAL_TV
+WHERE telefono IS NULL;
+
+-- 3.13 Código y título de escenas del tráiler 7000000001 (ordenadas por rollo y orden)
+SELECT codigo, titulo
+FROM ESCENA
+WHERE trailer = 7000000001
+ORDER BY rolloTrailer, ordenTrailer;
+
+-- 3.14 Título de la EDICION_CINE y número total de escenas (desc)
+SELECT ec.titulo, COUNT(*) AS NumEscenas
+FROM EDICION_CINE ec
+JOIN ESCENA s ON s.edicion = ec.ISPN
+GROUP BY ec.titulo
+ORDER BY NumEscenas DESC;
+
+-- 3.15 Ediciones y festivales en los que estuvieron en SELECCION_OFICIAL
+SELECT ec.ISPN, ec.titulo AS TituloEdicion, fest.nombre AS Festival, s.anyo
+FROM SELECCION_OFICIAL s
+JOIN FESTIVAL  fest  ON fest.nombre = s.festival
+JOIN EDICION_CINE   ec ON ec.ISPN  = s.edicion_cine
+ORDER BY ec.titulo, s.anyo;
+
+-- 3.16 Canales y títulos de ediciones emitidas (sin duplicados)
+SELECT DISTINCT em.canal_tv, ec.titulo AS TituloEdicion
+FROM EMISION_TV em
+JOIN ESCENA  s  ON s.codigo = em.escena
+JOIN EDICION_CINE ec ON ec.ISPN = s.edicion
+ORDER BY em.canal_tv, ec.titulo;
+
+-- 3.17 Productoras y número de tráilers publicados
+-- (recuerda: TRAILER.ISPN es una PELICULA; su productora está en esa fila padre)
+SELECT d.nombre AS Productora, COUNT(*) AS NumTrailers
+FROM TRAILER t
+JOIN PELICULA p_t ON p_t.ISPN = t.ISPN
+JOIN PRODUCTORA d ON d.nombre = p_t.productora
+GROUP BY d.nombre
+ORDER BY NumTrailers DESC, d.nombre;

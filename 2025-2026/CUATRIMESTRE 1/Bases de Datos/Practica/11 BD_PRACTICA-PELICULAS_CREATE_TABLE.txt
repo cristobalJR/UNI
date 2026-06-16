@@ -1,0 +1,189 @@
+
+-- Borrado en orden (por si existen)
+DROP TABLE SELECCION_OFICIAL CASCADE CONSTRAINTS;
+
+DROP TABLE EMISION_TV CASCADE CONSTRAINTS;
+
+DROP TABLE CANAL_TV CASCADE CONSTRAINTS;
+
+DROP TABLE TRAILER CASCADE CONSTRAINTS;
+
+DROP TABLE EDICION_CINE CASCADE CONSTRAINTS;
+
+DROP TABLE ESCENA CASCADE CONSTRAINTS;
+
+DROP TABLE PELICULA CASCADE CONSTRAINTS;
+
+DROP TABLE PRODUCTORA CASCADE CONSTRAINTS;
+
+DROP TABLE ESTUDIO CASCADE CONSTRAINTS;
+
+DROP TABLE TAQUILLA_SEMANAL CASCADE CONSTRAINTS;
+
+DROP TABLE FESTIVAL CASCADE CONSTRAINTS;
+
+-------------------------------------------------------------------------------
+-- Maestras
+-------------------------------------------------------------------------------
+
+CREATE TABLE PRODUCTORA (
+    NOMBRE    VARCHAR2(120),
+    TELEFONO  VARCHAR2(9) NOT NULL,
+    DIRECCION VARCHAR2(120) NOT NULL,
+    PAIS      VARCHAR2(120) NOT NULL,
+    CONSTRAINT PK_PRODUCTORA PRIMARY KEY ( NOMBRE )
+);
+
+CREATE TABLE CANAL_TV (
+    NOMBRE    VARCHAR2(120),
+    DIRECCION VARCHAR2(120) NOT NULL,
+    WEB       VARCHAR2(120) NOT NULL,
+    EMAIL     VARCHAR2(120) NOT NULL,
+    TELEFONO  VARCHAR2(9) NOT NULL,
+    CONSTRAINT PK_CANAL_TV PRIMARY KEY ( NOMBRE )
+);
+
+CREATE TABLE ESTUDIO (
+    NOMBRE        VARCHAR2(120),
+    ANYOFUNDACION NUMBER(4) NOT NULL,
+    PAIS          VARCHAR2(120),
+    CONSTRAINT PK_ESTUDIO PRIMARY KEY ( NOMBRE )
+);
+
+CREATE TABLE PELICULA (
+    ISPN             NUMBER(10),
+    FECHAESTRENO     DATE NOT NULL,
+    ENTRADASVENDIDAS NUMBER(8) NOT NULL,
+    ESTUDIO          VARCHAR2(120) NOT NULL,
+    PRODUCTORA       VARCHAR2(120),
+    CONSTRAINT PK_PELICULA PRIMARY KEY ( ISPN ),
+    CONSTRAINT FK_PELI_EST FOREIGN KEY ( ESTUDIO )
+        REFERENCES ESTUDIO, -- restringido si borramos estudio
+    CONSTRAINT FK_PELI_PROD FOREIGN KEY ( PRODUCTORA )
+        REFERENCES PRODUCTORA
+            ON DELETE SET NULL -- ponemos los borrados a nulos
+);
+
+-------------------------------------------------------------------------------
+-- Tipos derivados de película: Edición de cine y Tráiler
+-------------------------------------------------------------------------------
+
+CREATE TABLE EDICION_CINE (
+    ISPN              NUMBER(10),
+    TITULO            VARCHAR2(120) NOT NULL,
+    COPIASLANZAMIENTO NUMBER(12) DEFAULT 0 NOT NULL, -- valor por defecto
+    CONSTRAINT PK_EDICION_CINE PRIMARY KEY ( ISPN ),
+    CONSTRAINT FK_EDI_PELI FOREIGN KEY ( ISPN )
+        REFERENCES PELICULA
+            ON DELETE CASCADE -- si se borra la película se eliminan sus ediciones
+);
+
+CREATE TABLE TRAILER (
+    ISPN        NUMBER(10),
+    ISPNEDICION NUMBER(10) NOT NULL,
+    CONSTRAINT PK_TRAILER PRIMARY KEY ( ISPN ),
+    CONSTRAINT FK_TRA_PELI FOREIGN KEY ( ISPN )
+        REFERENCES PELICULA
+            ON DELETE CASCADE, -- si se borra la película se eliminan sus trailers
+    CONSTRAINT FK_TRA_EDI FOREIGN KEY ( ISPNEDICION )
+        REFERENCES EDICION_CINE
+            ON DELETE CASCADE, -- si se borra la edicion se eliminan sus trailers
+    CONSTRAINT CH_EDI_TRA CHECK ( ISPN <> ISPNEDICION ) -- el trailer no puede ser la edicion
+);
+
+-------------------------------------------------------------------------------
+-- Escenas (equivalente a TEMA)
+-------------------------------------------------------------------------------
+
+CREATE TABLE ESCENA (
+    CODIGO       VARCHAR2(20),
+    TITULO       VARCHAR2(120) NOT NULL,
+    DURACION     NUMBER(4) NOT NULL, -- en segundos, máx aprox 2 horas
+    AUTOR        VARCHAR2(120) NOT NULL,
+    EDICION      NUMBER(10) NOT NULL,
+    ROLLOEDICION CHAR(1) NOT NULL,
+    ORDENEDICION NUMBER(2) NOT NULL,
+    TRAILER      NUMBER(10),
+    ROLLOTRAILER CHAR(1) DEFAULT 'A', -- generalmente aparece en este rollo
+    ORDENTRAILER NUMBER(2),
+    CONSTRAINT PK_ESCENA PRIMARY KEY ( CODIGO ),
+    CONSTRAINT UK_ESCENA UNIQUE ( TITULO,
+                                  AUTOR ), -- el mismo autor no puede crear dos escenas con el mismo título
+    CONSTRAINT CH_ROLLO_ED CHECK ( ROLLOEDICION IN ( 'A', 'B' ) ), -- limitación impuesta en el enunciado
+    CONSTRAINT CH_ROLLO_TR CHECK ( ROLLOTRAILER IN ( 'A', 'B' ) ), -- limitación impuesta en el enunciado
+    CONSTRAINT CH_NULL_TRA
+        CHECK ( ( TRAILER IS NULL
+                  AND ORDENTRAILER IS NULL
+                  AND ROLLOTRAILER IS NULL )
+                OR ( TRAILER IS NOT NULL
+                     AND ORDENTRAILER IS NOT NULL
+                     AND ROLLOTRAILER IS NOT NULL ) ),
+  -- CONSTRAINT CH_EDI_TRA_DIF CHECK (edicion <> trailer), 
+    CONSTRAINT FK_ESC_EDI FOREIGN KEY ( EDICION )
+        REFERENCES EDICION_CINE,
+    CONSTRAINT FK_ESC_TRA FOREIGN KEY ( TRAILER )
+        REFERENCES TRAILER
+);
+
+-------------------------------------------------------------------------------
+-- Emisiones en TV (equivalente a EMISION)
+-------------------------------------------------------------------------------
+
+CREATE TABLE EMISION_TV (
+    CANAL_TV  VARCHAR2(120),
+    FECHAHORA DATE,
+    ESCENA    VARCHAR2(20) NOT NULL,
+    CONSTRAINT PK_EMISION_TV PRIMARY KEY ( CANAL_TV,
+                                           FECHAHORA ),
+    CONSTRAINT FK_EMI_CANAL FOREIGN KEY ( CANAL_TV )
+        REFERENCES CANAL_TV
+            ON DELETE CASCADE,
+    CONSTRAINT FK_EMI_ESC FOREIGN KEY ( ESCENA )
+        REFERENCES ESCENA
+);
+
+-------------------------------------------------------------------------------
+-- Ranking semanal de taquilla (equivalente a RANKING)
+-------------------------------------------------------------------------------
+
+CREATE TABLE TAQUILLA_SEMANAL (
+    ANYO    NUMBER(4),
+    SEMANA  NUMBER(2),
+    PRIMERO NUMBER(10) NOT NULL,
+    SEGUNDO NUMBER(10) NOT NULL,
+    TERCERO NUMBER(10) NOT NULL,
+    CONSTRAINT PK_TAQUILLA PRIMARY KEY ( ANYO,
+                                         SEMANA ),
+    CONSTRAINT FK_TAQ_TR1 FOREIGN KEY ( PRIMERO )
+        REFERENCES TRAILER, -- No cascada para poder guardar info histórica
+    CONSTRAINT FK_TAQ_TR2 FOREIGN KEY ( SEGUNDO )
+        REFERENCES TRAILER,
+    CONSTRAINT FK_TAQ_TR3 FOREIGN KEY ( TERCERO )
+        REFERENCES TRAILER
+);
+
+-------------------------------------------------------------------------------
+-- NUEVO: Festivales y selección oficial
+-------------------------------------------------------------------------------
+
+CREATE TABLE FESTIVAL (
+    NOMBRE VARCHAR2(120),
+    PAIS   VARCHAR2(120) NOT NULL,
+    CIUDAD VARCHAR2(120) NOT NULL,
+    WEB    VARCHAR2(120) NOT NULL,
+    CONSTRAINT PK_FESTIVAL PRIMARY KEY ( NOMBRE )
+);
+
+CREATE TABLE SELECCION_OFICIAL (
+    FESTIVAL     VARCHAR2(120) NOT NULL,
+    EDICION_CINE NUMBER(10) NOT NULL,
+    ANYO         NUMBER(4) NOT NULL,
+    CONSTRAINT PK_SEL_OFICIAL PRIMARY KEY ( FESTIVAL,
+                                            ANYO,
+                                            EDICION_CINE ),
+    CONSTRAINT FK_SEL_FEST FOREIGN KEY ( FESTIVAL )
+        REFERENCES FESTIVAL,
+    CONSTRAINT FK_SEL_EDI FOREIGN KEY ( EDICION_CINE )
+        REFERENCES EDICION_CINE,
+    CONSTRAINT CH_SEL_ANYO CHECK ( ANYO BETWEEN 1900 AND 2100 )
+);

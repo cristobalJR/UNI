@@ -1,5 +1,5 @@
 # Modelo Vs. Esquema
-- **Modelo**: Construcción mental a partir de la realidad en la que se reproducen los principales componentes y relaciones del segmento de realidad analizada.
+- **Modelo**: Construcción mental a partir de la realidad en la que se reproducen los principales componentes y relaciones del segmento de realidad analizada. Dos acepciones: Reproducción simplificada de la realidad (ciencias empíricas) – maqueta de un edificio Realidad propiamente dicha (pintor)
 - **Modelo de datos**: Conjunto de conceptos, reglas y convenciones que permiten describir y manipular los datos de la parcela de un cierto mundo real que deseamos almacenar en la BDD
 - **Esquema**: representación de un determinado mundo real en términos de un modelo de datos
 ![[Pasted image 20250922191416.png]]

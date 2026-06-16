@@ -13,7 +13,7 @@ En <u>análisis</u> interesa recoger la máxima cantidad de info posible, por lo
 - Lo más cercana posible al usuario
 
 ### Modelado entidad-interrelación (modelo E/R)
-El modelo E/E fue pretende establecer una visión global de los datos de una organización o de un sistema de info, en un nivel de abstracción próximo al usuario e Independiente de las características del equipo donde después se vaya a instrumentar el sistema.
+El modelo E/R fue pretende establecer una visión global de los datos de una organización o de un sistema de info, en un nivel de abstracción próximo al usuario e Independiente de las características del equipo donde después se vaya a instrumentar el sistema.
 
 # Modelo E/R extendido
 ## Entidad
@@ -56,7 +56,7 @@ Cada asociación que se establece entre ejemplares concretos de las entidades qu
 Cada una de las propiedades características o unidades de info básicas de una entidad o interrelación. Los atributos toman valores de un dominio.
  ![[Tema 4 Modelo E-R Extendido(atributos).png]]
 Las distintas propiedades o características de una entidad o de una interrelación toman valores para cada ejemplar de éstas.
-El conjunto de posibles valores que puede tomar una cierta característica se llama dominio. Se define dominio como un conjunto de calores homogéneos con un nombre.
+El conjunto de posibles valores que puede tomar una cierta característica se llama dominio. Se define dominio como un conjunto de valores homogéneos con un nombre.
 Un *dominio* puede definirse:
 - Por *intensión*: especificando el tipo de datos (por ejemplo, carácter (30) para el Nombre_empleado o fecha para la Fecha_alta)
 - Por *extensión*: declarando el valor de cada elemento del dominio (como es el caso de Nombre_departamento)
@@ -86,11 +86,14 @@ Dependencia en *identificación*: tipo especial de dependencia en existencia
 ![[Tema 4 Modelo E-R Extendido(interrelacionesGrado2).png]]
 ![[Tema 4 Modelo E-R Extendido(coexistenciaInterrelacionesG2G3).png]]
 ### Generalización/Especialización 
-\* diapo 29 HERENCIA
-En el modelo E/R, se considera como un caso especial de asociación entre varias entidades(subtipos) y una entidad más general (supertipo), cuyas características 
-son comunes a todos los subtipos.
+En el modelo E/R, se considera como un caso especial de asociación entre varias entidades(subtipos) y una entidad más general (supertipo), cuyas características son comunes a todos los subtipos.
 La asociación que se establece entre los subtipos y el supertipo corresponde a la noción de es_un.
  ![[Tema 4 Modelo E-R Extendido(es_un).png]]
+
+ La aparición de estas jerarquías, en el modelado de datos, puede surgir de dos formas distintas:
+• *Generalización*: se observa que dos o más entidades comparten varios atributos y/o interrelaciones, de donde se deduce la existencia de una entidad de nivel superior.
+• *Especialización*: se observa que una entidad tiene ciertos atributos y/o interrelaciones que tienen sentido para unos ejemplares, pero no para otros, por lo que es conveniente definir uno o varios subtipos.
+<u>Herencia</u>: todo atributo, o interrelación, del supertipo pasa a ser un atributo, o interrelación, de los subtipos, de manera implícita 
  
 **Posibles generalizaciones**:
  ![[Tema 4 Modelo E-R Extendido(tiposGeneralizaciones).png]]

@@ -1,0 +1,87 @@
+/* ============================================
+   Carga de datos para ejecutar tras crear tablas, antes de comenzar con la Sección 2
+   ============================================ */
+
+-- PRODUCTORAS
+INSERT INTO PRODUCTORA (nombre, telefono, direccion, pais) VALUES ('Paramount', '915111001', 'Sunset Blvd 1', 'EEUU');
+INSERT INTO PRODUCTORA (nombre, telefono, direccion, pais) VALUES ('A24',       '915111002', 'Varick St 2',   'EEUU');
+INSERT INTO PRODUCTORA (nombre, telefono, direccion, pais) VALUES ('Filmax',    '934111003', 'C/ Casp 3',     'Espanya');
+INSERT INTO PRODUCTORA (nombre, telefono, direccion, pais) VALUES ('Warner',   '911000002', 'C/ Alcalá, 2',     'EEUU');
+INSERT INTO PRODUCTORA (nombre, telefono, direccion, pais) VALUES ('Universal','911000003', 'Av. Diagonal, 3',  'EEUU');
+
+-- ESTUDIOS
+INSERT INTO ESTUDIO (nombre, anyoFundacion, pais) VALUES ('BlueSky',          1987, 'EEUU');
+INSERT INTO ESTUDIO (nombre, anyoFundacion, pais) VALUES ('Bambú',            2007, 'Espanya');
+INSERT INTO ESTUDIO (nombre, anyoFundacion, pais) VALUES ('Kandor Graphics',  1992, 'Espanya');
+
+-- CANALES DE TV
+INSERT INTO CANAL_TV (nombre, direccion, web, email, telefono) VALUES
+('FilmOne',    'C/ Cine 1',   'https://www.filmone.com',   'info@filmone.com',   '915200001');
+INSERT INTO CANAL_TV (nombre, direccion, web, email, telefono) VALUES
+('CineArtes',  'Av. Arte 2',  'https://www.cineartes.net', 'contact@cineartes.net','915200002');
+INSERT INTO CANAL_TV (nombre, direccion, web, email, telefono) VALUES
+('EuropaTV',   'Pza. Europa','https://www.europatv.org',   'europa@tv.org',       '915200003');
+
+-- PELÍCULAS (obras base)
+INSERT INTO PELICULA (ISPN, fechaEstreno, entradasVendidas, estudio,          productora)
+VALUES (8000000001, DATE '2005-06-10', 1500000,           'BlueSky',        'Paramount');
+
+INSERT INTO PELICULA (ISPN, fechaEstreno, entradasVendidas, estudio,          productora)
+VALUES (8000000002, DATE '2010-02-20',  900000,           'Bambú',          'Filmax');
+
+INSERT INTO PELICULA (ISPN, fechaEstreno, entradasVendidas, estudio,          productora)
+VALUES (8000000003, DATE '2018-11-05', 1250000,           'Kandor Graphics','A24');
+
+-- EDICIONES DE CINE (1:1 con PELICULA)
+INSERT INTO EDICION_CINE (ISPN, titulo,                         copiasLanzamiento)
+VALUES (8000000001,       'Edición Cine – Horizonte Azul',      3000);
+
+INSERT INTO EDICION_CINE (ISPN, titulo,                         copiasLanzamiento)
+VALUES (8000000002,       'Edición Cine – Calle 7',             2000);
+
+INSERT INTO EDICION_CINE (ISPN, titulo,                         copiasLanzamiento)
+VALUES (8000000003,       'Edición Cine – Sueños de Invierno',  5000);
+
+-- PELÍCULAS-base para TRÁILERS (subtipo: cada tráiler también es PELICULA)
+INSERT INTO PELICULA (ISPN, fechaEstreno, entradasVendidas, estudio,          productora)
+VALUES (8000001001, DATE '2005-05-15', 0,                   'BlueSky',        'Paramount');
+
+INSERT INTO PELICULA (ISPN, fechaEstreno, entradasVendidas, estudio,          productora)
+VALUES (8000001002, DATE '2010-01-25', 0,                   'Bambú',          'Filmax');
+
+-- TRÁILERS (ISPN propio + referencia a la edición de la que proceden)
+INSERT INTO TRAILER (ISPN,       ISPNEDICION) VALUES (8000001001, 8000000001);
+INSERT INTO TRAILER (ISPN,       ISPNEDICION) VALUES (8000001002, 8000000002);
+
+-- ESCENAS (algunas aparecen en tráiler)
+INSERT INTO ESCENA (codigo,   titulo,                 duracion, autor,          edicion,     rolloEdicion, ordenEdicion, trailer,     rolloTrailer, ordenTrailer)
+VALUES ('S-1001',  'Amanecer en la bahía',           120,      'A. Torres',    8000000001,  'A',          1,            8000001001,  'A',          1);
+
+INSERT INTO ESCENA (codigo,   titulo,                 duracion, autor,          edicion,     rolloEdicion, ordenEdicion, trailer, rolloTrailer, ordenTrailer)
+VALUES ('S-1002',  'Persecución bajo la lluvia',     180,      'A. Torres',    8000000001,  'A',          2,            NULL,    NULL,         NULL);
+
+INSERT INTO ESCENA (codigo,   titulo,                 duracion, autor,          edicion,     rolloEdicion, ordenEdicion, trailer,     rolloTrailer, ordenTrailer)
+VALUES ('S-2001',  'Encuentro en la estación',       150,      'M. Rivera',    8000000002,  'B',          1,            8000001002,  'A',          1);
+
+-- EMISIONES EN TV (PK compuesta canal_tv + fechaHora)
+INSERT INTO EMISION_TV (canal_tv,  fechaHora,                                           escena)
+VALUES ('FilmOne',      TO_DATE('15/03/1981 20:00','DD/MM/YYYY HH24:MI'),               'S-1001');
+
+INSERT INTO EMISION_TV (canal_tv,  fechaHora,                                           escena)
+VALUES ('EuropaTV',     TO_DATE('16/03/1981 21:00','DD/MM/YYYY HH24:MI'),               'S-2001');
+
+-- TAQUILLA SEMANAL (posiciones de tráilers)
+INSERT INTO TAQUILLA_SEMANAL (anyo, semana, primero,     segundo,      tercero)
+VALUES (1989, 12,             8000001001,  8000001002,   8000001001);
+
+-- FESTIVALES Y SELECCIÓN OFICIAL
+INSERT INTO FESTIVAL (nombre,   pais,     ciudad,  web)
+VALUES ('Venecia',    'Italia', 'Venecia','https://www.labiennale.org');
+
+INSERT INTO FESTIVAL (nombre,   pais,     ciudad,  web)
+VALUES ('Berlín',     'Alemania','Berlín','https://www.berlinale.de');
+
+INSERT INTO SELECCION_OFICIAL (festival,  edicion_cine, anyo) VALUES ('Venecia', 8000000001, 2005);
+INSERT INTO SELECCION_OFICIAL (festival,  edicion_cine, anyo) VALUES ('Berlín',  8000000002, 2010);
+
+COMMIT;

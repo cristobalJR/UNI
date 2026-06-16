@@ -14,8 +14,6 @@
 - Es la <u>unidad mínima de información</u> de un registro.
 - En general describen <u>atributos</u> de una entidad
 - Ejemplo: Nº Empleado, nombre, dirección, ciudad, etc...
-
-
 **Definición de Campos**:
 - Nombre
 - Longitud o tamaño

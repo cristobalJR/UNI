@@ -1,0 +1,63 @@
+/*******************************************************************************
+              Modificaciones en el esquema  (FILMOTECA)
+*******************************************************************************/
+
+-- 2.3 Países válidos en PRODUCTORA: “Espanya” y “EEUU”
+ALTER TABLE PRODUCTORA ADD CHECK (pais IN ('Espanya','EEUU'));
+
+-- Ver las restricciones para identificar el nombre SYS_... que creó Oracle
+SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE, SEARCH_CONDITION
+FROM   USER_CONSTRAINTS
+WHERE  TABLE_NAME = 'PRODUCTORA';
+
+-- 2.3.1. Actualice los datos de modo que NO se cumpla la restricción.
+--        Compruebe el error. Elimine la restricción y vuelva a añadirla, esta vez con nombre.
+UPDATE PRODUCTORA SET pais='Francia' WHERE nombre='RCA';
+
+-- Sustituya SYS_C00XXXXX por el nombre que le haya salido arriba (O COMO SE LLAME)
+ALTER TABLE PRODUCTORA DROP CONSTRAINT SYS_C00XXXXX;
+
+ALTER TABLE PRODUCTORA
+  ADD CONSTRAINT CK_PROD_PaisValido CHECK (pais IN ('Espanya','EEUU'));
+
+-- 2.3.2. Actualice de nuevo los datos de modo que no se cumpla la restricción
+--        y compruebe las diferencias (deshabilitar / habilitar).
+ALTER TABLE PRODUCTORA DISABLE CONSTRAINT CK_PROD_PaisValido;
+UPDATE PRODUCTORA SET pais='Francia' WHERE nombre='RCA';  -- ahora se permite
+-- (si quiere dejarlo consistente de nuevo, es decir, reparar el dato y habilitar validando todo)
+-- UPDATE PRODUCTORA SET pais='Espanya' WHERE nombre='RCA';
+ALTER TABLE PRODUCTORA ENABLE CONSTRAINT CK_PROD_PaisValido;
+
+
+
+-- 2.4. Dos CANAL_TV no pueden tener la misma URL (web)
+SELECT * FROM CANAL_TV;
+
+ALTER TABLE CANAL_TV ADD CONSTRAINT UK_CANALTV_WEB UNIQUE (web);
+
+-- 2.4.1 Deshabilítela, cambie datos y compruebe
+ALTER TABLE CANAL_TV DISABLE CONSTRAINT UK_CANALTV_WEB;
+
+UPDATE CANAL_TV
+SET web = 'https://www.rtve.es'
+WHERE nombre IN ('CineClásico','CinePlus');
+
+-- -- 2.4.12 Intente habilitarla normal para ver el error por duplicados:
+-- ALTER TABLE CANAL_TV ENABLE CONSTRAINT UK_CANALTV_WEB;
+-- Mantenerla habilitada solo para nuevos datos (si hay duplicados existentes):
+ALTER TABLE CANAL_TV ENABLE NOVALIDATE CONSTRAINT UK_CANALTV_WEB;
+
+
+
+-- 2.5. Nuevo campo obligatorio que almacene la fecha de fundación de los CANALES_TV
+ALTER TABLE CANAL_TV ADD Fecha_Fundacion DATE NOT NULL;    -- no deja si hay filas
+ALTER TABLE CANAL_TV ADD Fecha_Fundacion DATE DEFAULT SYSDATE NOT NULL;
+
+-- (Alternativa válida, como en la práctica original)
+-- ALTER TABLE CANAL_TV ADD F_FUNDACION DATE
+--   CONSTRAINT CK_CANALTV_FF_NN CHECK (F_FUNDACION IS NOT NULL);
+
+
+
+-- 2.6. Añada una restricción que permita que el teléfono de los CANALES_TV pueda ser desconocido
+ALTER TABLE CANAL_TV MODIFY (telefono NULL);
