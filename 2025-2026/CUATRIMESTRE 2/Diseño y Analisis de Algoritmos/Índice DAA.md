@@ -1,7 +1,8 @@
 # Índice 
 **Recuperación** 
 |24-06-2026|15:00 - 19:00|
-
+CÓDIGO VISTO EN CLASE:
+https://github.com/jesussanchezoro/DAA-GIS-25-26
 ## Criterios de Evaluación:
 
 
