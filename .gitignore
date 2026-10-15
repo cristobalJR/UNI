@@ -1,2 +1,6 @@
 .obsidian/
 workspace.json
+
+# Vídeos excluidos de GitHub
+*.mov
+*.mp4
