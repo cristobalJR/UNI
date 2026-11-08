@@ -1,0 +1,556 @@
+/* ===============================
+    VINYL STORE BANNER - MAIN STYLES
+   =============================== */
+
+.vinyl-banner {
+    background: #263238;
+    padding: 1rem 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.banner-content {
+    min-height: 120px;
+    position: relative;
+    z-index: 10;
+}
+
+/* ===============================
+    LOGO SECTION
+   =============================== */
+
+.logo-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Record logo */
+.record-logo {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    background: repeating-radial-gradient(circle, #292929 0 2px, #171717 3px 4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.record-logo:hover {
+    transform: rotate(360deg);
+}
+
+.record-top {
+    width: 100%;
+    height: 50%;
+    background: transparent;
+    border-radius: 60px 60px 0 0;
+    position: relative;
+}
+
+.record-bottom {
+    width: 100%;
+    height: 50%;
+    background: transparent;
+    border-radius: 0 0 60px 60px;
+    position: relative;
+}
+
+.record-middle {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.35);
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.record-label {
+    width: 18px;
+    height: 18px;
+    background: #FF6B6B;
+    border: 3px solid #171717;
+    border-radius: 50%;
+}
+
+/* Brand */
+.brand-text {
+    text-align: left;
+}
+
+.store-name {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #FFFFFF;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-family: 'Arial Black', sans-serif;
+    letter-spacing: 2px;
+}
+
+.store-tagline {
+    font-size: 1rem;
+    color: #FFE066;
+    margin: 0;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* ===============================
+    Navigation
+   =============================== */
+
+.nav-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-link {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #FFE066;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* ===============================
+    PATTERN DECORATION
+   =============================== */
+
+.banner-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.pattern-element {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: float 6s ease-in-out infinite;
+}
+
+.pattern-1 {
+    width: 80px;
+    height: 80px;
+    background: #FFFFFF;
+    top: 10%;
+    right: 10%;
+    animation-delay: 0s;
+}
+
+.pattern-2 {
+    width: 60px;
+    height: 60px;
+    background: #FFE066;
+    bottom: 20%;
+    left: 15%;
+    animation-delay: 2s;
+}
+
+
+/* ===============================
+    MAIN SECTION - ALBUMS
+   =============================== */
+
+.store-main {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+.section-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin-bottom: 0;
+}
+
+/* ===============================
+    VINYL RECORD GRID
+   =============================== */
+
+/* Album grid with Bootstrap */
+
+.album-item {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: auto;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.album-item:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Album cover */
+.album-cover-frame {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffffff 100%);
+    /* Background for album covers */
+}
+
+.album-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    transition: transform 0.3s ease;
+}
+
+.album-item:hover .album-cover {
+    transform: scale(1.1);
+}
+
+.album-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.album-item:hover .album-overlay {
+    opacity: 1;
+}
+
+.btn-view-details {
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+}
+
+.album-item:hover .btn-view-details {
+    transform: translateY(0);
+}
+
+.btn-view-details:hover {
+    background: #ff5252;
+    transform: scale(1.05);
+}
+
+/* Album details */
+.album-info {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.album-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.record-artist,
+.record-format {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-style: italic;
+}
+
+.vinyl-price {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #27ae60;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.btn-view-addAlbums {
+    display: block;
+    width: max-content;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    margin: 2rem auto 0;
+}
+
+/* ===============================
+    NEW ALBUM specific styles
+   =============================== */
+
+.form-main-border {
+    display: flex;
+    justify-content: center;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #4ECDC4 0%, #FF6B6B 100%);
+    padding: 5px;
+    width: 35%;
+    margin: 0 auto;
+}
+
+.form-main-body {
+    border-radius: 15px;
+    background: linear-gradient(135deg, #e9ecf0 0%, #b5c1d5 100%);
+    padding: 10px;
+    width: 100%;
+    margin: 0, 30px auto;
+}
+
+.form-main-content {
+    padding: 20px;
+}
+
+.cancel-btn {
+    background: #FF6B6B !important;
+    border-color: #df5757 !important;
+}
+
+.cancel-btn:hover {
+    background: #df5757 !important;
+}
+
+.save-btn {
+    background: #4ECDC4 !important;
+    ;
+    border-color: #3da8a0 !important;
+}
+
+.save-btn:hover {
+    background: #3da8a0 !important;
+}
+
+/* ===============================
+   FOOTER
+   =============================== */
+
+.vinyl-footer {
+    background: #263238;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.footer-content {
+    position: relative;
+    z-index: 10;
+}
+
+/* ===============================
+   OPENING HOURS
+   =============================== */
+
+.schedule-title {
+    font-weight: bold;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.schedule-days p {
+    color: #FFFFFF;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* ===============================
+    BACK TO TOP BUTTON
+   =============================== */
+
+.back-to-top-btn {
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.back-to-top-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    color: #FFE066;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ===============================
+    FOOTER DECORATION
+   =============================== */
+
+.footer-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* ===============================
+    FOOTER DISTRIBUTION
+   =============================== */
+
+.vinyl-footer .container-fluid {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+/* MAIN PAGE END */
+
+
+/* ===============================
+    DETAIL PAGE
+   =============================== */
+
+.photo-description-form-detail {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.btn-detail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.detail-form label,
+.detail-form input,
+.detail-form textarea,
+.detail-form select {
+    width: 100%;
+}
+
+.album-details {
+    margin-bottom: 4em;
+}
+
+.album-description {
+    text-align: center;
+}
+
+.vinyl-cover img {
+    width: 100%;
+    max-width: 40em;
+    height: auto;
+    display: block;
+    margin-top: 1em;
+
+}
+
+.vinyl-cover {
+    background: linear-gradient(135deg, #fdfdfd 100%);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.vinyl-details-and-form {
+
+    margin: auto;
+}
+
+.review1,
+.review2,
+.review3,
+.review4 {
+    margin-bottom: 1em;
+    display: flex;
+    margin: 1em auto;
+    width: 90%;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #764ba2;
+    border-radius: 12px;
+}
+
+#button-create {
+    display: block;
+    margin: auto;
+}
+
+td,
+th {
+    padding: 0.5em;
+}
+
+
+
+
+
+
+
+/* ===============================
+        END DETAIL PAGE
+   =============================== */
